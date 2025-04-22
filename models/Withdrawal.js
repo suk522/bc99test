@@ -6,10 +6,6 @@ const withdrawalCounterSchema = new mongoose.Schema({
   seq: { type: Number, default: 0 }
 });
 
-const WithdrawalCounter = mongoose.model('WithdrawalCounter', withdrawalCounterSchema);
-
-module.exports.WithdrawalCounter = WithdrawalCounter;
-
 const withdrawalSchema = new mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   orderNumber: { type: String, required: true, unique: true },
@@ -23,4 +19,8 @@ const withdrawalSchema = new mongoose.Schema({
   date: { type: Date, default: Date.now }
 });
 
-module.exports = mongoose.model('Withdrawal', withdrawalSchema);
+const WithdrawalCounter = mongoose.model('WithdrawalCounter', withdrawalCounterSchema);
+const Withdrawal = mongoose.model('Withdrawal', withdrawalSchema);
+
+module.exports = Withdrawal;
+module.exports.WithdrawalCounter = WithdrawalCounter;
