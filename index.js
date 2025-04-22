@@ -155,7 +155,7 @@ app.get('/admin-login', (req, res) => {
 
 app.post('/admin-login', (req, res) => {
   const { username, password } = req.body;
-  if (username === "1" && password === "1") {
+  if (username.trim() === "1" && password.trim() === "1") {
     req.session.isAdmin = true;
     res.redirect('/admin');
   } else {
