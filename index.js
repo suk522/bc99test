@@ -346,43 +346,19 @@ app.post('/admin/deposit/:id/:action', isAdmin, async (req, res) => {
       user.balance += deposit.amount;
       await user.save();
       
-      // Create a unique transaction ID using DepositCounter
-      const counter = await DepositCounter.findByIdAndUpdate(
-        'transactionId',
-        { $inc: { seq: 1 } },
-        { new: true, upsert: true }
+      // Update existing transaction
+      await Transaction.findOneAndUpdate(
+        { userId: user._id, orderNumber: deposit.orderNumber },
+        { status: 'completed' }
       );
-      const transactionNumber = String(counter.seq).padStart(8, '0');
-      
-      // Create a new transaction instead of updating
-      const transaction = new Transaction({
-        userId: user._id,
-        type: 'deposit',
-        amount: deposit.amount,
-        status: 'completed',
-        orderNumber: transactionNumber,
-        date: new Date()
-      });
-      await transaction.save();
     } else if (action === 'failed') {
       deposit.status = 'failed';
-      // Create a new rejected transaction
-      const counter = await DepositCounter.findByIdAndUpdate(
-        'transactionId',
-        { $inc: { seq: 1 } },
-        { new: true, upsert: true }
-      );
-      const transactionNumber = String(counter.seq).padStart(8, '0');
       
-      const transaction = new Transaction({
-        userId: user._id,
-        type: 'deposit',
-        amount: deposit.amount,
-        status: 'rejected',
-        orderNumber: transactionNumber,
-        date: new Date()
-      });
-      await transaction.save();
+      // Update existing transaction
+      await Transaction.findOneAndUpdate(
+        { userId: user._id, orderNumber: deposit.orderNumber },
+        { status: 'rejected' }
+      );
     }
     
     await deposit.save();
