@@ -1,0 +1,17 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Home</title>
+</head>
+<body>
+  <h1>Welcome <%= user ? user.username : 'Guest' %></h1>
+  <% if (user) { %>
+    <form action="/logout" method="POST">
+      <button type="submit">Logout</button>
+    </form>
+  <% } else { %>
+    <p><a href="/login">Login</a> or <a href="/register">Register</a></p>
+  <% } %>
+</body>
+</html>
