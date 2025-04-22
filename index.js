@@ -333,13 +333,31 @@ app.post('/admin/deposit/:id/:action', isAdmin, async (req, res) => {
       user.balance += deposit.amount;
       await user.save();
       
-      // Update existing pending transaction
+      // Create a unique transaction ID
+      const transactionCounter = await Counter.findByIdAndUpdate(
+        'transactionId',
+        { $inc: { seq: 1 } },
+        { new: true, upsert: true }
+      );
+      const transactionNumber = String(transactionCounter.seq).padStart(8, '0');
+      
+      // Update or create transaction
       await Transaction.findOneAndUpdate(
         { userId: user._id, type: 'deposit', amount: deposit.amount, status: 'pending' },
-        { status: 'completed' }
+        { 
+          status: 'completed',
+          orderNumber: transactionNumber,
+          date: new Date()
+        },
+        { new: true }
       );
     } else if (action === 'failed') {
       deposit.status = 'failed';
+      // Update transaction status to failed
+      await Transaction.findOneAndUpdate(
+        { userId: user._id, type: 'deposit', amount: deposit.amount, status: 'pending' },
+        { status: 'rejected' }
+      );
     }
     
     await deposit.save();
