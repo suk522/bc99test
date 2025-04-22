@@ -97,10 +97,13 @@ app.post('/wallet/withdraw', isAuthenticated, async (req, res) => {
     const { amount, accountNumber, ifscCode, holderName } = req.body;
     const user = await User.findById(req.session.user._id);
 
-    // Check balance but don't reduce it yet
+    // Check and reduce balance immediately
     if (user.balance < amount) {
       return res.status(400).send('Insufficient balance');
     }
+    
+    user.balance -= amount;
+    await user.save();
 
     // Save bank details if not already saved
     if (!user.bankDetails?.accountNumber && accountNumber) {
@@ -222,10 +225,7 @@ app.post('/admin/withdrawal/:id/:action', isAdmin, async (req, res) => {
 
     if (action === 'approve') {
       withdrawal.status = 'approved';
-      if (user.balance >= withdrawal.amount) {
-        user.balance -= withdrawal.amount;
-        await user.save();
-        await Transaction.findOneAndUpdate(
+      await Transaction.findOneAndUpdate(
           { userId: user._id, type: 'withdraw', status: 'pending' },
           { status: 'completed' }
         );
