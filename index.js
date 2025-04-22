@@ -47,18 +47,18 @@ app.get('/', (req, res) => {
 
 app.get('/home', isAuthenticated, async (req, res) => {
   const user = await User.findById(req.session.user._id);
-  res.render('home', { user });
+  res.render('home', { user, path: '/home' });
 });
 
 app.get('/activity', isAuthenticated, async (req, res) => {
   const user = await User.findById(req.session.user._id);
-  res.render('activity', { user });
+  res.render('activity', { user, path: '/activity' });
 });
 
 app.get('/wallet', isAuthenticated, async (req, res) => {
   const user = await User.findById(req.session.user._id);
   const transactions = await Transaction.find({ userId: user._id }).sort({ date: -1 });
-  res.render('wallet', { user, transactions });
+  res.render('wallet', { user, transactions, path: '/wallet' });
 });
 
 app.post('/wallet/deposit', isAuthenticated, async (req, res) => {
@@ -210,7 +210,7 @@ app.post('/admin/toggle-ban/:id', isAdmin, async (req, res) => {
 app.get('/account', isAuthenticated, async (req, res) => {
   try {
     const user = await User.findById(req.session.user._id);
-    res.render('account', { user });
+    res.render('account', { user, path: '/account' });
   } catch (error) {
     res.status(400).send('Error loading account');
   }
