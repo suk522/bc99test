@@ -260,12 +260,13 @@ app.post('/wallet/create-deposit', isAuthenticated, async (req, res) => {
   try {
     const { amount, note } = req.body;
     
-    const counter = await DepositCounter.findByIdAndUpdate(
+    // Generate unique order number for both deposit and transaction
+    const depositCounter = await DepositCounter.findByIdAndUpdate(
       'depositId',
       { $inc: { seq: 1 } },
       { new: true, upsert: true }
     );
-    const orderNumber = String(counter.seq).padStart(8, '0');
+    const orderNumber = 'D' + String(depositCounter.seq).padStart(7, '0');
     
     const deposit = new Deposit({
       userId: req.session.user._id,
@@ -277,7 +278,7 @@ app.post('/wallet/create-deposit', isAuthenticated, async (req, res) => {
     });
     await deposit.save();
 
-    // Create transaction record with same order number
+    // Create transaction with same order number
     const transaction = new Transaction({
       userId: req.session.user._id,
       type: 'deposit',
