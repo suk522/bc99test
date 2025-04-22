@@ -7,8 +7,20 @@ const User = require('./models/User');
 const Transaction = require('./models/Transaction');
 const Withdrawal = require('./models/Withdrawal');
 const WithdrawalCounter = require('./models/Withdrawal').WithdrawalCounter;
+const Deposit = require('./models/Deposit');
+const DepositCounter = require('./models/Deposit').DepositCounter;
+const QRCode = require('qrcode');
 
 const app = express();
+
+function generateNote() {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  let result = '';
+  for (let i = 0; i < 5; i++) {
+    result += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return result;
+}
 app.use(expressLayouts);
 app.set('layout', 'layout');
 app.use('/attached_assets', express.static('attached_assets'));
@@ -216,12 +228,77 @@ app.post('/admin-login', (req, res) => {
   }
 });
 
+app.get('/wallet/generate-qr', isAuthenticated, async (req, res) => {
+  const amount = req.query.amount;
+  const note = generateNote();
+  const upiString = `upi://pay?pa=sukd738@ybl&pn=Deposit&am=${amount}&tn=${note}`;
+  const qrCode = await QRCode.toDataURL(upiString);
+  res.json({ qrCode, note });
+});
+
+app.post('/wallet/deposit', isAuthenticated, async (req, res) => {
+  try {
+    const { amount, note, utr } = req.body;
+    
+    const counter = await DepositCounter.findByIdAndUpdate(
+      'depositId',
+      { $inc: { seq: 1 } },
+      { new: true, upsert: true }
+    );
+    const orderNumber = String(counter.seq).padStart(8, '0');
+    
+    const deposit = new Deposit({
+      userId: req.session.user._id,
+      orderNumber,
+      amount: Number(amount),
+      note,
+      utr,
+      status: 'pending'
+    });
+    await deposit.save();
+
+    res.redirect('/wallet');
+  } catch (error) {
+    res.status(400).send('Error processing deposit');
+  }
+});
+
 app.get('/admin', isAdmin, async (req, res) => {
   console.log('Admin session check:', req.session.isAdmin);
   const users = await User.find();
   const withdrawals = await Withdrawal.find().populate('userId');
+  const deposits = await Deposit.find().populate('userId');
   const transactions = await Transaction.find().populate('userId');
-  res.render('admin', { users, withdrawals, transactions, path: req.path });
+  res.render('admin', { users, withdrawals, deposits, transactions, path: req.path });
+});
+
+app.post('/admin/deposit/:id/:action', isAdmin, async (req, res) => {
+  try {
+    const { id, action } = req.params;
+    const deposit = await Deposit.findById(id);
+    const user = await User.findById(deposit.userId);
+
+    if (action === 'success') {
+      deposit.status = 'success';
+      user.balance += deposit.amount;
+      await user.save();
+      
+      const transaction = new Transaction({
+        userId: user._id,
+        type: 'deposit',
+        amount: deposit.amount,
+        status: 'completed'
+      });
+      await transaction.save();
+    } else if (action === 'failed') {
+      deposit.status = 'failed';
+    }
+    
+    await deposit.save();
+    res.redirect('/admin');
+  } catch (error) {
+    res.status(400).send('Error processing deposit action');
+  }
 });
 
 app.post('/admin/withdrawal/:id/:action', isAdmin, async (req, res) => {

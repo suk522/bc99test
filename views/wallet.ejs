@@ -52,20 +52,52 @@
           <h5 class="modal-title">Deposit Money</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
-        <form action="/wallet/deposit" method="POST">
-          <div class="modal-body">
-            <div class="mb-3">
-              <label class="form-label">Amount (₹)</label>
-              <input type="number" name="amount" class="form-control" required min="1">
+        <div class="modal-body">
+          <div class="amount-buttons mb-3">
+            <div class="d-flex flex-wrap gap-2">
+              <% [100, 200, 300, 500, 1000, 2000, 5000].forEach(amount => { %>
+                <button class="btn btn-outline-primary amount-btn" data-amount="<%= amount %>">₹<%= amount %></button>
+              <% }); %>
             </div>
           </div>
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-success">Deposit</button>
+          <div id="qrCode" class="text-center mb-3" style="display: none;">
+            <img id="qrImage" class="mb-2" style="max-width: 200px;">
+            <div class="alert alert-info">
+              Scan this QR code to pay ₹<span id="selectedAmount"></span><br>
+              UPI ID: sukd738@ybl
+            </div>
           </div>
-        </form>
+          <form id="utrForm" action="/wallet/deposit" method="POST" style="display: none;">
+            <input type="hidden" name="amount" id="amountInput">
+            <input type="hidden" name="note" id="noteInput">
+            <div class="mb-3">
+              <label class="form-label">Enter UTR (Transaction ID)</label>
+              <input type="text" name="utr" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-success w-100">Submit Payment</button>
+          </form>
+        </div>
       </div>
     </div>
   </div>
+
+  <script>
+    document.querySelectorAll('.amount-btn').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const amount = btn.dataset.amount;
+        document.getElementById('selectedAmount').textContent = amount;
+        document.getElementById('amountInput').value = amount;
+        
+        const response = await fetch(`/wallet/generate-qr?amount=${amount}`);
+        const data = await response.json();
+        
+        document.getElementById('qrImage').src = data.qrCode;
+        document.getElementById('noteInput').value = data.note;
+        document.getElementById('qrCode').style.display = 'block';
+        document.getElementById('utrForm').style.display = 'block';
+      });
+    });
+  </script>
 
   <!-- Withdraw Modal -->
   <div class="modal fade" id="withdrawModal">

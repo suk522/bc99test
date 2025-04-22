@@ -1,4 +1,3 @@
-
 <div class="container mt-4">
   <!-- User Management Section -->
   <div class="card mb-4">
@@ -110,22 +109,35 @@
       <table class="table" id="depositTable">
         <thead>
           <tr>
-            <th>Transaction ID</th>
+            <th>Order ID</th>
             <th>User</th>
             <th>Amount</th>
+            <th>Note</th>
+            <th>UTR</th>
             <th>Status</th>
-            <th>Date</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          <% transactions && transactions.filter(t => t.type === 'deposit').forEach(transaction => { %>
-          <tr>
-            <td><%= transaction._id %></td>
-            <td><%= transaction.userId.username %></td>
-            <td>₹<%= transaction.amount %></td>
-            <td><span class="badge bg-success">Completed</span></td>
-            <td><%= new Date(transaction.date).toLocaleString() %></td>
-          </tr>
+          <% deposits.forEach(function(deposit) { %>
+            <tr>
+              <td><%= deposit.orderNumber %></td>
+              <td><%= deposit.userId.username %></td>
+              <td>₹<%= deposit.amount %></td>
+              <td><%= deposit.note %></td>
+              <td><%= deposit.utr %></td>
+              <td><%= deposit.status %></td>
+              <td>
+                <% if (deposit.status === 'pending') { %>
+                  <form style="display: inline" action="/admin/deposit/<%= deposit._id %>/success" method="POST">
+                    <button class="btn btn-success btn-sm">Success</button>
+                  </form>
+                  <form style="display: inline" action="/admin/deposit/<%= deposit._id %>/failed" method="POST">
+                    <button class="btn btn-danger btn-sm">Failed</button>
+                  </form>
+                <% } %>
+              </td>
+            </tr>
           <% }); %>
         </tbody>
       </table>
@@ -144,7 +156,7 @@ function searchUsers() {
     const usernameCell = rows[i].cells[1];
     const uidText = uidCell.textContent.toLowerCase();
     const usernameText = usernameCell.textContent.toLowerCase();
-    
+
     if (uidText.includes(input) || usernameText.includes(input)) {
       rows[i].style.display = '';
     } else {
