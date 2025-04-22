@@ -154,7 +154,7 @@
                   <td><%= deposit.orderNumber %></td>
                   <td><%= deposit.userId ? deposit.userId.username : 'N/A' %> (UID: <%= deposit.userId ? deposit.userId.uid : 'N/A' %>)</td>
                   <td>₹<%= deposit.amount %></td>
-                  <td><%= deposit.note %></td>
+                  <td><%= typeof deposit.note === 'object' ? JSON.stringify(deposit.note) : deposit.note %></td>
                   <td><%= deposit.utr %></td>
                   <td><%= deposit.status %></td>
                   <td><%= deposit.date.toLocaleString('en-IN', { 
