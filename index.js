@@ -20,13 +20,18 @@ async function generateNote() {
     { new: true, upsert: true }
   );
   
-  let num = counter.seq;
+  let num = counter.seq - 1;
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   let result = '';
   
   for (let i = 0; i < 5; i++) {
-    result = chars[num % 26] + result;
+    const index = num % 26;
+    result = chars[index] + result;
     num = Math.floor(num / 26);
+  }
+  
+  if (result.length < 5) {
+    result = 'A'.repeat(5 - result.length) + result;
   }
   
   return result;
