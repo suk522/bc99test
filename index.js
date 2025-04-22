@@ -13,12 +13,22 @@ const QRCode = require('qrcode');
 
 const app = express();
 
-function generateNote() {
+async function generateNote() {
+  const counter = await DepositCounter.findByIdAndUpdate(
+    'noteId',
+    { $inc: { seq: 1 } },
+    { new: true, upsert: true }
+  );
+  
+  let num = counter.seq;
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   let result = '';
+  
   for (let i = 0; i < 5; i++) {
-    result += chars.charAt(Math.floor(Math.random() * chars.length));
+    result = chars[num % 26] + result;
+    num = Math.floor(num / 26);
   }
+  
   return result;
 }
 app.use(expressLayouts);
