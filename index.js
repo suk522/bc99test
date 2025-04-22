@@ -249,10 +249,10 @@ app.post('/admin-login', (req, res) => {
 
 app.get('/wallet/generate-qr', isAuthenticated, async (req, res) => {
   const amount = req.query.amount;
-  const note = generateNote();
+  const note = await generateNote();
   const upiString = `upi://pay?pa=sukd738@ybl&pn=Deposit&am=${amount}&tn=${note}`;
   const qrCode = await QRCode.toDataURL(upiString);
-  res.json({ qrCode, note });
+  res.json({ qrCode, note: note.toString() });
 });
 
 app.post('/wallet/deposit', isAuthenticated, async (req, res) => {
