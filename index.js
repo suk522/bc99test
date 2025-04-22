@@ -333,36 +333,49 @@ app.post('/admin/deposit/:id/:action', isAdmin, async (req, res) => {
       user.balance += deposit.amount;
       await user.save();
       
-      // Create a unique transaction ID
-      const transactionCounter = await Counter.findByIdAndUpdate(
+      // Create a unique transaction ID using DepositCounter
+      const counter = await DepositCounter.findByIdAndUpdate(
         'transactionId',
         { $inc: { seq: 1 } },
         { new: true, upsert: true }
       );
-      const transactionNumber = String(transactionCounter.seq).padStart(8, '0');
+      const transactionNumber = String(counter.seq).padStart(8, '0');
       
-      // Update or create transaction
-      await Transaction.findOneAndUpdate(
-        { userId: user._id, type: 'deposit', amount: deposit.amount, status: 'pending' },
-        { 
-          status: 'completed',
-          orderNumber: transactionNumber,
-          date: new Date()
-        },
-        { new: true }
-      );
+      // Create a new transaction instead of updating
+      const transaction = new Transaction({
+        userId: user._id,
+        type: 'deposit',
+        amount: deposit.amount,
+        status: 'completed',
+        orderNumber: transactionNumber,
+        date: new Date()
+      });
+      await transaction.save();
     } else if (action === 'failed') {
       deposit.status = 'failed';
-      // Update transaction status to failed
-      await Transaction.findOneAndUpdate(
-        { userId: user._id, type: 'deposit', amount: deposit.amount, status: 'pending' },
-        { status: 'rejected' }
+      // Create a new rejected transaction
+      const counter = await DepositCounter.findByIdAndUpdate(
+        'transactionId',
+        { $inc: { seq: 1 } },
+        { new: true, upsert: true }
       );
+      const transactionNumber = String(counter.seq).padStart(8, '0');
+      
+      const transaction = new Transaction({
+        userId: user._id,
+        type: 'deposit',
+        amount: deposit.amount,
+        status: 'rejected',
+        orderNumber: transactionNumber,
+        date: new Date()
+      });
+      await transaction.save();
     }
     
     await deposit.save();
     res.redirect('/admin');
   } catch (error) {
+    console.error('Error processing deposit action:', error);
     res.status(400).send('Error processing deposit action');
   }
 });
