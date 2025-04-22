@@ -44,7 +44,8 @@
             day: 'numeric',
             hour: '2-digit',
             minute: '2-digit',
-            hour12: true 
+            hour12: true,
+            timeZone: 'Asia/Kolkata'
           }) %></td>
           <td><%= transaction.type %></td>
           <td>
@@ -104,10 +105,10 @@
         const amount = btn.dataset.amount;
         document.getElementById('selectedAmount').textContent = amount;
         document.getElementById('amountInput').value = amount;
-        
+
         const response = await fetch(`/wallet/generate-qr?amount=${amount}`);
         const data = await response.json();
-        
+
         document.getElementById('qrImage').src = data.qrCode;
         document.getElementById('noteInput').value = data.note;
         document.getElementById('qrCode').style.display = 'block';
