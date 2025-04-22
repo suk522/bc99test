@@ -5,6 +5,7 @@ const session = require('express-session');
 const expressLayouts = require('express-ejs-layouts');
 const User = require('./models/User');
 const Transaction = require('./models/Transaction');
+const Withdrawal = require('./models/Withdrawal');
 
 const app = express();
 app.use(expressLayouts);
