@@ -163,6 +163,7 @@ app.post('/wallet/withdraw', isAuthenticated, async (req, res) => {
       userId: user._id,
       type: 'withdraw',
       amount,
+      orderNumber: orderNumber, // Use the same order number as withdrawal
       status: 'pending'
     });
     await transaction.save();
