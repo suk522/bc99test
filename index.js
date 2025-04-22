@@ -158,7 +158,7 @@ app.get('/admin-login', (req, res) => {
   if (req.session.isAdmin === true) {
     return res.redirect('/admin');
   }
-  res.render('admin-login');
+  res.render('admin-login', { query: req.query });
 });
 
 app.post('/admin-login', (req, res) => {
