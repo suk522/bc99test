@@ -82,9 +82,10 @@
           <div class="amount-buttons mb-3">
             <div class="d-flex flex-wrap gap-2">
               <% [100, 200, 300, 500, 1000, 2000, 5000].forEach(amount => { %>
-                <button class="btn btn-outline-primary amount-btn" data-amount="<%= amount %>">₹<%= amount %></button>
+                <button class="btn btn-outline-primary select-amount-btn" data-amount="<%= amount %>">₹<%= amount %></button>
               <% }); %>
             </div>
+            <button id="payButton" class="btn btn-success w-100 mt-3" style="display: none;">Pay Now</button>
           </div>
           <div id="qrCode" class="text-center mb-3" style="display: none;">
             <img id="qrImage" class="mb-2" style="max-width: 200px;">
@@ -113,36 +114,46 @@
   </div>
 
   <script>
-    document.querySelectorAll('.amount-btn').forEach(btn => {
-      btn.addEventListener('click', async () => {
-        const amount = btn.dataset.amount;
-        document.getElementById('selectedAmount').textContent = amount;
-        document.getElementById('amountInput').value = amount;
-
-        // Generate QR and note
-        const qrResponse = await fetch(`/wallet/generate-qr?amount=${amount}`);
-        const qrData = await qrResponse.json();
-
-        // Create deposit order
-        const depositResponse = await fetch('/wallet/create-deposit', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            amount: amount,
-            note: qrData.note
-          })
-        });
-        const depositData = await depositResponse.json();
-
-        document.getElementById('qrImage').src = qrData.qrCode;
-        document.getElementById('noteInput').value = qrData.note;
-        document.getElementById('noteCode').textContent = qrData.note;
-        document.getElementById('orderIdInput').value = depositData.orderId;
-        document.getElementById('qrCode').style.display = 'block';
-        document.getElementById('utrForm').style.display = 'block';
+    let selectedAmount = null;
+    
+    document.querySelectorAll('.select-amount-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.select-amount-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        selectedAmount = btn.dataset.amount;
+        document.getElementById('payButton').style.display = 'block';
       });
+    });
+
+    document.getElementById('payButton').addEventListener('click', async () => {
+      if (!selectedAmount) return;
+
+      // Generate QR and note
+      const qrResponse = await fetch(`/wallet/generate-qr?amount=${selectedAmount}`);
+      const qrData = await qrResponse.json();
+
+      // Create deposit order
+      const depositResponse = await fetch('/wallet/create-deposit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          amount: selectedAmount,
+          note: qrData.note
+        })
+      });
+      const depositData = await depositResponse.json();
+
+      // Update UI
+      document.getElementById('selectedAmount').textContent = selectedAmount;
+      document.getElementById('amountInput').value = selectedAmount;
+      document.getElementById('qrImage').src = qrData.qrCode;
+      document.getElementById('noteInput').value = qrData.note;
+      document.getElementById('noteCode').textContent = qrData.note;
+      document.getElementById('orderIdInput').value = depositData.orderId;
+      document.getElementById('qrCode').style.display = 'block';
+      document.getElementById('utrForm').style.display = 'block';
     });
   </script>
 
