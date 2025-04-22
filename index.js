@@ -142,7 +142,7 @@ app.post('/login', async (req, res) => {
 
 // Admin middleware
 const isAdmin = (req, res, next) => {
-  if (req.session.isAdmin) {
+  if (req.session.isAdmin === true) {
     next();
   } else {
     res.redirect('/admin-login');
@@ -150,22 +150,24 @@ const isAdmin = (req, res, next) => {
 };
 
 app.get('/admin-login', (req, res) => {
+  if (req.session.isAdmin === true) {
+    return res.redirect('/admin');
+  }
   res.render('admin-login');
 });
 
-app.post('/admin-login', (req, res) => {
+app.post('/admin-login', async (req, res) => {
   const { username, password } = req.body;
-  console.log('Admin login attempt:', { username, password });
   
-  if (username?.trim() === "1" && password?.trim() === "1") {
+  if (username === "1" && password === "1") {
     req.session.isAdmin = true;
-    req.session.save((err) => {
-      if (err) {
-        console.error('Session save error:', err);
-        return res.status(500).send('Error logging in');
-      }
-      res.redirect('/admin');
+    await new Promise((resolve, reject) => {
+      req.session.save((err) => {
+        if (err) reject(err);
+        else resolve();
+      });
     });
+    res.redirect('/admin');
   } else {
     res.redirect('/admin-login?error=1');
   }
