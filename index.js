@@ -157,9 +157,9 @@ app.get('/admin-login', (req, res) => {
 });
 
 app.post('/admin-login', (req, res) => {
-  const { password } = req.body;
+  const { username, password } = req.body;
   
-  if (password === '1') {
+  if (username === 'admin' && password === '123') {
     req.session.isAdmin = true;
     req.session.save((err) => {
       if (err) {
