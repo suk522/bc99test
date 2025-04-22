@@ -77,16 +77,30 @@ app.get('/wallet', isAuthenticated, async (req, res) => {
 
 app.post('/wallet/deposit', isAuthenticated, async (req, res) => {
   try {
-    const amount = Number(req.body.amount);
-    const user = await User.findById(req.session.user._id);
-
-    user.balance += amount;
-    await user.save();
+    const { amount, note, utr } = req.body;
+    
+    const counter = await DepositCounter.findByIdAndUpdate(
+      'depositId',
+      { $inc: { seq: 1 } },
+      { new: true, upsert: true }
+    );
+    const orderNumber = String(counter.seq).padStart(8, '0');
+    
+    const deposit = new Deposit({
+      userId: req.session.user._id,
+      orderNumber,
+      amount: Number(amount),
+      note,
+      utr,
+      status: 'pending'
+    });
+    await deposit.save();
 
     const transaction = new Transaction({
-      userId: user._id,
+      userId: req.session.user._id,
       type: 'deposit',
-      amount: amount
+      amount: Number(amount),
+      status: 'pending'
     });
     await transaction.save();
 
