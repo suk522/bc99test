@@ -222,9 +222,17 @@ app.post('/admin/withdrawal/:id/:action', isAdmin, async (req, res) => {
       if (user.balance >= withdrawal.amount) {
         user.balance -= withdrawal.amount;
         await user.save();
+        await Transaction.findOneAndUpdate(
+          { userId: user._id, type: 'withdraw', status: 'pending' },
+          { status: 'completed' }
+        );
       }
     } else if (action === 'reject') {
       withdrawal.status = 'rejected';
+      await Transaction.findOneAndUpdate(
+        { userId: user._id, type: 'withdraw', status: 'pending' },
+        { status: 'rejected' }
+      );
     }
     
     await withdrawal.save();

@@ -1,4 +1,3 @@
-
 <div class="container pt-4">
   <div class="card mb-4">
     <div class="card-body">
@@ -8,7 +7,7 @@
           <i class="fas fa-sync-alt"></i>
         </button>
       </div>
-      
+
       <div class="mt-3">
         <button class="btn btn-success me-2" data-bs-toggle="modal" data-bs-target="#depositModal">Deposit</button>
         <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#withdrawModal">Withdraw</button>
@@ -31,7 +30,14 @@
         <tr>
           <td><%= transaction.date.toLocaleDateString() %></td>
           <td><%= transaction.type %></td>
-          <td>₹<%= transaction.amount %></td>
+          <td>
+            <%= transaction.type === 'deposit' ? '+' : '-' %>₹<%= transaction.amount %>
+            <% if (transaction.type === 'withdraw' && transaction.status !== 'completed') { %>
+              <span class="badge bg-<%= transaction.status === 'pending' ? 'warning' : 'danger' %>">
+                <%= transaction.status %>
+              </span>
+            <% } %>
+          </td>
           <td><%= transaction.status || 'completed' %></td>
         </tr>
       <% }); %>
