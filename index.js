@@ -277,12 +277,12 @@ app.post('/wallet/create-deposit', isAuthenticated, async (req, res) => {
     });
     await deposit.save();
 
-    // Create transaction record
+    // Create transaction record with same order number
     const transaction = new Transaction({
       userId: req.session.user._id,
       type: 'deposit',
       amount: Number(amount),
-      orderNumber,
+      orderNumber: orderNumber,
       status: 'pending',
       date: new Date()
     });
