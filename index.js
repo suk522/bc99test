@@ -276,6 +276,17 @@ app.post('/wallet/create-deposit', isAuthenticated, async (req, res) => {
     });
     await deposit.save();
 
+    // Create transaction record
+    const transaction = new Transaction({
+      userId: req.session.user._id,
+      type: 'deposit',
+      amount: Number(amount),
+      orderNumber,
+      status: 'pending',
+      date: new Date()
+    });
+    await transaction.save();
+
     res.json({ success: true, orderId: deposit._id });
   } catch (error) {
     res.status(400).json({ error: 'Error creating deposit order' });
