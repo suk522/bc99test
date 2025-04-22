@@ -461,4 +461,16 @@ app.post('/logout', (req, res) => {
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server running on port ${PORT}`);
+}).on('error', (err) => {
+  if (err.code === 'EADDRINUSE') {
+    console.error(`Port ${PORT} is already in use. Trying to close existing connection...`);
+    const killCommand = process.platform === 'win32' ? 'taskkill /F /IM node.exe' : 'pkill node';
+    require('child_process').exec(killCommand, (err) => {
+      if (err) console.error('Failed to kill process:', err);
+      process.exit(1);
+    });
+  } else {
+    console.error('Server error:', err);
+    process.exit(1);
+  }
 });
