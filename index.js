@@ -459,16 +459,25 @@ app.post('/logout', (req, res) => {
 
 // Start server
 const PORT = process.env.PORT || 5000;
-const server = app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Server running on port ${PORT}`);
-}).on('error', (err) => {
-  if (err.code === 'EADDRINUSE') {
-    console.error(`Port ${PORT} is already in use`);
-    server.close();
-    setTimeout(() => {
-      server.listen(PORT, '0.0.0.0');
-    }, 1000);
-  } else {
-    console.error('Server error:', err);
-  }
-});
+let retries = 0;
+const maxRetries = 3;
+
+function startServer() {
+  const server = app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Server running on port ${PORT}`);
+  }).on('error', (err) => {
+    if (err.code === 'EADDRINUSE' && retries < maxRetries) {
+      retries++;
+      console.log(`Port ${PORT} in use, retrying... (${retries}/${maxRetries})`);
+      setTimeout(() => {
+        server.close();
+        startServer();
+      }, 1000);
+    } else {
+      console.error('Server error:', err);
+      process.exit(1);
+    }
+  });
+}
+
+startServer();

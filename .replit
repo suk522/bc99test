@@ -27,4 +27,4 @@ mode = "sequential"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "npx nodemon index.js"
+args = "npx nodemon --watch '*.js' --watch 'models/*' --watch 'views/*' index.js"
