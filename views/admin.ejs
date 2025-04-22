@@ -1,0 +1,61 @@
+
+<div class="container mt-4">
+  <h2>Admin Panel - User Management</h2>
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>UID</th>
+          <th>Username</th>
+          <th>Balance</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% users.forEach(user => { %>
+        <tr>
+          <td><%= user.uid %></td>
+          <td>
+            <form id="edit-<%= user._id %>" style="display: none;" action="/admin/edit-user/<%= user._id %>" method="POST">
+              <input type="text" name="username" value="<%= user.username %>" class="form-control form-control-sm">
+              <input type="number" name="balance" value="<%= user.balance %>" class="form-control form-control-sm mt-1">
+              <button type="submit" class="btn btn-success btn-sm mt-1">Save</button>
+              <button type="button" class="btn btn-secondary btn-sm mt-1" onclick="toggleEdit('<%= user._id %>')">Cancel</button>
+            </form>
+            <span id="display-<%= user._id %>">
+              <%= user.username %>
+              <br>
+              ₹<%= user.balance %>
+            </span>
+          </td>
+          <td>₹<%= user.balance %></td>
+          <td><%= user.banned ? 'Banned' : 'Active' %></td>
+          <td>
+            <button class="btn btn-primary btn-sm" onclick="toggleEdit('<%= user._id %>')">Edit</button>
+            <form action="/admin/toggle-ban/<%= user._id %>" method="POST" class="d-inline">
+              <button type="submit" class="btn <%= user.banned ? 'btn-success' : 'btn-danger' %> btn-sm">
+                <%= user.banned ? 'Unban' : 'Ban' %>
+              </button>
+            </form>
+          </td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+function toggleEdit(userId) {
+  const editForm = document.getElementById(`edit-${userId}`);
+  const displayDiv = document.getElementById(`display-${userId}`);
+  if (editForm.style.display === 'none') {
+    editForm.style.display = 'block';
+    displayDiv.style.display = 'none';
+  } else {
+    editForm.style.display = 'none';
+    displayDiv.style.display = 'block';
+  }
+}
+</script>

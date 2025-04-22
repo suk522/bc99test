@@ -12,7 +12,8 @@ const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   balance: { type: Number, default: 0 },
-  uid: { type: String, unique: true }
+  uid: { type: String, unique: true },
+  banned: { type: Boolean, default: false }
 });
 
 userSchema.pre('save', async function(next) {

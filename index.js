@@ -127,6 +127,9 @@ app.post('/login', async (req, res) => {
     const user = await User.findOne({ username });
     
     if (user && user.password === password) {
+      if (user.banned) {
+        return res.status(403).send('Account has been banned');
+      }
       req.session.user = user;
       res.redirect('/');
     } else {
@@ -134,6 +137,55 @@ app.post('/login', async (req, res) => {
     }
   } catch (error) {
     res.status(400).send('Error logging in');
+  }
+});
+
+// Admin middleware
+const isAdmin = (req, res, next) => {
+  if (req.session.isAdmin) {
+    next();
+  } else {
+    res.redirect('/admin-login');
+  }
+};
+
+app.get('/admin-login', (req, res) => {
+  res.render('admin-login');
+});
+
+app.post('/admin-login', (req, res) => {
+  const { username, password } = req.body;
+  if (username === "1" && password === "1") {
+    req.session.isAdmin = true;
+    res.redirect('/admin');
+  } else {
+    res.redirect('/admin-login');
+  }
+});
+
+app.get('/admin', isAdmin, async (req, res) => {
+  const users = await User.find();
+  res.render('admin', { users });
+});
+
+app.post('/admin/edit-user/:id', isAdmin, async (req, res) => {
+  try {
+    const { username, balance } = req.body;
+    await User.findByIdAndUpdate(req.params.id, { username, balance });
+    res.redirect('/admin');
+  } catch (error) {
+    res.status(400).send('Error updating user');
+  }
+});
+
+app.post('/admin/toggle-ban/:id', isAdmin, async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    user.banned = !user.banned;
+    await user.save();
+    res.redirect('/admin');
+  } catch (error) {
+    res.status(400).send('Error toggling ban status');
   }
 });
 
