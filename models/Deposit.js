@@ -11,7 +11,7 @@ const depositSchema = new mongoose.Schema({
   orderNumber: { type: String, required: true, unique: true },
   amount: { type: Number, required: true },
   note: { type: String, required: true },
-  utr: { type: String, required: true },
+  utr: { type: String, required: false }, // Made UTR optional
   status: { type: String, enum: ['pending', 'success', 'failed'], default: 'pending' },
   date: { type: Date, default: Date.now }
 });

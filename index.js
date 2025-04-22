@@ -311,31 +311,6 @@ app.post('/wallet/deposit', isAuthenticated, async (req, res) => {
     }
 
     // Update deposit with UTR
-    await Deposit.findByIdAndUpdate(orderId, { utr });
-    
-    res.redirect('/wallet');
-  } catch (error) {
-    res.status(400).send('Error processing deposit');
-  }
-});
-
-// Update deposit with UTR
-app.post('/wallet/deposit', isAuthenticated, async (req, res) => {
-  try {
-    const { orderId, utr } = req.body;
-    
-    // Validate UTR format
-    if (!utr.match(/^\d{12}$/)) {
-      return res.status(400).send('UTR must be 12 digits');
-    }
-
-    // Check for duplicate UTR
-    const existingUTR = await Deposit.findOne({ utr });
-    if (existingUTR) {
-      return res.status(400).send('This UTR has already been used');
-    }
-
-    // Update deposit with UTR
     await Deposit.findByIdAndUpdate(orderId, {
       utr,
       status: 'pending'
