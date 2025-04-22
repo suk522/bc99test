@@ -155,11 +155,19 @@ app.get('/admin-login', (req, res) => {
 
 app.post('/admin-login', (req, res) => {
   const { username, password } = req.body;
-  if (username.trim() === "1" && password.trim() === "1") {
+  console.log('Admin login attempt:', { username, password });
+  
+  if (username?.trim() === "1" && password?.trim() === "1") {
     req.session.isAdmin = true;
-    res.redirect('/admin');
+    req.session.save((err) => {
+      if (err) {
+        console.error('Session save error:', err);
+        return res.status(500).send('Error logging in');
+      }
+      res.redirect('/admin');
+    });
   } else {
-    res.redirect('/admin-login');
+    res.redirect('/admin-login?error=1');
   }
 });
 

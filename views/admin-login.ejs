@@ -5,6 +5,9 @@
       <div class="card">
         <div class="card-body">
           <h2 class="text-center mb-4">Admin Login</h2>
+          <% if (req.query.error) { %>
+            <div class="alert alert-danger">Invalid credentials</div>
+          <% } %>
           <form action="/admin-login" method="POST">
             <div class="mb-3">
               <input type="text" name="username" class="form-control" placeholder="Username" required>
