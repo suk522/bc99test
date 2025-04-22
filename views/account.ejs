@@ -1,0 +1,41 @@
+
+<div class="container">
+  <h2>Account Information</h2>
+  
+  <div class="card mb-4">
+    <div class="card-body">
+      <h5>Username: <%= user.username %></h5>
+      <p>User ID: <%= user._id %></p>
+      <p>Current Balance: ₹<%= user.balance %></p>
+      
+      <div class="mt-4">
+        <form action="/logout" method="POST" class="d-inline">
+          <button type="submit" class="btn btn-danger">Logout</button>
+        </form>
+        
+        <a href="/privacy-policy" class="btn btn-secondary ms-2">Privacy Policy</a>
+        <a href="https://wa.me/1234567890" target="_blank" class="btn btn-success ms-2">WhatsApp Support</a>
+      </div>
+    </div>
+  </div>
+
+  <h4>Betting History</h4>
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Game</th>
+          <th>Bet Amount</th>
+          <th>Result</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Add betting records here once implemented -->
+        <tr>
+          <td colspan="4" class="text-center">No betting records found</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

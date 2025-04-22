@@ -137,6 +137,15 @@ app.post('/login', async (req, res) => {
   }
 });
 
+app.get('/account', isAuthenticated, async (req, res) => {
+  try {
+    const user = await User.findById(req.session.user._id);
+    res.render('account', { user });
+  } catch (error) {
+    res.status(400).send('Error loading account');
+  }
+});
+
 app.post('/logout', (req, res) => {
   req.session.destroy();
   res.redirect('/login');
