@@ -44,6 +44,11 @@ app.get('/home', isAuthenticated, async (req, res) => {
   res.render('home', { user });
 });
 
+app.get('/activity', isAuthenticated, async (req, res) => {
+  const user = await User.findById(req.session.user._id);
+  res.render('activity', { user });
+});
+
 app.get('/login', (req, res) => {
   res.render('login');
 });
