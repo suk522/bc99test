@@ -297,13 +297,11 @@ app.post('/admin/deposit/:id/:action', isAdmin, async (req, res) => {
       user.balance += deposit.amount;
       await user.save();
       
-      const transaction = new Transaction({
-        userId: user._id,
-        type: 'deposit',
-        amount: deposit.amount,
-        status: 'completed'
-      });
-      await transaction.save();
+      // Update existing pending transaction
+      await Transaction.findOneAndUpdate(
+        { userId: user._id, type: 'deposit', amount: deposit.amount, status: 'pending' },
+        { status: 'completed' }
+      );
     } else if (action === 'failed') {
       deposit.status = 'failed';
     }
