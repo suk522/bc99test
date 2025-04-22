@@ -206,7 +206,31 @@ app.post('/admin-login', (req, res) => {
 app.get('/admin', isAdmin, async (req, res) => {
   console.log('Admin session check:', req.session.isAdmin);
   const users = await User.find();
-  res.render('admin', { users, path: req.path });
+  const withdrawals = await Withdrawal.find().populate('userId');
+  res.render('admin', { users, withdrawals, path: req.path });
+});
+
+app.post('/admin/withdrawal/:id/:action', isAdmin, async (req, res) => {
+  try {
+    const { id, action } = req.params;
+    const withdrawal = await Withdrawal.findById(id);
+    const user = await User.findById(withdrawal.userId);
+
+    if (action === 'approve') {
+      withdrawal.status = 'approved';
+      if (user.balance >= withdrawal.amount) {
+        user.balance -= withdrawal.amount;
+        await user.save();
+      }
+    } else if (action === 'reject') {
+      withdrawal.status = 'rejected';
+    }
+    
+    await withdrawal.save();
+    res.redirect('/admin');
+  } catch (error) {
+    res.status(400).send('Error processing withdrawal action');
+  }
 });
 
 app.post('/admin/edit-user/:id', isAdmin, async (req, res) => {

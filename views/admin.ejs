@@ -44,6 +44,49 @@
       </tbody>
     </table>
   </div>
+
+  <h2 class="mt-5">Withdrawal Requests</h2>
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Order No</th>
+          <th>User</th>
+          <th>Amount</th>
+          <th>Bank Details</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% withdrawals.forEach(withdrawal => { %>
+        <tr>
+          <td><%= withdrawal.orderNumber %></td>
+          <td><%= withdrawal.userId.username %> (UID: <%= withdrawal.userId.uid %>)</td>
+          <td>₹<%= withdrawal.amount %></td>
+          <td>
+            Acc: <%= withdrawal.bankDetails.accountNumber %><br>
+            IFSC: <%= withdrawal.bankDetails.ifscCode %><br>
+            Name: <%= withdrawal.bankDetails.holderName %>
+          </td>
+          <td><span class="badge bg-<%= withdrawal.status === 'pending' ? 'warning' : (withdrawal.status === 'approved' ? 'success' : 'danger') %>">
+            <%= withdrawal.status %>
+          </span></td>
+          <td>
+            <% if (withdrawal.status === 'pending') { %>
+              <form action="/admin/withdrawal/<%= withdrawal._id %>/approve" method="POST" class="d-inline">
+                <button type="submit" class="btn btn-success btn-sm">Approve</button>
+              </form>
+              <form action="/admin/withdrawal/<%= withdrawal._id %>/reject" method="POST" class="d-inline">
+                <button type="submit" class="btn btn-danger btn-sm">Reject</button>
+              </form>
+            <% } %>
+          </td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 <script>
