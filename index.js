@@ -1,4 +1,3 @@
-
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -65,17 +64,17 @@ app.post('/wallet/deposit', isAuthenticated, async (req, res) => {
   try {
     const amount = Number(req.body.amount);
     const user = await User.findById(req.session.user._id);
-    
+
     user.balance += amount;
     await user.save();
-    
+
     const transaction = new Transaction({
       userId: user._id,
       type: 'deposit',
       amount: amount
     });
     await transaction.save();
-    
+
     res.redirect('/wallet');
   } catch (error) {
     res.status(400).send('Error processing deposit');
@@ -86,21 +85,21 @@ app.post('/wallet/withdraw', isAuthenticated, async (req, res) => {
   try {
     const amount = Number(req.body.amount);
     const user = await User.findById(req.session.user._id);
-    
+
     if (user.balance < amount) {
       return res.status(400).send('Insufficient balance');
     }
-    
+
     user.balance -= amount;
     await user.save();
-    
+
     const transaction = new Transaction({
       userId: user._id,
       type: 'withdraw',
       amount: amount
     });
     await transaction.save();
-    
+
     res.redirect('/wallet');
   } catch (error) {
     res.status(400).send('Error processing withdrawal');
@@ -108,11 +107,11 @@ app.post('/wallet/withdraw', isAuthenticated, async (req, res) => {
 });
 
 app.get('/login', (req, res) => {
-  res.render('login');
+  res.render('login', { path: req.path });
 });
 
 app.get('/register', (req, res) => {
-  res.render('register');
+  res.render('register', { path: req.path });
 });
 
 app.post('/register', async (req, res) => {
@@ -130,7 +129,7 @@ app.post('/login', async (req, res) => {
   try {
     const { username, password } = req.body;
     const user = await User.findOne({ username });
-    
+
     if (user && user.password === password) {
       if (user.banned) {
         return res.status(403).send('Account has been banned');
@@ -158,13 +157,13 @@ app.get('/admin-login', (req, res) => {
   if (req.session.isAdmin === true) {
     return res.redirect('/admin');
   }
-  res.render('admin-login', { query: req.query });
+  res.render('admin-login', { query: req.query, path: req.path });
 });
 
 app.post('/admin-login', (req, res) => {
   const { username, password } = req.body;
   console.log('Admin login attempt - password:', password);
-  
+
   if (username === 'admin' && password === '123') {
     req.session.isAdmin = true;
     console.log('Setting admin session:', req.session.isAdmin);
@@ -183,7 +182,7 @@ app.post('/admin-login', (req, res) => {
 app.get('/admin', isAdmin, async (req, res) => {
   console.log('Admin session check:', req.session.isAdmin);
   const users = await User.find();
-  res.render('admin', { users });
+  res.render('admin', { users, path: req.path });
 });
 
 app.post('/admin/edit-user/:id', isAdmin, async (req, res) => {
@@ -210,7 +209,7 @@ app.post('/admin/toggle-ban/:id', isAdmin, async (req, res) => {
 app.get('/account', isAuthenticated, async (req, res) => {
   try {
     const user = await User.findById(req.session.user._id);
-    res.render('account', { user, path: '/account' });
+    res.render('account', { user, path: req.path });
   } catch (error) {
     res.status(400).send('Error loading account');
   }
