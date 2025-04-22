@@ -125,6 +125,7 @@ app.post('/wallet/withdraw', isAuthenticated, async (req, res) => {
     });
     await transaction.save();
 
+    // Don't reduce balance until withdrawal is approved
     res.redirect('/wallet');
   } catch (error) {
     res.status(400).send('Error processing withdrawal');
