@@ -329,6 +329,9 @@ app.post('/admin/withdrawal/:id/:action', isAdmin, async (req, res) => {
       );
     } else if (action === 'reject') {
       withdrawal.status = 'rejected';
+      // Refund the balance when rejecting withdrawal
+      user.balance += withdrawal.amount;
+      await user.save();
       await Transaction.findOneAndUpdate(
         { userId: user._id, type: 'withdraw', status: 'pending' },
         { status: 'rejected' }

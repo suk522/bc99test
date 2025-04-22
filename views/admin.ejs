@@ -1,4 +1,3 @@
-
 <div class="container-fluid">
   <div class="row">
     <!-- Left Sidebar -->
@@ -107,7 +106,7 @@
                     <form action="/admin/withdrawal/<%= withdrawal._id %>/approve" method="POST" class="d-inline">
                       <button type="submit" class="btn btn-success btn-sm">Approve</button>
                     </form>
-                    <form action="/admin/withdrawal/<%= withdrawal._id %>/reject" method="POST" class="d-inline">
+                    <form action="/admin/withdrawal/<%= withdrawal._id %>/reject" method="POST" class="d-inline" onsubmit="setTimeout(function(){ window.location.reload(); }, 500)">
                       <button type="submit" class="btn btn-danger btn-sm">Reject</button>
                     </form>
                   <% } %>
