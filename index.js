@@ -20,18 +20,16 @@ async function generateNote() {
     { new: true, upsert: true }
   );
   
-  let num = counter.seq - 1;
+  let num = counter.seq;
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   let result = '';
   
+  // Convert to base-26 with leading 'A's
   for (let i = 0; i < 5; i++) {
-    const index = num % 26;
+    num--;
+    const index = (num >= 0) ? (num % 26) : 0;
     result = chars[index] + result;
     num = Math.floor(num / 26);
-  }
-  
-  if (result.length < 5) {
-    result = 'A'.repeat(5 - result.length) + result;
   }
   
   return result;
