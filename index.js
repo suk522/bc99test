@@ -75,8 +75,8 @@ app.get('/activity', isAuthenticated, async (req, res) => {
 app.get('/wallet', isAuthenticated, async (req, res) => {
   const user = await User.findById(req.session.user._id);
   const transactions = await Transaction.find({ userId: user._id }).sort({ date: -1 });
-  const deposits = await Deposit.find({ userId: user._id });
-  const withdrawals = await Withdrawal.find({ userId: user._id });
+  const deposits = await Deposit.find({ userId: user._id }).sort({ date: -1 });
+  const withdrawals = await Withdrawal.find({ userId: user._id }).sort({ date: -1 });
   res.render('wallet', { user, transactions, deposits, withdrawals, path: '/wallet' });
 });
 

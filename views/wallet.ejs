@@ -31,10 +31,18 @@
         <tr>
           <td>
             <% if (transaction.type === 'deposit') { %>
-              <% const deposit = deposits.find(d => d.amount === transaction.amount && d.userId.equals(transaction.userId)) %>
+              <% const deposit = deposits.find(d => 
+                d.amount === transaction.amount && 
+                d.userId.equals(transaction.userId) && 
+                new Date(d.date).getTime() - new Date(transaction.date).getTime() < 1000 * 60 * 5
+              ) %>
               <%= deposit ? deposit.orderNumber : 'N/A' %>
             <% } else { %>
-              <% const withdrawal = withdrawals.find(w => w.amount === transaction.amount && w.userId.equals(transaction.userId)) %>
+              <% const withdrawal = withdrawals.find(w => 
+                w.amount === transaction.amount && 
+                w.userId.equals(transaction.userId) && 
+                new Date(w.date).getTime() - new Date(transaction.date).getTime() < 1000 * 60 * 5
+              ) %>
               <%= withdrawal ? withdrawal.orderNumber : 'N/A' %>
             <% } %>
           </td>
