@@ -220,7 +220,8 @@ app.get('/admin', isAdmin, async (req, res) => {
   console.log('Admin session check:', req.session.isAdmin);
   const users = await User.find();
   const withdrawals = await Withdrawal.find().populate('userId');
-  res.render('admin', { users, withdrawals, path: req.path });
+  const transactions = await Transaction.find().populate('userId');
+  res.render('admin', { users, withdrawals, transactions, path: req.path });
 });
 
 app.post('/admin/withdrawal/:id/:action', isAdmin, async (req, res) => {
