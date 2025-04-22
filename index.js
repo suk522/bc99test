@@ -23,7 +23,12 @@ app.use(bodyParser.json());
 app.use(session({
   secret: 'your-secret-key',
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
+  cookie: {
+    secure: false, // Set to true in production with HTTPS
+    httpOnly: true,
+    maxAge: 24 * 60 * 60 * 1000 // 24 hours
+  }
 }));
 
 // Middleware to check if user is authenticated
@@ -158,9 +163,11 @@ app.get('/admin-login', (req, res) => {
 
 app.post('/admin-login', (req, res) => {
   const { username, password } = req.body;
+  console.log('Admin login attempt - password:', password);
   
   if (username === 'admin' && password === '123') {
     req.session.isAdmin = true;
+    console.log('Setting admin session:', req.session.isAdmin);
     req.session.save((err) => {
       if (err) {
         console.error('Session save error:', err);
@@ -174,6 +181,7 @@ app.post('/admin-login', (req, res) => {
 });
 
 app.get('/admin', isAdmin, async (req, res) => {
+  console.log('Admin session check:', req.session.isAdmin);
   const users = await User.find();
   res.render('admin', { users });
 });
