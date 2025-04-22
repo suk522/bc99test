@@ -6,6 +6,7 @@ const expressLayouts = require('express-ejs-layouts');
 const User = require('./models/User');
 const Transaction = require('./models/Transaction');
 const Withdrawal = require('./models/Withdrawal');
+const WithdrawalCounter = require('./models/Withdrawal').WithdrawalCounter;
 
 const app = express();
 app.use(expressLayouts);

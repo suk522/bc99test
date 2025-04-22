@@ -8,6 +8,8 @@ const withdrawalCounterSchema = new mongoose.Schema({
 
 const WithdrawalCounter = mongoose.model('WithdrawalCounter', withdrawalCounterSchema);
 
+module.exports.WithdrawalCounter = WithdrawalCounter;
+
 const withdrawalSchema = new mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   orderNumber: { type: String, required: true, unique: true },
