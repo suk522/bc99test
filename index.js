@@ -9,6 +9,7 @@ const Transaction = require('./models/Transaction');
 const app = express();
 app.use(expressLayouts);
 app.set('layout', 'layout');
+app.use('/attached_assets', express.static('attached_assets'));
 
 // Connect to MongoDB
 mongoose.connect('mongodb+srv://sukhdevgodara964:KDKUc5zk70RNaJ5X@cluster0.ejnvmdj.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
