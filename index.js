@@ -283,7 +283,7 @@ app.post('/wallet/create-deposit', isAuthenticated, async (req, res) => {
       userId: req.session.user._id,
       type: 'deposit',
       amount: Number(amount),
-      orderNumber: orderNumber,
+      orderNumber: orderNumber, // Using the same order number as deposit
       status: 'pending',
       date: new Date()
     });
