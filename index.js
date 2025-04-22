@@ -228,8 +228,7 @@ app.post('/admin/withdrawal/:id/:action', isAdmin, async (req, res) => {
       await Transaction.findOneAndUpdate(
           { userId: user._id, type: 'withdraw', status: 'pending' },
           { status: 'completed' }
-        );
-      }
+      );
     } else if (action === 'reject') {
       withdrawal.status = 'rejected';
       await Transaction.findOneAndUpdate(
