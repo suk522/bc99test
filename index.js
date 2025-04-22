@@ -111,7 +111,12 @@ app.post('/wallet/withdraw', isAuthenticated, async (req, res) => {
       await user.save();
     }
 
-    const orderNumber = Math.floor(10000000 + Math.random() * 90000000).toString();
+    const counter = await WithdrawalCounter.findByIdAndUpdate(
+      'withdrawalId',
+      { $inc: { seq: 1 } },
+      { new: true, upsert: true }
+    );
+    const orderNumber = String(counter.seq).padStart(8, '0');
     
     const withdrawal = new Withdrawal({
       userId: user._id,

@@ -1,6 +1,13 @@
 
 const mongoose = require('mongoose');
 
+const withdrawalCounterSchema = new mongoose.Schema({
+  _id: { type: String, required: true },
+  seq: { type: Number, default: 0 }
+});
+
+const WithdrawalCounter = mongoose.model('WithdrawalCounter', withdrawalCounterSchema);
+
 const withdrawalSchema = new mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   orderNumber: { type: String, required: true, unique: true },

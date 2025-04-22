@@ -1,5 +1,8 @@
 
 <div class="container mt-4">
+  <div class="mb-4">
+    <input type="text" id="orderSearch" class="form-control" placeholder="Search by Order Number" onkeyup="searchOrder()">
+  </div>
   <h2>Admin Panel - User Management</h2>
   <div class="table-responsive">
     <table class="table">
@@ -90,6 +93,24 @@
 </div>
 
 <script>
+function searchOrder() {
+  const input = document.getElementById('orderSearch').value.toLowerCase();
+  const table = document.querySelector('table');
+  const rows = table.getElementsByTagName('tr');
+
+  for (let i = 1; i < rows.length; i++) {
+    const orderCell = rows[i].cells[0];
+    if (orderCell) {
+      const orderText = orderCell.textContent || orderCell.innerText;
+      if (orderText.toLowerCase().indexOf(input) > -1) {
+        rows[i].style.display = '';
+      } else {
+        rows[i].style.display = 'none';
+      }
+    }
+  }
+}
+
 function toggleEdit(userId) {
   const editForm = document.getElementById(`edit-${userId}`);
   const displayDiv = document.getElementById(`display-${userId}`);
