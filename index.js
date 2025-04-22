@@ -156,18 +156,18 @@ app.get('/admin-login', (req, res) => {
   res.render('admin-login');
 });
 
-app.post('/admin-login', async (req, res) => {
-  const { username, password } = req.body;
+app.post('/admin-login', (req, res) => {
+  const { password } = req.body;
   
-  if (username === "1" && password === "1") {
+  if (password === '1') {
     req.session.isAdmin = true;
-    await new Promise((resolve, reject) => {
-      req.session.save((err) => {
-        if (err) reject(err);
-        else resolve();
-      });
+    req.session.save((err) => {
+      if (err) {
+        console.error('Session save error:', err);
+        return res.redirect('/admin-login?error=1');
+      }
+      res.redirect('/admin');
     });
-    res.redirect('/admin');
   } else {
     res.redirect('/admin-login?error=1');
   }
