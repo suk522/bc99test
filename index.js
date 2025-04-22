@@ -14,22 +14,12 @@ const QRCode = require('qrcode');
 const app = express();
 
 async function generateNote() {
-  const counter = await DepositCounter.findByIdAndUpdate(
-    'noteId',
-    { $inc: { seq: 1 } },
-    { new: true, upsert: true }
-  );
-  
-  let num = counter.seq;
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   let result = '';
   
-  // Convert to base-26 with leading 'A's
   for (let i = 0; i < 5; i++) {
-    num--;
-    const index = (num >= 0) ? (num % 26) : 0;
-    result = chars[index] + result;
-    num = Math.floor(num / 26);
+    const randomIndex = Math.floor(Math.random() * chars.length);
+    result += chars[randomIndex];
   }
   
   return result;
