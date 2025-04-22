@@ -72,7 +72,9 @@ app.get('/activity', isAuthenticated, async (req, res) => {
 app.get('/wallet', isAuthenticated, async (req, res) => {
   const user = await User.findById(req.session.user._id);
   const transactions = await Transaction.find({ userId: user._id }).sort({ date: -1 });
-  res.render('wallet', { user, transactions, path: '/wallet' });
+  const deposits = await Deposit.find({ userId: user._id });
+  const withdrawals = await Withdrawal.find({ userId: user._id });
+  res.render('wallet', { user, transactions, deposits, withdrawals, path: '/wallet' });
 });
 
 app.post('/wallet/deposit', isAuthenticated, async (req, res) => {
