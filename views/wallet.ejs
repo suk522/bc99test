@@ -82,18 +82,22 @@
             <img id="qrImage" class="mb-2" style="max-width: 200px;">
             <div class="alert alert-info">
               Scan this QR code to pay ₹<span id="selectedAmount"></span><br>
-              UPI ID: sukd738@ybl<br>
-              Note Code: <span id="noteCode" class="fw-bold"></span>
+              UPI ID: sukd738@ybl
+            </div>
+            <div class="alert alert-warning">
+              After payment, verify using Note: <span id="noteCode" class="fw-bold"></span>
             </div>
           </div>
           <form id="utrForm" action="/wallet/deposit" method="POST" style="display: none;">
             <input type="hidden" name="amount" id="amountInput">
             <input type="hidden" name="note" id="noteInput">
+            <input type="hidden" name="orderId" id="orderIdInput">
             <div class="mb-3">
-              <label class="form-label">Enter UTR (Transaction ID)</label>
-              <input type="text" name="utr" class="form-control" required>
+              <label class="form-label">Enter UTR (12-digit Transaction ID)</label>
+              <input type="text" name="utr" class="form-control" pattern="[0-9]{12}" maxlength="12" required>
+              <div class="form-text">Enter the 12-digit UTR number received after payment</div>
             </div>
-            <button type="submit" class="btn btn-success w-100">Submit Payment</button>
+            <button type="submit" class="btn btn-success w-100">Verify Payment</button>
           </form>
         </div>
       </div>
@@ -107,12 +111,27 @@
         document.getElementById('selectedAmount').textContent = amount;
         document.getElementById('amountInput').value = amount;
 
-        const response = await fetch(`/wallet/generate-qr?amount=${amount}`);
-        const data = await response.json();
+        // Generate QR and note
+        const qrResponse = await fetch(`/wallet/generate-qr?amount=${amount}`);
+        const qrData = await qrResponse.json();
 
-        document.getElementById('qrImage').src = data.qrCode;
-        document.getElementById('noteInput').value = data.note;
-        document.getElementById('noteCode').textContent = data.note;
+        // Create deposit order
+        const depositResponse = await fetch('/wallet/create-deposit', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            amount: amount,
+            note: qrData.note
+          })
+        });
+        const depositData = await depositResponse.json();
+
+        document.getElementById('qrImage').src = qrData.qrCode;
+        document.getElementById('noteInput').value = qrData.note;
+        document.getElementById('noteCode').textContent = qrData.note;
+        document.getElementById('orderIdInput').value = depositData.orderId;
         document.getElementById('qrCode').style.display = 'block';
         document.getElementById('utrForm').style.display = 'block';
       });

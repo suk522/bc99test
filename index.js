@@ -255,9 +255,10 @@ app.get('/wallet/generate-qr', isAuthenticated, async (req, res) => {
   res.json({ qrCode, note: note.toString() });
 });
 
-app.post('/wallet/deposit', isAuthenticated, async (req, res) => {
+// Create deposit order
+app.post('/wallet/create-deposit', isAuthenticated, async (req, res) => {
   try {
-    const { amount, note, utr } = req.body;
+    const { amount, note } = req.body;
     
     const counter = await DepositCounter.findByIdAndUpdate(
       'depositId',
@@ -271,10 +272,37 @@ app.post('/wallet/deposit', isAuthenticated, async (req, res) => {
       orderNumber,
       amount: Number(amount),
       note,
+      status: 'initiated'
+    });
+    await deposit.save();
+
+    res.json({ success: true, orderId: deposit._id });
+  } catch (error) {
+    res.status(400).json({ error: 'Error creating deposit order' });
+  }
+});
+
+// Update deposit with UTR
+app.post('/wallet/deposit', isAuthenticated, async (req, res) => {
+  try {
+    const { orderId, utr } = req.body;
+    
+    // Validate UTR format
+    if (!utr.match(/^\d{12}$/)) {
+      return res.status(400).send('UTR must be 12 digits');
+    }
+
+    // Check for duplicate UTR
+    const existingUTR = await Deposit.findOne({ utr });
+    if (existingUTR) {
+      return res.status(400).send('This UTR has already been used');
+    }
+
+    // Update deposit with UTR
+    await Deposit.findByIdAndUpdate(orderId, {
       utr,
       status: 'pending'
     });
-    await deposit.save();
 
     res.redirect('/wallet');
   } catch (error) {
