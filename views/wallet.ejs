@@ -82,7 +82,8 @@
             <img id="qrImage" class="mb-2" style="max-width: 200px;">
             <div class="alert alert-info">
               Scan this QR code to pay ₹<span id="selectedAmount"></span><br>
-              UPI ID: sukd738@ybl
+              UPI ID: sukd738@ybl<br>
+              Note Code: <span id="noteCode" class="fw-bold"></span>
             </div>
           </div>
           <form id="utrForm" action="/wallet/deposit" method="POST" style="display: none;">
@@ -111,6 +112,7 @@
 
         document.getElementById('qrImage').src = data.qrCode;
         document.getElementById('noteInput').value = data.note;
+        document.getElementById('noteCode').textContent = data.note;
         document.getElementById('qrCode').style.display = 'block';
         document.getElementById('utrForm').style.display = 'block';
       });
