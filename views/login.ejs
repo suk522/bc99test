@@ -3,17 +3,30 @@
 <html>
 <head>
   <title>Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
     body {
       background-color: #ffffff;
       font-family: Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .main-container {
+      flex: 1;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
-      margin: 0;
       padding: 20px;
     }
+    
     .login-container {
       background-color: #fff;
       padding: 2.5rem;
@@ -21,35 +34,41 @@
       box-shadow: 0 4px 20px rgba(228, 30, 49, 0.1);
       width: 100%;
       max-width: 400px;
+      margin: auto;
     }
+    
     h1 {
       color: #e41e31;
       text-align: center;
       margin-bottom: 2rem;
       font-size: 2rem;
     }
+    
     .form-group {
       margin-bottom: 1.5rem;
     }
+    
     label {
       display: block;
       color: #333;
       margin-bottom: 0.5rem;
       font-weight: 500;
     }
+    
     input {
       width: 100%;
       padding: 0.75rem;
       border: 1px solid #ddd;
       border-radius: 8px;
       margin-bottom: 1rem;
-      box-sizing: border-box;
-      transition: border-color 0.3s ease;
+      font-size: 1rem;
     }
+    
     input:focus {
       outline: none;
       border-color: #e41e31;
     }
+    
     button {
       width: 100%;
       padding: 0.75rem;
@@ -60,41 +79,56 @@
       cursor: pointer;
       font-size: 1rem;
       font-weight: 500;
-      transition: background-color 0.3s ease;
     }
+    
     button:hover {
       background-color: #c41929;
     }
+    
     p {
       text-align: center;
       margin-top: 1.5rem;
       color: #666;
     }
+    
     a {
       color: #e41e31;
       text-decoration: none;
       font-weight: 500;
     }
+    
     a:hover {
       text-decoration: underline;
+    }
+
+    @media (max-width: 480px) {
+      .login-container {
+        padding: 1.5rem;
+      }
+      
+      h1 {
+        font-size: 1.75rem;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="login-container">
-    <h1>Login</h1>
-    <form action="/login" method="POST">
-      <div class="form-group">
-        <label>Username:</label>
-        <input type="text" name="username" required>
-      </div>
-      <div class="form-group">
-        <label>Password:</label>
-        <input type="password" name="password" required>
-      </div>
-      <button type="submit">Login</button>
-    </form>
-    <p>Don't have an account? <a href="/register">Register</a></p>
+  <div class="main-container">
+    <div class="login-container">
+      <h1>Login</h1>
+      <form action="/login" method="POST">
+        <div class="form-group">
+          <label>Username:</label>
+          <input type="text" name="username" required>
+        </div>
+        <div class="form-group">
+          <label>Password:</label>
+          <input type="password" name="password" required>
+        </div>
+        <button type="submit">Login</button>
+      </form>
+      <p>Don't have an account? <a href="/register">Register</a></p>
+    </div>
   </div>
 </body>
 </html>
