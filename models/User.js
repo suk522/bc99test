@@ -13,7 +13,12 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   balance: { type: Number, default: 0 },
   uid: { type: String, unique: true },
-  banned: { type: Boolean, default: false }
+  banned: { type: Boolean, default: false },
+  bankDetails: {
+    accountNumber: String,
+    ifscCode: String,
+    holderName: String
+  }
 });
 
 userSchema.pre('save', async function(next) {

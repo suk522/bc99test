@@ -82,22 +82,45 @@ app.post('/wallet/deposit', isAuthenticated, async (req, res) => {
   }
 });
 
+app.get('/wallet/balance', isAuthenticated, async (req, res) => {
+  try {
+    const user = await User.findById(req.session.user._id);
+    res.json({ balance: user.balance });
+  } catch (error) {
+    res.status(500).json({ error: 'Error fetching balance' });
+  }
+});
+
 app.post('/wallet/withdraw', isAuthenticated, async (req, res) => {
   try {
-    const amount = Number(req.body.amount);
+    const { amount, accountNumber, ifscCode, holderName } = req.body;
     const user = await User.findById(req.session.user._id);
 
     if (user.balance < amount) {
       return res.status(400).send('Insufficient balance');
     }
 
-    user.balance -= amount;
-    await user.save();
+    if (!user.bankDetails?.accountNumber && accountNumber) {
+      user.bankDetails = { accountNumber, ifscCode, holderName };
+      await user.save();
+    }
+
+    const orderNumber = Math.floor(10000000 + Math.random() * 90000000).toString();
+    
+    const withdrawal = new Withdrawal({
+      userId: user._id,
+      orderNumber,
+      amount,
+      bankDetails: user.bankDetails,
+      status: 'pending'
+    });
+    await withdrawal.save();
 
     const transaction = new Transaction({
       userId: user._id,
       type: 'withdraw',
-      amount: amount
+      amount,
+      status: 'pending'
     });
     await transaction.save();
 
