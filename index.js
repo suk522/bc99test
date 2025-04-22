@@ -97,10 +97,12 @@ app.post('/wallet/withdraw', isAuthenticated, async (req, res) => {
     const { amount, accountNumber, ifscCode, holderName } = req.body;
     const user = await User.findById(req.session.user._id);
 
+    // Check balance but don't reduce it yet
     if (user.balance < amount) {
       return res.status(400).send('Insufficient balance');
     }
 
+    // Save bank details if not already saved
     if (!user.bankDetails?.accountNumber && accountNumber) {
       user.bankDetails = { accountNumber, ifscCode, holderName };
       await user.save();
