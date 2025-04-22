@@ -3,9 +3,12 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const expressLayouts = require('express-ejs-layouts');
 const User = require('./models/User');
 
 const app = express();
+app.use(expressLayouts);
+app.set('layout', 'layout');
 
 // Connect to MongoDB
 mongoose.connect('mongodb+srv://sukhdevgodara964:KDKUc5zk70RNaJ5X@cluster0.ejnvmdj.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
@@ -32,7 +35,11 @@ const isAuthenticated = (req, res, next) => {
 };
 
 // Routes
-app.get('/', isAuthenticated, async (req, res) => {
+app.get('/', (req, res) => {
+  res.redirect('/home');
+});
+
+app.get('/home', isAuthenticated, async (req, res) => {
   const user = await User.findById(req.session.user._id);
   res.render('home', { user });
 });

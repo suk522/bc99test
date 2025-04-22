@@ -1,14 +1,34 @@
 
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Home</title>
-</head>
-<body>
-  <h1>Welcome <%= user.username %></h1>
-  <p>Your balance: $<%= user.balance %></p>
-  <form action="/logout" method="POST">
-    <button type="submit">Logout</button>
-  </form>
-</body>
-</html>
+<%- include('layout') %>
+
+<div class="row">
+  <div class="col-md-4 mb-4">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Wingo</h5>
+        <p class="card-text">Test your luck with our exciting number guessing game!</p>
+        <a href="/games/wingo" class="btn btn-primary">Play Now</a>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-md-4 mb-4">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Aviator</h5>
+        <p class="card-text">Fly high and cash out at the right moment!</p>
+        <a href="/games/aviator" class="btn btn-primary">Play Now</a>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-md-4 mb-4">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Slots</h5>
+        <p class="card-text">Classic slot machine with amazing rewards!</p>
+        <a href="/games/slots" class="btn btn-primary">Play Now</a>
+      </div>
+    </div>
+  </div>
+</div>
