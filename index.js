@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const expressLayouts = require('express-ejs-layouts');
 const User = require('./models/User');
+const Transaction = require('./models/Transaction');
 
 const app = express();
 app.use(expressLayouts);
@@ -47,6 +48,58 @@ app.get('/home', isAuthenticated, async (req, res) => {
 app.get('/activity', isAuthenticated, async (req, res) => {
   const user = await User.findById(req.session.user._id);
   res.render('activity', { user });
+});
+
+app.get('/wallet', isAuthenticated, async (req, res) => {
+  const user = await User.findById(req.session.user._id);
+  const transactions = await Transaction.find({ userId: user._id }).sort({ date: -1 });
+  res.render('wallet', { user, transactions });
+});
+
+app.post('/wallet/deposit', isAuthenticated, async (req, res) => {
+  try {
+    const amount = Number(req.body.amount);
+    const user = await User.findById(req.session.user._id);
+    
+    user.balance += amount;
+    await user.save();
+    
+    const transaction = new Transaction({
+      userId: user._id,
+      type: 'deposit',
+      amount: amount
+    });
+    await transaction.save();
+    
+    res.redirect('/wallet');
+  } catch (error) {
+    res.status(400).send('Error processing deposit');
+  }
+});
+
+app.post('/wallet/withdraw', isAuthenticated, async (req, res) => {
+  try {
+    const amount = Number(req.body.amount);
+    const user = await User.findById(req.session.user._id);
+    
+    if (user.balance < amount) {
+      return res.status(400).send('Insufficient balance');
+    }
+    
+    user.balance -= amount;
+    await user.save();
+    
+    const transaction = new Transaction({
+      userId: user._id,
+      type: 'withdraw',
+      amount: amount
+    });
+    await transaction.save();
+    
+    res.redirect('/wallet');
+  } catch (error) {
+    res.status(400).send('Error processing withdrawal');
+  }
 });
 
 app.get('/login', (req, res) => {
