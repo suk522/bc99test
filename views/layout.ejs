@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Gaming Platform</title>
+  <title>BC999</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
@@ -14,30 +14,39 @@
     body {
       min-height: 100vh;
       display: flex;
-      flex-direction: column;
-      padding-top: 4.5rem;
       background-color: var(--secondary-color);
     }
     
-    .navbar {
-      background-color: var(--primary-color) !important;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    .sidebar {
+      width: 250px;
+      background-color: var(--primary-color);
+      min-height: 100vh;
+      padding-top: 1rem;
+    }
+    
+    .main-content {
+      flex: 1;
+      padding: 2rem;
     }
     
     .navbar-brand {
+      color: white;
       font-size: 1.5rem;
       font-weight: bold;
+      text-align: center;
+      display: block;
+      padding: 1rem;
+      text-decoration: none;
     }
     
     .navbar-nav {
-      margin-left: auto;
+      margin-top: 2rem;
     }
     
     .nav-link {
+      color: white !important;
       font-size: 1.1rem;
-      padding: 0.5rem 1rem !important;
-      margin: 0 0.2rem;
-      border-radius: 5px;
+      padding: 0.8rem 1.5rem !important;
       transition: all 0.3s ease;
     }
     
@@ -86,59 +95,40 @@
     
     @media (max-width: 768px) {
       body {
-        padding-top: 3.5rem;
+        flex-direction: column;
       }
       
-      .navbar-brand {
-        font-size: 1.2rem;
+      .sidebar {
+        width: 100%;
+        min-height: auto;
       }
       
-      .container {
-        padding: 10px;
-      }
-      
-      .card {
-        margin-bottom: 15px;
-      }
-      
-      .card-img-top {
-        height: 150px;
-      }
-      
-      .nav-link {
-        padding: 0.3rem 0.8rem !important;
-        text-align: center;
+      .main-content {
+        padding: 1rem;
       }
     }
   </style>
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-    <div class="container">
-      <a class="navbar-brand" href="/">Gaming Platform</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link <%= path === '/home' ? 'active' : '' %>" href="/home">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link <%= path === '/activity' ? 'active' : '' %>" href="/activity">Activity</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link <%= path === '/wallet' ? 'active' : '' %>" href="/wallet">Wallet</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link <%= path === '/account' ? 'active' : '' %>" href="/account">Account</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+  <div class="sidebar">
+    <a class="navbar-brand" href="/">BC999<br><small>Experience the Thrill of Game</small></a>
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link <%= path === '/home' ? 'active' : '' %>" href="/home">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link <%= path === '/activity' ? 'active' : '' %>" href="/activity">Activity</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link <%= path === '/wallet' ? 'active' : '' %>" href="/wallet">Wallet</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link <%= path === '/account' ? 'active' : '' %>" href="/account">Account</a>
+      </li>
+    </ul>
+  </div>
 
-  <div class="container mt-4 flex-grow-1">
+  <div class="main-content">
     <%- body %>
   </div>
 
