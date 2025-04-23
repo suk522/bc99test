@@ -38,6 +38,7 @@ app.use(session({
 
 app.use(expressLayouts);
 app.set('layout', 'layout');
+app.use(express.static('public'));
 app.use('/attached_assets', express.static('attached_assets'));
 
 // Add user and path middleware after session is initialized

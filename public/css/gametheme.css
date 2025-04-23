@@ -21,7 +21,6 @@ body {
   padding: 15px;
 }
 
-/* Card Styles */
 .card {
   background: var(--card-bg) !important;
   border: 1px solid var(--gold) !important;
@@ -33,16 +32,15 @@ body {
   padding: 1.25rem;
 }
 
-/* Button Styles */
 .btn-primary {
-  background: var(--gradient-gold);
-  border: none;
-  border-radius: 25px;
-  padding: 10px 25px;
-  color: #000;
-  font-weight: 600;
-  text-transform: uppercase;
-  transition: all 0.3s ease;
+  background: var(--gradient-gold) !important;
+  border: none !important;
+  border-radius: 25px !important;
+  padding: 10px 25px !important;
+  color: #000 !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  transition: all 0.3s ease !important;
 }
 
 .btn-primary:hover {
@@ -50,7 +48,6 @@ body {
   box-shadow: 0 4px 15px rgba(255, 165, 0, 0.3);
 }
 
-/* Game Grid */
 .game-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -85,57 +82,54 @@ body {
   border-radius: 10px;
 }
 
-/* Navigation */
 .nav-pills .nav-link {
-  color: var(--text-light);
-  border-radius: 20px;
-  padding: 8px 20px;
-  margin: 5px;
-  transition: all 0.3s ease;
+  color: var(--text-light) !important;
+  border-radius: 20px !important;
+  padding: 8px 20px !important;
+  margin: 5px !important;
+  transition: all 0.3s ease !important;
 }
 
 .nav-pills .nav-link.active {
-  background: var(--gradient-gold);
-  color: #000;
+  background: var(--gradient-gold) !important;
+  color: #000 !important;
 }
 
-/* Form Controls */
 .form-control {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid var(--gold);
-  border-radius: 8px;
-  color: var(--text-light);
-  padding: 10px 15px;
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid var(--gold) !important;
+  border-radius: 8px !important;
+  color: var(--text-light) !important;
+  padding: 10px 15px !important;
 }
 
 .form-control:focus {
-  background: rgba(255, 255, 255, 0.15);
-  border-color: var(--accent-orange);
-  box-shadow: 0 0 0 0.25rem rgba(255, 165, 0, 0.25);
-  color: var(--text-light);
+  background: rgba(255, 255, 255, 0.15) !important;
+  border-color: var(--accent-orange) !important;
+  box-shadow: 0 0 0 0.25rem rgba(255, 165, 0, 0.25) !important;
+  color: var(--text-light) !important;
 }
 
-/* Hamburger Menu */
 .offcanvas {
   background: var(--gradient-blue) !important;
   border-right: 1px solid var(--gold) !important;
 }
 
 .offcanvas-header {
-  border-bottom: 1px solid var(--gold);
+  border-bottom: 1px solid var(--gold) !important;
 }
 
 .offcanvas-title {
-  color: var(--gold);
+  color: var(--gold) !important;
 }
 
 .list-group-item {
   background: var(--card-bg) !important;
   border: 1px solid var(--gold) !important;
   color: var(--text-light) !important;
-  margin-bottom: 8px;
+  margin-bottom: 8px !important;
   border-radius: 8px !important;
-  transition: all 0.3s ease;
+  transition: all 0.3s ease !important;
 }
 
 .list-group-item:hover {
@@ -143,45 +137,41 @@ body {
   transform: translateX(5px);
 }
 
-/* Balance Display */
 .balance-card {
-  background: var(--card-bg);
-  border: 1px solid var(--gold);
-  border-radius: 12px;
-  padding: 20px;
+  background: var(--card-bg) !important;
+  border: 1px solid var(--gold) !important;
+  border-radius: 12px !important;
+  padding: 20px !important;
 }
 
 .balance-value {
-  color: var(--gold);
-  font-size: 2em;
-  font-weight: bold;
+  color: var(--gold) !important;
+  font-size: 2em !important;
+  font-weight: bold !important;
 }
 
-/* Transaction History */
 .transaction-list {
-  background: var(--card-bg);
-  border: 1px solid var(--gold);
-  border-radius: 12px;
+  background: var(--card-bg) !important;
+  border: 1px solid var(--gold) !important;
+  border-radius: 12px !important;
 }
 
 .transaction-item {
-  border-bottom: 1px solid rgba(255, 165, 0, 0.2);
-  padding: 15px;
+  border-bottom: 1px solid rgba(255, 165, 0, 0.2) !important;
+  padding: 15px !important;
 }
 
-/* Login/Register Forms */
 .login-card, .register-card {
-  background: var(--card-bg);
-  border: 1px solid var(--gold);
-  border-radius: 12px;
-  padding: 30px;
-  max-width: 400px;
-  margin: 0 auto;
+  background: var(--card-bg) !important;
+  border: 1px solid var(--gold) !important;
+  border-radius: 12px !important;
+  padding: 30px !important;
+  max-width: 400px !important;
+  margin: 0 auto !important;
 }
 
-/* Alerts */
 .alert {
-  background: var(--card-bg);
-  border: 1px solid var(--gold);
-  color: var(--text-light);
+  background: var(--card-bg) !important;
+  border: 1px solid var(--gold) !important;
+  color: var(--text-light) !important;
 }
