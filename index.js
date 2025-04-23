@@ -194,6 +194,12 @@ app.post('/register', async (req, res) => {
   }
 });
 
+// Add path middleware
+app.use((req, res, next) => {
+  res.locals.path = req.path;
+  next();
+});
+
 app.post('/login', async (req, res) => {
   try {
     const { username, password } = req.body;
