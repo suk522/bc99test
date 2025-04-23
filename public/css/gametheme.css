@@ -194,44 +194,34 @@ body {
 
 .wallet-actions {
   display: flex;
-  justify-content: space-around;
-  padding: 20px;
-  gap: 30px;
-}
-
-.wallet-actions {
-  display: flex;
   justify-content: center;
   gap: 20px;
   padding: 20px;
 }
 
 .deposit-btn {
-  background: linear-gradient(135deg, #8B4513, #ff0000);
-  border: none;
-  padding: 12px 30px;
-  border-radius: 8px;
+  background: #8B0000;
   color: white;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: transform 0.2s;
+  padding: 8px 20px !important;
+  font-size: 14px !important;
+  width: 120px;
+}
+
+.deposit-btn:hover {
+  background: #A52A2A;
 }
 
 .withdraw-btn {
-  background: #ADD8E6;
-  border: none;
-  padding: 12px 30px;
-  border-radius: 8px;
+  background: #87CEEB;
   color: #000;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: transform 0.2s;
+  padding: 8px 20px !important;
+  font-size: 14px !important;
+  width: 120px;
 }
 
-.deposit-btn:hover, .withdraw-btn:hover {
-  transform: scale(1.05);
+.withdraw-btn:hover {
+  background: #ADD8E6;
 }
-
 
 .transaction-list {
   background: var(--card-bg) !important;
