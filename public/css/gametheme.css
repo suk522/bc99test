@@ -297,35 +297,39 @@ input, select, textarea {
 .wallet-actions-horizontal {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  gap: 15px;
-  max-width: 500px;
-  margin: 20px auto;
-  padding: 0 20px;
+  justify-content: center;
+  gap: 20px;
+  padding: 15px;
+  margin: 10px 0;
 }
 
 .btn-deposit, .btn-withdraw {
   flex: 1;
-  padding: 15px;
+  max-width: 180px;
+  padding: 12px 24px;
   border: none;
-  border-radius: 10px;
-  font-size: 1.1rem;
+  border-radius: 8px;
+  font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-  color: white;
+  transition: all 0.3s ease;
 }
 
 .btn-deposit {
   background: #90EE90;
   color: #000;
-  box-shadow: 0 4px 0 0 #78c278;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
 }
 
 .btn-withdraw {
   background: #87CEEB;
   color: #000;
-  box-shadow: 0 4px 0 0 #68a8c4;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+.btn-deposit:hover, .btn-withdraw:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(0,0,0,0.15);
 }
 
 .btn-deposit:hover, .btn-withdraw:hover {
