@@ -1,20 +1,19 @@
-
 /* Mobile-first base styles */
 :root {
   --mobile-width: 390px;
 }
 
-html, body {
+html {
+  background: var(--dark-navy);
+}
+
+body {
   width: 100% !important;
   max-width: var(--mobile-width) !important;
   margin: 0 auto !important;
   overflow-x: hidden !important;
   position: relative !important;
   min-height: 100vh !important;
-}
-
-body {
-  background: var(--gradient-blue) !important;
 }
 
 .main-content,
@@ -25,7 +24,7 @@ main {
   width: 100% !important;
   max-width: var(--mobile-width) !important;
   margin: 0 auto !important;
-  padding: 15px !important;
+  padding: var(--mobile-padding) !important;
   box-sizing: border-box !important;
 }
 
@@ -40,8 +39,6 @@ select,
 textarea {
   width: 100% !important;
   max-width: 100% !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
   box-sizing: border-box !important;
 }
 
@@ -73,12 +70,4 @@ nav ul {
 
 .offcanvas {
   max-width: 280px !important;
-}
-
-/* Force mobile layout even on larger screens */
-@media screen and (min-width: 391px) {
-  html, body {
-    max-width: var(--mobile-width) !important;
-    margin: 0 auto !important;
-  }
 }

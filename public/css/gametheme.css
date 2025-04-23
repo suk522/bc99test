@@ -13,11 +13,23 @@
   --mobile-padding: 15px;
 }
 
-html, body {
+html {
   margin: 0;
   padding: 0;
+  background: var(--dark-navy);
+}
+
+body {
+  margin: 0 auto;
+  padding: 0;
+  width: 100%;
+  max-width: var(--mobile-width);
+  min-height: 100vh;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   -webkit-tap-highlight-color: transparent;
+  background: var(--gradient-blue);
+  position: relative;
+  overflow-x: hidden;
 }
 
 body {
