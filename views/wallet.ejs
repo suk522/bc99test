@@ -1,28 +1,26 @@
 <div class="game-theme">
 <div class="container pt-4">
-  <div class="balance-card mb-4">
-    <div class="balance-content">
-      <div class="balance-header">
-        <div class="balance-amount">
-          <span class="balance-label">Current Balance</span>
-          <h2 class="balance-value">₹<span id="userBalance"><%= user.balance %></span></h2>
-        </div>
-        <button class="refresh-btn" onclick="refreshBalance()">
-          <i class="fas fa-sync-alt"></i>
-        </button>
-      </div>
-
-      <div class="balance-actions">
-        <button class="wallet-icon-btn deposit-btn" data-bs-toggle="modal" data-bs-target="#depositModal">
-          <div class="wallet-icon deposit-icon"></div>
-          <span>Deposit</span>
-        </button>
-        <button class="wallet-icon-btn withdraw-btn" data-bs-toggle="modal" data-bs-target="#withdrawModal">
-          <div class="wallet-icon withdraw-icon"></div>
-          <span>Withdraw</span>
-        </button>
-      </div>
+  <div class="wallet-header mb-4">
+    <div class="user-info">
+      <img src="<%= user.profileImage || '/attached_assets/activit.png' %>" alt="Avatar" class="user-avatar">
+      <span class="user-uid">UID: <%= user.uid %></span>
     </div>
+    <div class="balance-display">
+      <span class="balance-text">₹<span id="userBalance"><%= user.balance %></span></span>
+      <i class="fas fa-sync-alt refresh-icon" onclick="refreshBalance()"></i>
+    </div>
+</div>
+
+<div class="wallet-actions">
+    <button class="action-button deposit-btn" data-bs-toggle="modal" data-bs-target="#depositModal">
+      <img src="/attached_assets/202411111544239924007.png" alt="Deposit" class="action-icon">
+      <span>Deposit</span>
+    </button>
+    <button class="action-button withdraw-btn" data-bs-toggle="modal" data-bs-target="#withdrawModal">
+      <img src="/attached_assets/202411122313012530007.png" alt="Withdraw" class="action-icon">
+      <span>Withdraw</span>
+    </button>
+</div>
 </div>
 
 <style>

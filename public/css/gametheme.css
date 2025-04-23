@@ -148,18 +148,76 @@ body {
   transform: translateX(5px);
 }
 
-.balance-card {
-  background: var(--card-bg) !important;
-  border: 1px solid var(--gold) !important;
-  border-radius: 12px !important;
-  padding: 20px !important;
+.wallet-header {
+  background: var(--dark-navy);
+  padding: 15px;
+  border-radius: 10px;
 }
 
-.balance-value {
-  color: var(--gold) !important;
-  font-size: 2em !important;
-  font-weight: bold !important;
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
 }
+
+.user-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--gold);
+}
+
+.user-uid {
+  color: #8B4513;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.balance-display {
+  color: #8B4513;
+  font-size: 1rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.wallet-actions {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+  gap: 30px;
+}
+
+.action-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: transparent;
+  border: none;
+  color: white;
+  gap: 10px;
+  cursor: pointer;
+  transition: transform 0.2s;
+  padding: 10px;
+}
+
+.action-button:hover {
+  transform: scale(1.05);
+}
+
+.action-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 15px;
+}
+
+.action-button span {
+  font-size: 1.1rem;
+  color: white;
+}
+
 
 .transaction-list {
   background: var(--card-bg) !important;
@@ -197,16 +255,6 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
-.balance-display {
-  color: #8B4513;
-  font-size: 1rem;
-  font-weight: bold;
-  margin-bottom: 5px;
-  text-align: right;
-  padding-right: 20px;
-  margin-top: -5px;
-}
-
 .refresh-icon {
   cursor: pointer;
   color: #8B4513;
@@ -218,56 +266,6 @@ body {
   transform: rotate(180deg);
 }
 
-.user-info {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 10px;
-  padding-right: 20px;
-}
-
-.user-avatar {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  border: 1px solid var(--gold);
-}
-
-.user-uid {
-  color: #8B4513;
-  font-weight: bold;
-  font-size: 0.9rem;
-}
-
-.balance-actions {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  margin-top: 20px;
-}
-
-.wallet-icon-btn {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: transparent;
-  border: none;
-  color: white;
-  gap: 10px;
-  cursor: pointer;
-  transition: transform 0.2s;
-  padding: 10px;
-}
-
-.wallet-icon-btn:hover {
-  transform: scale(1.05);
-}
-
-.wallet-icon {
-  width: 60px;
-  height: 60px;
-  border-radius: 15px;
-}
 
 .deposit-icon {
   background: linear-gradient(135deg, #4a90e2, #357abd);
