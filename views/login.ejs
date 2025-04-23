@@ -6,67 +6,183 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="/css/gametheme.css" rel="stylesheet">
+  <link href="/css/responsive.css" rel="stylesheet">
   <style>
+    .login-container {
+      padding: 20px;
+      max-width: var(--mobile-width);
+      margin: 0 auto;
+    }
+    .login-card {
+      background: white;
+      border-radius: 16px;
+      padding: 30px 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .input-group {
+      margin-bottom: 24px;
+    }
+    .input-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #666;
+      margin-bottom: 8px;
+    }
+    .input-label i {
+      color: #4285f4;
+      font-size: 20px;
+    }
     .phone-input {
       display: flex;
       align-items: center;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid var(--gold);
+      background: #f0f7ff;
       border-radius: 8px;
-      padding: 5px;
+      overflow: hidden;
     }
     .country-code {
-      padding: 5px 10px;
-      border-right: 1px solid var(--gold);
-      color: var(--text-light);
+      padding: 12px 15px;
+      background: #f0f7ff;
+      color: #333;
+      border-right: 1px solid #e0e0e0;
+      font-weight: 500;
     }
     .phone-number {
-      background: transparent;
+      flex: 1;
+      padding: 12px 15px;
       border: none;
-      color: var(--text-light);
-      padding: 5px 10px;
-      width: 100%;
+      background: #f0f7ff;
+      font-size: 16px;
     }
-    .phone-number:focus {
-      outline: none;
+    .password-input {
+      position: relative;
+      background: #f0f7ff;
+      border-radius: 8px;
+    }
+    .password-input input {
+      width: 100%;
+      padding: 12px 15px;
+      border: none;
+      background: transparent;
+      font-size: 16px;
+    }
+    .password-input .toggle-password {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #666;
+      cursor: pointer;
+    }
+    .remember-check {
+      margin: 20px 0;
+    }
+    .btn-login {
+      background: #4285f4;
+      color: white;
+      border: none;
+      width: 100%;
+      padding: 12px;
+      border-radius: 25px;
+      font-weight: 500;
+      margin-bottom: 15px;
+    }
+    .btn-register {
+      background: white;
+      color: #4285f4;
+      border: 1px solid #4285f4;
+      width: 100%;
+      padding: 12px;
+      border-radius: 25px;
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+    .bottom-links {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+    }
+    .bottom-links a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #666;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    .bottom-links i {
+      font-size: 24px;
+      color: #4285f4;
+      margin-bottom: 5px;
     }
   </style>
 </head>
-<body class="game-theme">
-  <div class="container mt-5">
-    <div class="col-md-6 mx-auto">
-      <div class="card login-card">
-        <div class="card-body">
-          <h2 class="text-center mb-4">Login</h2>
-          <% if (locals.error) { %>
-            <div class="alert alert-danger"><%= error %></div>
-          <% } %>
-          <form action="/login" method="POST">
-            <div class="mb-3">
-              <label class="form-label">Phone number</label>
-              <div class="phone-input">
-                <span class="country-code">+91</span>
-                <input type="tel" name="mobile" class="phone-number" pattern="[0-9]{10}" maxlength="10" required>
-              </div>
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Password</label>
-              <input type="password" name="password" class="form-control" required>
-            </div>
-            <div class="mb-3 form-check">
-              <input type="checkbox" class="form-check-input" id="remember">
-              <label class="form-check-label" for="remember">Remember password</label>
-            </div>
-            <button type="submit" class="btn btn-primary w-100 mb-3">Log in</button>
-            <button type="button" class="btn btn-outline-primary w-100" onclick="window.location.href='/register'">Register</button>
-          </form>
-          <div class="d-flex justify-content-between mt-3">
-            <a href="/forgot-password" class="text-warning">Forgot password</a>
-            <a href="https://t.me/hayat00444" target="_blank" class="text-warning">Customer Service</a>
+<body>
+  <div class="login-container">
+    <div class="login-card">
+      <% if (locals.error) { %>
+        <div class="alert alert-danger"><%= error %></div>
+      <% } %>
+      <form action="/login" method="POST">
+        <div class="input-group">
+          <div class="input-label">
+            <i class="fas fa-phone"></i>
+            <span>Phone number</span>
+          </div>
+          <div class="phone-input">
+            <div class="country-code">+91</div>
+            <input type="tel" name="mobile" class="phone-number" pattern="[0-9]{10}" maxlength="10" required>
           </div>
         </div>
+        
+        <div class="input-group">
+          <div class="input-label">
+            <i class="fas fa-lock"></i>
+            <span>Password</span>
+          </div>
+          <div class="password-input">
+            <input type="password" name="password" required>
+            <i class="fas fa-eye toggle-password"></i>
+          </div>
+        </div>
+
+        <div class="remember-check">
+          <input type="checkbox" id="remember" class="form-check-input">
+          <label for="remember">Remember password</label>
+        </div>
+
+        <button type="submit" class="btn-login">Log in</button>
+        <button type="button" class="btn-register" onclick="window.location.href='/register'">Register</button>
+      </form>
+
+      <div class="bottom-links">
+        <a href="/forgot-password">
+          <i class="fas fa-unlock-alt"></i>
+          <span>Forgot password</span>
+        </a>
+        <a href="https://t.me/hayat00444" target="_blank">
+          <i class="fas fa-headset"></i>
+          <span>Customer Service</span>
+        </a>
       </div>
     </div>
   </div>
+
+  <script src="https://kit.fontawesome.com/your-font-awesome-kit.js"></script>
+  <script>
+    document.querySelector('.toggle-password').addEventListener('click', function() {
+      const input = this.previousElementSibling;
+      if (input.type === 'password') {
+        input.type = 'text';
+        this.classList.remove('fa-eye');
+        this.classList.add('fa-eye-slash');
+      } else {
+        input.type = 'password';
+        this.classList.remove('fa-eye-slash');
+        this.classList.add('fa-eye');
+      }
+    });
+  </script>
 </body>
 </html>
