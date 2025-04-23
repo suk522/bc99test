@@ -50,7 +50,7 @@ body {
 
 .game-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 20px;
   padding: 20px;
 }
@@ -62,7 +62,12 @@ body {
   border: 1px solid var(--gold);
   transition: transform 0.3s ease;
   cursor: pointer;
-  padding: 10px;
+  padding: 15px;
+  aspect-ratio: 1/1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .game-card:hover {
@@ -73,13 +78,20 @@ body {
 .game-link {
   text-decoration: none;
   color: var(--text-light);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .game-link img {
   width: 100%;
-  height: 150px;
-  object-fit: cover;
+  height: 100%;
+  object-fit: contain;
   border-radius: 10px;
+  aspect-ratio: 1/1;
 }
 
 .nav-pills .nav-link {
