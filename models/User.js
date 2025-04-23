@@ -1,4 +1,12 @@
+
 const mongoose = require('mongoose');
+
+const counterSchema = new mongoose.Schema({
+  _id: { type: String, required: true },
+  seq: { type: Number, default: 1 }
+});
+
+const Counter = mongoose.model('Counter', counterSchema);
 
 const userSchema = new mongoose.Schema({
   mobile: { type: String, required: true, unique: true },
@@ -8,14 +16,19 @@ const userSchema = new mongoose.Schema({
   banned: { type: Boolean, default: false },
   bankDetails: {
     accountNumber: String,
-    ifscCode: String, 
+    ifscCode: String,
     holderName: String
   }
 });
 
-userSchema.pre('save', function(next) {
+userSchema.pre('save', async function(next) {
   if (!this.uid) {
-    this.uid = Math.floor(100000 + Math.random() * 900000).toString();
+    const counter = await Counter.findByIdAndUpdate(
+      'userId',
+      { $inc: { seq: 1 } },
+      { new: true, upsert: true }
+    );
+    this.uid = String(counter.seq).padStart(6, '0');
   }
   next();
 });
