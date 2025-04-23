@@ -18,7 +18,7 @@
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--gold);
 }
 
 .game-title {
@@ -58,4 +58,29 @@
 
 .nav-pills .nav-link.active {
   background-color: var(--accent-orange);
+}
+
+/* Form Styles */
+.form-control {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--gold);
+  color: var(--text-light);
+}
+
+.form-control:focus {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: var(--accent-orange);
+  color: var(--text-light);
+  box-shadow: 0 0 0 0.25rem rgba(255, 107, 0, 0.25);
+}
+
+.btn-primary {
+  background: linear-gradient(45deg, var(--gold), var(--accent-orange));
+  border: none;
+  color: var(--primary-navy);
+  font-weight: bold;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(45deg, var(--accent-orange), var(--gold));
 }
