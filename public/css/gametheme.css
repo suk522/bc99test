@@ -13,13 +13,12 @@
   --mobile-padding: 15px;
 }
 
-/* Force mobile width */
 html {
   width: var(--mobile-width);
   margin: 0 auto !important;
   background: var(--dark-navy);
   position: relative;
-  overflow-x: hidden;
+  overflow-x: hidden !important;
 }
 
 body {
@@ -28,24 +27,26 @@ body {
   min-height: 100vh;
   background: var(--gradient-blue);
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  overflow-x: hidden;
+  overflow-x: hidden !important;
   -webkit-tap-highlight-color: transparent;
   box-shadow: 0 0 20px rgba(0,0,0,0.1);
   position: relative;
 }
 
-/* Force container widths */
-.container, .main-content, .card, .balance-box, .wallet-buttons {
-  width: 100% !important;
-  max-width: var(--mobile-width) !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
+.main-content {
+  width: 100%;
+  max-width: var(--mobile-width);
+  padding: var(--mobile-padding);
   box-sizing: border-box;
+  min-height: calc(100vh - 60px);
 }
 
-.main-content {
-  padding: var(--mobile-padding);
-  min-height: calc(100vh - 60px);
+.container {
+  width: 100%;
+  max-width: var(--mobile-width);
+  padding: 12px;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .card {
@@ -53,6 +54,7 @@ body {
   border: 1px solid var(--gold) !important;
   border-radius: 12px !important;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  width: 100%;
   margin-bottom: 15px;
   padding: 15px;
 }
@@ -61,6 +63,8 @@ body {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 12px;
+  width: 100%;
+  max-width: var(--mobile-width);
   padding: 10px;
   margin: 0 auto;
 }
@@ -77,6 +81,12 @@ body {
   transition: transform 0.2s;
 }
 
+.balance-box, .wallet-buttons {
+  width: 100%;
+  max-width: var(--mobile-width);
+  margin: 15px auto;
+}
+
 .btn {
   width: 100%;
   min-height: 44px;
@@ -89,18 +99,6 @@ input, select, textarea {
   font-size: 16px !important;
   padding: 12px !important;
   margin: 5px 0;
-}
-
-.offcanvas {
-  width: 280px !important;
-  max-width: 80% !important;
-}
-
-.hamburger-icon {
-  position: fixed;
-  top: 15px;
-  left: 15px;
-  z-index: 1000;
 }
 
 .btn-primary {
@@ -149,11 +147,6 @@ input, select, textarea {
   background: rgba(255, 255, 255, 0.95) !important;
   border-color: var(--primary-color) !important;
   box-shadow: 0 0 0 0.25rem rgba(25, 118, 210, 0.25) !important;
-}
-
-.balance-box, .wallet-buttons {
-  width: 100%;
-  margin: 15px auto;
 }
 
 .btn-deposit, .btn-withdraw {

@@ -1,9 +1,14 @@
-
 /* Force mobile layout */
 html, body {
   width: var(--mobile-width) !important;
   margin: 0 auto !important;
-  overflow-x: hidden;
+  overflow-x: hidden !important;
+  max-width: var(--mobile-width) !important;
+}
+
+* {
+  max-width: var(--mobile-width) !important;
+  box-sizing: border-box !important;
 }
 
 .main-content, 
@@ -35,7 +40,6 @@ select,
 textarea {
   width: 100% !important;
   max-width: 100% !important;
-  box-sizing: border-box !important;
 }
 
 .hamburger-menu {
