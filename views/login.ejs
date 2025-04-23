@@ -6,36 +6,67 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="/css/gametheme.css" rel="stylesheet">
+  <style>
+    .phone-input {
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--gold);
+      border-radius: 8px;
+      padding: 5px;
+    }
+    .country-code {
+      padding: 5px 10px;
+      border-right: 1px solid var(--gold);
+      color: var(--text-light);
+    }
+    .phone-number {
+      background: transparent;
+      border: none;
+      color: var(--text-light);
+      padding: 5px 10px;
+      width: 100%;
+    }
+    .phone-number:focus {
+      outline: none;
+    }
+  </style>
 </head>
 <body class="game-theme">
   <div class="container mt-5">
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-        <div class="card login-card">
-          <div class="card-body">
-            <h2 class="text-center mb-4">Login</h2>
-            <% if (locals.error) { %>
-              <div class="alert alert-danger"><%= error %></div>
-            <% } %>
-            <form action="/login" method="POST">
-              <div class="mb-3">
-                <label class="form-label">Username</label>
-                <input type="text" name="username" class="form-control" required>
+    <div class="col-md-6 mx-auto">
+      <div class="card login-card">
+        <div class="card-body">
+          <h2 class="text-center mb-4">Login</h2>
+          <% if (locals.error) { %>
+            <div class="alert alert-danger"><%= error %></div>
+          <% } %>
+          <form action="/login" method="POST">
+            <div class="mb-3">
+              <label class="form-label">Phone number</label>
+              <div class="phone-input">
+                <span class="country-code">+91</span>
+                <input type="tel" name="mobile" class="phone-number" pattern="[0-9]{10}" maxlength="10" required>
               </div>
-              <div class="mb-3">
-                <label class="form-label">Password</label>
-                <input type="password" name="password" class="form-control" required>
-              </div>
-              <button type="submit" class="btn btn-primary w-100">Login</button>
-            </form>
-            <p class="mt-3 text-center">
-              Don't have an account? <a href="/register" class="text-warning">Register</a>
-            </p>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Password</label>
+              <input type="password" name="password" class="form-control" required>
+            </div>
+            <div class="mb-3 form-check">
+              <input type="checkbox" class="form-check-input" id="remember">
+              <label class="form-check-label" for="remember">Remember password</label>
+            </div>
+            <button type="submit" class="btn btn-primary w-100 mb-3">Log in</button>
+            <button type="button" class="btn btn-outline-primary w-100" onclick="window.location.href='/register'">Register</button>
+          </form>
+          <div class="d-flex justify-content-between mt-3">
+            <a href="/forgot-password" class="text-warning">Forgot password</a>
+            <a href="/customer-service" class="text-warning">Customer Service</a>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

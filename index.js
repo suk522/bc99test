@@ -246,24 +246,27 @@ app.get('/register', (req, res) => {
 
 app.post('/register', async (req, res) => {
   try {
-    const { username, password } = req.body;
-    const user = new User({ username, password });
+    const { mobile, password } = req.body;
+    if (!mobile || !password || !/^\d{10}$/.test(mobile)) {
+      return res.render('register', { error: 'Valid mobile number and password are required' });
+    }
+    const user = new User({ mobile, password });
     await user.save();
     res.redirect('/login');
   } catch (error) {
-    res.status(400).send('Error registering user');
+    res.render('register', { error: 'Mobile number already registered' });
   }
 });
 
 app.post('/login', async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { mobile, password } = req.body;
     
-    if (!username || !password) {
-      return res.render('login', { error: 'Username and password are required' });
+    if (!mobile || !password || !/^\d{10}$/.test(mobile)) {
+      return res.render('login', { error: 'Valid mobile number and password are required' });
     }
 
-    const user = await User.findOne({ username });
+    const user = await User.findOne({ mobile });
 
     if (!user) {
       return res.render('login', { error: 'Invalid username or password' });
