@@ -1,12 +1,15 @@
 :root {
-  --primary-navy: #001B4D;
-  --dark-navy: #001338;
-  --card-bg: #002366;
-  --text-light: #ffffff;
-  --gold: #FFA500;
-  --accent-orange: #ff6b00;
-  --gradient-gold: linear-gradient(45deg, #FFA500, #ff6b00);
-  --gradient-blue: linear-gradient(180deg, var(--primary-navy), var(--dark-navy));
+  --dark-navy: #0a0e17;
+  --primary-navy: #141b2d;
+  --card-bg: #1f2937;
+  --text-light: #e5e7eb;
+  --gold: #ffd700;
+  --primary-color: #4a90e2;
+  --accent-color: #357abd;
+  --gradient-blue: linear-gradient(135deg, #141b2d, #0a0e17);
+}
+
+.game-theme {
 }
 
 body {
