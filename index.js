@@ -24,11 +24,23 @@ async function generateNote() {
   
   return result;
 }
+// Session middleware must come before other middleware that uses session
+app.use(session({
+  secret: 'your-secret-key',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    secure: false,
+    httpOnly: true,
+    maxAge: 24 * 60 * 60 * 1000
+  }
+}));
+
 app.use(expressLayouts);
 app.set('layout', 'layout');
 app.use('/attached_assets', express.static('attached_assets'));
 
-// Add user and path middleware
+// Add user and path middleware after session is initialized
 app.use((req, res, next) => {
   res.locals.user = req.session.user || null;
   res.locals.path = req.path;
@@ -44,16 +56,7 @@ mongoose.connect('mongodb+srv://sukhdevgodara964:KDKUc5zk70RNaJ5X@cluster0.ejnvm
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(session({
-  secret: 'your-secret-key',
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
-    secure: false, // Set to true in production with HTTPS
-    httpOnly: true,
-    maxAge: 24 * 60 * 60 * 1000 // 24 hours
-  }
-}));
+// Session middleware already initialized at the top
 
 // Middleware to check if user is authenticated
 const isAuthenticated = (req, res, next) => {
