@@ -1,22 +1,20 @@
 
 :root {
-  --primary-navy: #001e4d;
-  --card-bg: #052366;
+  --primary-navy: #001B4D;
+  --dark-navy: #001338;
+  --card-bg: #002366;
   --text-light: #ffffff;
-  --gold: #ffd700;
+  --gold: #FFA500;
   --accent-orange: #ff6b00;
-  --gradient-gold: linear-gradient(45deg, #ffd700, #ff6b00);
+  --gradient-gold: linear-gradient(45deg, #FFA500, #ff6b00);
+  --gradient-blue: linear-gradient(180deg, var(--primary-navy), var(--dark-navy));
 }
 
 body {
-  background-color: var(--primary-navy) !important;
+  background: var(--gradient-blue) !important;
   color: var(--text-light) !important;
   min-height: 100vh;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-}
-
-.game-theme {
-  background-color: var(--primary-navy);
 }
 
 .container {
@@ -28,7 +26,7 @@ body {
   background: var(--card-bg) !important;
   border: 1px solid var(--gold) !important;
   border-radius: 12px !important;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 .card-body {
@@ -49,7 +47,7 @@ body {
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(255, 107, 0, 0.3);
+  box-shadow: 0 4px 15px rgba(255, 165, 0, 0.3);
 }
 
 /* Game Grid */
@@ -67,11 +65,24 @@ body {
   border: 1px solid var(--gold);
   transition: transform 0.3s ease;
   cursor: pointer;
+  padding: 10px;
 }
 
 .game-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+  box-shadow: 0 5px 15px rgba(255, 165, 0, 0.2);
+}
+
+.game-link {
+  text-decoration: none;
+  color: var(--text-light);
+}
+
+.game-link img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
 }
 
 /* Navigation */
@@ -100,44 +111,77 @@ body {
 .form-control:focus {
   background: rgba(255, 255, 255, 0.15);
   border-color: var(--accent-orange);
-  box-shadow: 0 0 0 0.25rem rgba(255, 107, 0, 0.25);
+  box-shadow: 0 0 0 0.25rem rgba(255, 165, 0, 0.25);
   color: var(--text-light);
 }
 
-/* Bottom Navigation */
-.bottom-nav {
-  background: var(--card-bg);
-  border-top: 1px solid var(--gold);
-  padding: 10px 0;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+/* Hamburger Menu */
+.offcanvas {
+  background: var(--gradient-blue) !important;
+  border-right: 1px solid var(--gold) !important;
 }
 
-.bottom-nav a {
-  color: var(--text-light);
-  text-decoration: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 0.8rem;
+.offcanvas-header {
+  border-bottom: 1px solid var(--gold);
 }
 
-/* Jackpot Display */
-.jackpot-display {
-  background: linear-gradient(45deg, var(--primary-navy), var(--card-bg));
-  border-radius: 15px;
-  padding: 20px;
-  text-align: center;
-  border: 2px solid var(--gold);
-  margin: 20px 0;
-}
-
-.jackpot-amount {
+.offcanvas-title {
   color: var(--gold);
-  font-size: 24px;
+}
+
+.list-group-item {
+  background: var(--card-bg) !important;
+  border: 1px solid var(--gold) !important;
+  color: var(--text-light) !important;
+  margin-bottom: 8px;
+  border-radius: 8px !important;
+  transition: all 0.3s ease;
+}
+
+.list-group-item:hover {
+  background: var(--primary-navy) !important;
+  transform: translateX(5px);
+}
+
+/* Balance Display */
+.balance-card {
+  background: var(--card-bg);
+  border: 1px solid var(--gold);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.balance-value {
+  color: var(--gold);
+  font-size: 2em;
   font-weight: bold;
+}
+
+/* Transaction History */
+.transaction-list {
+  background: var(--card-bg);
+  border: 1px solid var(--gold);
+  border-radius: 12px;
+}
+
+.transaction-item {
+  border-bottom: 1px solid rgba(255, 165, 0, 0.2);
+  padding: 15px;
+}
+
+/* Login/Register Forms */
+.login-card, .register-card {
+  background: var(--card-bg);
+  border: 1px solid var(--gold);
+  border-radius: 12px;
+  padding: 30px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* Alerts */
+.alert {
+  background: var(--card-bg);
+  border: 1px solid var(--gold);
+  color: var(--text-light);
 }
