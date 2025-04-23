@@ -1,4 +1,3 @@
-
 <div class="container game-theme">
   <h1 class="mb-4 text-center game-title">Welcome to BC999</h1>
 
@@ -6,7 +5,7 @@
     <img src="<%= user.profileImage || '/attached_assets/activit.png' %>" alt="Avatar" class="user-avatar">
     <span class="user-uid">UID: <%= user.uid %></span>
   </div>
-  
+
   <div class="balance-display mb-4">
     <span class="balance-text">₹<span id="balanceAmount"><%= user.balance.toFixed(2) %></span></span>
     <i class="fas fa-sync-alt refresh-icon ms-2" onclick="refreshBalance()"></i>
@@ -20,7 +19,7 @@
           <span class="game-title">Wingo</span>
         </a>
       </div>
-      
+
       <div class="game-card">
         <a href="/games/aviator" class="game-link">
           <img src="/attached_assets/avaitor.png" alt="Aviator">
@@ -28,7 +27,7 @@
         </a>
       </div>
     </div>
-    
+
     <div class="game-row">
       <div class="game-card">
         <a href="/games/slots" class="game-link">
@@ -71,13 +70,14 @@ function refreshBalance() {
 }
 
 .game-card {
-  width: 150px;
+  width: 120px;
+  height: 120px;
   background: var(--card-bg) !important;
   border: 1px solid var(--gold);
   border-radius: 10px;
   overflow: hidden;
   transition: transform 0.3s ease;
-  padding: 10px;
+  padding: 5px;
 }
 
 .game-card:hover {
@@ -87,13 +87,18 @@ function refreshBalance() {
 .game-link {
   text-decoration: none;
   color: var(--text-color);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .game-link img {
   width: 100%;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 10px;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
 }
 
 .game-title {
