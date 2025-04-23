@@ -11,9 +11,11 @@
     body {
       background-color: var(--primary-navy);
       color: var(--text-light);
+      font-family: 'Arial', sans-serif;
     }
     .main-content {
       min-height: 100vh;
+      padding: 20px;
     }
     .hamburger-icon {
       display: flex;
@@ -22,35 +24,62 @@
       cursor: pointer;
       padding: 10px;
       z-index: 1100;
+      background: var(--card-bg);
+      border-radius: 8px;
+      border: 1px solid var(--gold);
     }
     .hamburger-line {
       width: 25px;
       height: 3px;
-      background-color: var(--text-light);
+      background-color: var(--gold);
       transition: 0.3s;
     }
     .offcanvas {
-      width: 50% !important;
-      background-color: var(--card-bg);
-      border-right: 1px solid var(--gold);
+      width: 300px !important;
+      background: linear-gradient(135deg, var(--primary-navy), var(--card-bg));
+      border-right: 2px solid var(--gold);
     }
     .offcanvas-header {
       border-bottom: 1px solid var(--gold);
+      background: var(--card-bg);
     }
     .offcanvas-title {
       color: var(--gold);
+      font-weight: bold;
     }
     .btn-close {
       filter: invert(1) grayscale(100%) brightness(200%);
     }
     .list-group-item {
-      background-color: transparent;
-      border-color: var(--gold);
+      background: transparent;
+      border: 1px solid var(--gold);
       color: var(--text-light);
+      margin-bottom: 8px;
+      border-radius: 8px !important;
+      transition: all 0.3s ease;
     }
     .list-group-item:hover {
-      background-color: var(--accent-orange);
+      background: var(--accent-orange);
       color: var(--text-light);
+      transform: translateX(5px);
+    }
+    .card {
+      background: var(--card-bg) !important;
+      border: 1px solid var(--gold) !important;
+      color: var(--text-light) !important;
+      border-radius: 12px !important;
+    }
+    .btn-danger {
+      background: linear-gradient(45deg, #ff3547, #ff6b00);
+      border: none;
+      border-radius: 8px;
+      padding: 10px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+    .btn-danger:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 107, 0, 0.2);
     }
   </style>
   <%- defineContent('head') %>

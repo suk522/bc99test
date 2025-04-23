@@ -1,4 +1,3 @@
-
 :root {
   --primary-navy: #001a4d;
   --accent-orange: #ff6b00;
@@ -48,6 +47,7 @@
   background: var(--card-bg);
   border-radius: 25px;
   padding: 5px;
+  color: var(--text-light); /* Added to apply theme */
 }
 
 .nav-pills .nav-link {
@@ -83,4 +83,13 @@
 
 .btn-primary:hover {
   background: linear-gradient(45deg, var(--accent-orange), var(--gold));
+}
+
+.game-grid {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background: var(--card-bg);
+  border-radius: 15px;
+  border: 1px solid var(--gold);
 }
