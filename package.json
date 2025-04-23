@@ -12,11 +12,13 @@
   "dependencies": {
     "@types/node": "^22.14.1",
     "body-parser": "^2.2.0",
+    "compression": "^1.8.0",
     "ejs": "^3.1.10",
     "express": "^5.1.0",
     "express-ejs-layouts": "^2.5.1",
     "express-session": "^1.18.1",
     "mongoose": "^8.13.2",
+    "morgan": "^1.10.0",
     "nodemon": "^3.1.10",
     "qrcode": "^1.5.4"
   }

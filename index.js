@@ -3,6 +3,20 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const expressLayouts = require('express-ejs-layouts');
+const compression = require('compression');
+const morgan = require('morgan');
+
+// Performance monitoring
+const requestDuration = (req, res, next) => {
+  const start = Date.now();
+  res.on('finish', () => {
+    const duration = Date.now() - start;
+    if (duration > 1000) { // Log if request takes more than 1 second
+      console.warn(`Slow request: ${req.method} ${req.url} took ${duration}ms`);
+    }
+  });
+  next();
+};
 const User = require('./models/User');
 const Transaction = require('./models/Transaction');
 const Withdrawal = require('./models/Withdrawal');
@@ -38,8 +52,18 @@ app.use(session({
 
 app.use(expressLayouts);
 app.set('layout', 'layout');
-app.use(express.static('public'));
-app.use('/attached_assets', express.static('attached_assets'));
+// Enable compression
+app.use(compression());
+app.use(requestDuration);
+app.use(morgan('tiny'));
+
+// Static file serving with caching
+const staticOptions = {
+  maxAge: '1d',
+  etag: true
+};
+app.use(express.static('public', staticOptions));
+app.use('/attached_assets', express.static('attached_assets', staticOptions));
 app.set('view engine', 'ejs');
 
 // Add user and path middleware after session is initialized
@@ -85,10 +109,12 @@ app.get('/activity', isAuthenticated, async (req, res) => {
 });
 
 app.get('/wallet', isAuthenticated, async (req, res) => {
-  const user = await User.findById(req.session.user._id);
-  const transactions = await Transaction.find({ userId: user._id }).sort({ date: -1 });
-  const deposits = await Deposit.find({ userId: user._id }).sort({ date: -1 });
-  const withdrawals = await Withdrawal.find({ userId: user._id }).sort({ date: -1 });
+  const user = await User.findById(req.session.user._id).select('username balance uid');
+  const [transactions, deposits, withdrawals] = await Promise.all([
+    Transaction.find({ userId: user._id }).select('type amount status date').sort({ date: -1 }).limit(50),
+    Deposit.find({ userId: user._id }).select('amount status date orderNumber').sort({ date: -1 }).limit(50),
+    Withdrawal.find({ userId: user._id }).select('amount status date orderNumber').sort({ date: -1 }).limit(50)
+  ]);
   res.render('wallet', { user, transactions, deposits, withdrawals, path: '/wallet' });
 });
 
