@@ -1,3 +1,4 @@
+
 :root {
   --dark-navy: #E3F2FD;
   --primary-navy: #BBDEFB;
@@ -68,7 +69,6 @@ body {
   background: rgba(255, 255, 255, 0.7) !important;
   border-color: var(--primary-color) !important;
   box-shadow: 0 0 0 0.25rem rgba(25, 118, 210, 0.25) !important;
-  color: var(--text-light) !important;
 }
 
 .login-card, .register-card {
@@ -78,4 +78,32 @@ body {
   padding: 30px !important;
   max-width: 400px !important;
   margin: 0 auto !important;
+}
+
+.offcanvas {
+  background: var(--gradient-blue) !important;
+  border-right: 1px solid var(--gold) !important;
+}
+
+.list-group-item {
+  background: var(--card-bg) !important;
+  border: 1px solid var(--gold) !important;
+  color: var(--text-light) !important;
+  margin-bottom: 8px !important;
+  border-radius: 8px !important;
+  transition: all 0.3s ease !important;
+}
+
+.list-group-item:hover {
+  background: var(--primary-navy) !important;
+  transform: translateX(5px);
+}
+
+.hamburger-icon {
+  background: var(--card-bg) !important;
+  border: 1px solid var(--gold) !important;
+}
+
+.hamburger-line {
+  background-color: var(--text-light) !important;
 }
