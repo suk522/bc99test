@@ -212,6 +212,13 @@ app.post('/wallet/withdraw', isAuthenticated, async (req, res) => {
     );
     const orderNumber = 'W' + String(counter.seq).padStart(7, '0');
 
+    const withdrawalCounter = await WithdrawalCounter.findByIdAndUpdate(
+      'withdrawalId',
+      { $inc: { seq: 1 } },
+      { new: true, upsert: true }
+    );
+    const orderNumber = 'W' + String(withdrawalCounter.seq).padStart(7, '0');
+
     const withdrawal = new Withdrawal({
       userId: user._id,
       orderNumber,
@@ -225,7 +232,7 @@ app.post('/wallet/withdraw', isAuthenticated, async (req, res) => {
       userId: user._id,
       type: 'withdraw',
       amount,
-      orderNumber: withdrawal.orderNumber,
+      orderNumber,
       status: 'pending'
     });
     await transaction.save();
@@ -362,18 +369,15 @@ app.post('/wallet/create-deposit', isAuthenticated, async (req, res) => {
     );
     const orderNumber = 'D' + String(depositCounter.seq).padStart(7, '0');
 
-    // Create single transaction record
-    const transaction = new Transaction({
-      userId: req.session.user._id,
-      type: 'deposit',
-      amount: Number(amount),
-      orderNumber: orderNumber,
-      status: 'pending',
-      date: new Date()
-    });
-    await transaction.save();
+    // Generate order number first
+    const depositCounter = await DepositCounter.findByIdAndUpdate(
+      'depositId',
+      { $inc: { seq: 1 } },
+      { new: true, upsert: true }
+    );
+    const orderNumber = 'D' + String(depositCounter.seq).padStart(7, '0');
 
-    // Create deposit with same order number
+    // Create deposit first
     const deposit = new Deposit({
       userId: req.session.user._id,
       orderNumber: orderNumber,
@@ -383,6 +387,17 @@ app.post('/wallet/create-deposit', isAuthenticated, async (req, res) => {
       utr: ''
     });
     await deposit.save();
+
+    // Create transaction with same order number
+    const transaction = new Transaction({
+      userId: req.session.user._id,
+      type: 'deposit',
+      amount: Number(amount),
+      orderNumber: orderNumber,
+      status: 'pending',
+      date: new Date()
+    });
+    await transaction.save();
 
     res.json({ success: true, orderId: deposit._id });
   } catch (error) {
