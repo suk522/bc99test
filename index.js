@@ -197,19 +197,30 @@ app.post('/register', async (req, res) => {
 app.post('/login', async (req, res) => {
   try {
     const { username, password } = req.body;
+    
+    if (!username || !password) {
+      return res.render('login', { error: 'Username and password are required' });
+    }
+
     const user = await User.findOne({ username });
 
-    if (user && user.password === password) {
-      if (user.banned) {
-        return res.status(403).send('Account has been banned');
-      }
-      req.session.user = user;
-      res.redirect('/');
-    } else {
-      res.redirect('/login');
+    if (!user) {
+      return res.render('login', { error: 'Invalid username or password' });
     }
+
+    if (user.banned) {
+      return res.render('login', { error: 'Account has been banned' });
+    }
+
+    if (user.password !== password) {
+      return res.render('login', { error: 'Invalid username or password' });
+    }
+
+    req.session.user = user;
+    res.redirect('/home');
   } catch (error) {
-    res.status(400).send('Error logging in');
+    console.error('Login error:', error);
+    res.render('login', { error: 'An error occurred during login' });
   }
 });
 

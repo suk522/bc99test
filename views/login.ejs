@@ -111,6 +111,11 @@
     <div class="login-container">
       <h1>BC999</h1>
       <p style="text-align: center; margin-bottom: 2rem;">Experience the Thrill of Game</p>
+      <% if (typeof error !== 'undefined') { %>
+        <div style="color: #ff4444; text-align: center; margin-bottom: 1rem;">
+          <%= error %>
+        </div>
+      <% } %>
       <form action="/login" method="POST">
         <div class="form-group">
           <label>Username:</label>
