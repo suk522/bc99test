@@ -1,45 +1,43 @@
+/* Base mobile-first styles - no media queries needed */
+.hamburger-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
 
-@media screen and (max-width: 768px) {
-  body, html {
+.game-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  justify-items: center;
+}
+
+.profile-card, .balance-box, .wallet-buttons {
+  width: 100%;
+  margin: auto;
+}
+
+.transaction-history {
+  font-size: 14px;
+  padding: 0 10px;
+}
+
+nav ul {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.home-container {
+  padding: 12px;
+}
+
+body, html {
     width: 100%;
     overflow-x: hidden;
-  }
+}
 
-  .hamburger-menu {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-  }
-
-  .game-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    justify-items: center;
-  }
-
-  .profile-card, .balance-box, .wallet-buttons {
-    width: 90%;
-    margin: auto;
-  }
-
-  .transaction-history {
-    font-size: 14px;
-    padding: 0 10px;
-  }
-
-  nav ul {
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-  }
-
-  .home-container {
-    padding: 12px;
-  }
-
-  button {
+button {
     width: 100%;
-  }
 }
