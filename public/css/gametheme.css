@@ -250,11 +250,11 @@ input, select, textarea {
 
 .balance-card {
   background: var(--card-bg);
-  border-radius: 15px;
+  border-radius: 12px;
   padding: 20px;
-  margin: 20px auto;
-  max-width: 500px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  margin: 15px auto;
+  width: 100%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .balance-header {
@@ -264,15 +264,122 @@ input, select, textarea {
 }
 
 .user-uid {
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: var(--text-light);
-  opacity: 0.8;
+  font-weight: 500;
 }
 
 .balance-amount {
   display: flex;
   align-items: center;
+  gap: 12px;
+}
+
+.amount-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--text-light);
+}
+
+.refresh-btn {
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  padding: 8px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.refresh-btn:hover {
+  transform: rotate(180deg);
+}
+
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.btn-action {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-deposit {
+  background: #28a745;
+  color: white;
+  box-shadow: 0 4px 6px rgba(40, 167, 69, 0.2);
+}
+
+.btn-withdraw {
+  background: #dc3545;
+  color: white;
+  box-shadow: 0 4px 6px rgba(220, 53, 69, 0.2);
+}
+
+.btn-action:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-action:active {
+  transform: translateY(1px);
+}
+
+.transactions-section {
+  margin-top: 25px;
+}
+
+.transactions-section h4 {
+  margin-bottom: 15px;
+  color: var(--text-light);
+}
+
+.transaction-list {
+  display: flex;
+  flex-direction: column;
   gap: 10px;
+}
+
+.transaction-item {
+  background: var(--card-bg);
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.transaction-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.transaction-time {
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+.amount-deposit {
+  color: #28a745;
+}
+
+.amount-withdraw {
+  color: #dc3545;
+}
+
+.transaction-details {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: var(--text-light);
+  opacity: 0.8;
 }
 
 .amount-text {
