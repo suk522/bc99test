@@ -1,14 +1,16 @@
-<div class="container game-theme">
-  <h1 class="mb-4 text-center game-title">Welcome to BC999</h1>
 
-  <div class="user-info mb-3">
-    <div class="user-avatar-uid">
+<div class="container game-theme">
+  <div class="user-info">
+    <div class="user-info-left">
       <img src="<%= user.profileImage || '/attached_assets/activit.png' %>" alt="Avatar" class="user-avatar">
       <span class="user-uid">UID: <%= user.uid %></span>
     </div>
-    <div class="balance-display">
-    <span class="balance-text">₹<span id="balanceAmount"><%= user.balance.toFixed(2) %></span></span>
-    <i class="fas fa-sync-alt refresh-icon ms-2" onclick="refreshBalance()"></i>
+    <div class="user-info-right">
+      <div class="balance-display">
+        <span class="balance-text">₹<span id="balanceAmount"><%= user.balance.toFixed(2) %></span></span>
+        <i class="fas fa-sync-alt refresh-icon ms-2" onclick="refreshBalance()"></i>
+      </div>
+    </div>
   </div>
 
   <div class="game-grid">
@@ -57,9 +59,51 @@ function refreshBalance() {
 </script>
 
 <style>
-.game-grid {
+.container {
+  padding: 15px;
   max-width: 800px;
   margin: 0 auto;
+}
+
+.user-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 30px;
+  padding: 10px;
+}
+
+.user-info-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-info-right {
+  text-align: right;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--gold);
+}
+
+.user-uid {
+  color: #8B4513;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.balance-display {
+  color: #8B4513;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.game-grid {
+  margin-top: 20px;
 }
 
 .game-row {
@@ -102,12 +146,8 @@ function refreshBalance() {
 }
 
 .game-title {
-  display: block;
+  font-size: 0.9rem;
+  margin-top: 5px;
   text-align: center;
-  padding: 8px;
-  font-weight: bold;
-  background: linear-gradient(to right, var(--primary-color), var(--accent-color));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
 </style>
