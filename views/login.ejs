@@ -1,157 +1,101 @@
-
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Login</title>
+  <title>Login - BC999</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/gametheme.css" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
     body {
-      background-color: #000000;
-      font-family: Arial, sans-serif;
+      background-color: var(--primary-navy);
       min-height: 100vh;
       display: flex;
-      flex-direction: column;
-      color: #ffffff;
-    }
-
-    .main-container {
-      flex: 1;
-      display: flex;
-      justify-content: center;
       align-items: center;
-      padding: 20px;
+      justify-content: center;
     }
-
     .login-container {
-      background: linear-gradient(145deg, #242424 0%, #1A1A1A 100%);
+      background: var(--card-bg);
       padding: 2.5rem;
       border-radius: 15px;
-      border: 1px solid rgba(218,165,32,0.3);
-      box-shadow: 0 4px 30px rgba(218,165,32,0.15);
+      border: 1px solid var(--gold);
+      box-shadow: 0 4px 30px rgba(255, 215, 0, 0.15);
       width: 100%;
       max-width: 400px;
-      margin: auto;
-      backdrop-filter: blur(10px);
     }
-
-    input {
-      background: rgba(45,45,45,0.9);
-      border: 1px solid rgba(218,165,32,0.3);
-      transition: all 0.3s ease;
-    }
-
-    input:focus {
-      border-color: var(--accent-color);
-      box-shadow: 0 0 10px rgba(218,165,32,0.2);
-    }
-
-    button {
-      background: linear-gradient(45deg, #B8860B, #FFD700);
-      transition: all 0.3s ease;
-    }
-
-    button:hover {
-      background: linear-gradient(45deg, #DAA520, #FFD700);
-      transform: translateY(-2px);
-    }
-
     h1 {
-      color: #6200EA;
+      color: var(--gold);
       text-align: center;
-      margin-bottom: 2rem;
-      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      font-size: 2.5rem;
     }
-
     .form-group {
       margin-bottom: 1.5rem;
     }
-
     label {
-      display: block;
-      color: #ffffff;
+      color: var(--text-light);
       margin-bottom: 0.5rem;
-      font-weight: 500;
     }
-
     input {
-      width: 100%;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--gold);
+      color: var(--text-light);
       padding: 0.75rem;
-      border: 1px solid #6200EA;
       border-radius: 8px;
-      margin-bottom: 1rem;
-      font-size: 1rem;
-      background-color: #2d2d2d;
-      color: #ffffff;
+      width: 100%;
     }
-
     input:focus {
       outline: none;
-      border-color: #7c4dff;
+      border-color: var(--accent-orange);
+      box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
     }
-
     button {
-      width: 100%;
-      padding: 0.75rem;
-      background-color: #6200EA;
-      color: white;
+      background: linear-gradient(45deg, var(--gold), var(--accent-orange));
+      color: var(--primary-navy);
       border: none;
+      padding: 0.75rem;
+      width: 100%;
       border-radius: 8px;
-      cursor: pointer;
-      font-size: 1rem;
-      font-weight: 500;
+      font-weight: bold;
+      margin-top: 1rem;
     }
-
     button:hover {
-      background-color: #7c4dff;
+      background: linear-gradient(45deg, var(--accent-orange), var(--gold));
     }
-
     p {
+      color: var(--text-light);
       text-align: center;
       margin-top: 1.5rem;
-      color: #ffffff;
     }
-
     a {
-      color: #6200EA;
+      color: var(--gold);
       text-decoration: none;
-      font-weight: 500;
     }
-
     a:hover {
-      color: #7c4dff;
-      text-decoration: underline;
+      color: var(--accent-orange);
     }
   </style>
 </head>
 <body>
-  <div class="main-container">
-    <div class="login-container">
-      <h1>BC999</h1>
-      <p style="text-align: center; margin-bottom: 2rem;">Experience the Thrill of Game</p>
-      <% if (typeof error !== 'undefined') { %>
-        <div style="color: #ff4444; text-align: center; margin-bottom: 1rem;">
-          <%= error %>
-        </div>
-      <% } %>
-      <form action="/login" method="POST">
-        <div class="form-group">
-          <label>Username:</label>
-          <input type="text" name="username" required>
-        </div>
-        <div class="form-group">
-          <label>Password:</label>
-          <input type="password" name="password" required>
-        </div>
-        <button type="submit">Login</button>
-      </form>
-      <p>Don't have an account? <a href="/register">Register</a></p>
-    </div>
+  <div class="login-container">
+    <h1>BC999</h1>
+    <p style="text-align: center; margin-bottom: 2rem; color: var(--text-light);">Experience the Thrill of Game</p>
+    <% if (typeof error !== 'undefined') { %>
+      <div style="color: #ff4444; text-align: center; margin-bottom: 1rem;">
+        <%= error %>
+      </div>
+    <% } %>
+    <form action="/login" method="POST">
+      <div class="form-group">
+        <label>Username:</label>
+        <input type="text" name="username" required>
+      </div>
+      <div class="form-group">
+        <label>Password:</label>
+        <input type="password" name="password" required>
+      </div>
+      <button type="submit">Login</button>
+    </form>
+    <p>Don't have an account? <a href="/register">Register</a></p>
   </div>
 </body>
 </html>
