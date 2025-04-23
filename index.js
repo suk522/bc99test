@@ -6,8 +6,8 @@ const expressLayouts = require('express-ejs-layouts');
 const compression = require('compression');
 const morgan = require('morgan');
 
-// Performance monitoring
-const requestDuration = (req, res, next) => {
+// Performance monitoring middleware
+function requestDuration(req, res, next) {
   const start = Date.now();
   res.on('finish', () => {
     const duration = Date.now() - start;
@@ -16,7 +16,7 @@ const requestDuration = (req, res, next) => {
     }
   });
   next();
-};
+}
 const User = require('./models/User');
 const Transaction = require('./models/Transaction');
 const Withdrawal = require('./models/Withdrawal');
