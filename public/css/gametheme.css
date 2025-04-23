@@ -1,100 +1,143 @@
+
 :root {
-  --primary-navy: #001a4d;
-  --accent-orange: #ff6b00;
-  --card-bg: #001f5c;
+  --primary-navy: #001e4d;
+  --card-bg: #052366;
   --text-light: #ffffff;
   --gold: #ffd700;
+  --accent-orange: #ff6b00;
+  --gradient-gold: linear-gradient(45deg, #ffd700, #ff6b00);
 }
 
-body, .game-theme {
+body {
   background-color: var(--primary-navy) !important;
   color: var(--text-light) !important;
   min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.game-theme {
+  background-color: var(--primary-navy);
 }
 
 .container {
-  background-color: var(--primary-navy);
+  padding: 15px;
+}
+
+/* Card Styles */
+.card {
+  background: var(--card-bg) !important;
+  border: 1px solid var(--gold) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.card-body {
+  padding: 1.25rem;
+}
+
+/* Button Styles */
+.btn-primary {
+  background: var(--gradient-gold);
+  border: none;
+  border-radius: 25px;
+  padding: 10px 25px;
+  color: #000;
+  font-weight: 600;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255, 107, 0, 0.3);
+}
+
+/* Game Grid */
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px;
+  padding: 20px;
 }
 
 .game-card {
   background: var(--card-bg);
   border-radius: 15px;
   overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease;
   border: 1px solid var(--gold);
+  transition: transform 0.3s ease;
+  cursor: pointer;
 }
 
-.game-title {
-  color: var(--gold);
-  font-weight: bold;
-  text-align: center;
-  padding: 10px;
-  background: linear-gradient(to right, var(--primary-navy), var(--card-bg));
+.game-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
 }
 
+/* Navigation */
+.nav-pills .nav-link {
+  color: var(--text-light);
+  border-radius: 20px;
+  padding: 8px 20px;
+  margin: 5px;
+  transition: all 0.3s ease;
+}
+
+.nav-pills .nav-link.active {
+  background: var(--gradient-gold);
+  color: #000;
+}
+
+/* Form Controls */
+.form-control {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--gold);
+  border-radius: 8px;
+  color: var(--text-light);
+  padding: 10px 15px;
+}
+
+.form-control:focus {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: var(--accent-orange);
+  box-shadow: 0 0 0 0.25rem rgba(255, 107, 0, 0.25);
+  color: var(--text-light);
+}
+
+/* Bottom Navigation */
+.bottom-nav {
+  background: var(--card-bg);
+  border-top: 1px solid var(--gold);
+  padding: 10px 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.bottom-nav a {
+  color: var(--text-light);
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 0.8rem;
+}
+
+/* Jackpot Display */
 .jackpot-display {
   background: linear-gradient(45deg, var(--primary-navy), var(--card-bg));
-  border-radius: 10px;
-  padding: 15px;
-  margin: 20px 0;
+  border-radius: 15px;
+  padding: 20px;
   text-align: center;
   border: 2px solid var(--gold);
+  margin: 20px 0;
 }
 
 .jackpot-amount {
   color: var(--gold);
   font-size: 24px;
   font-weight: bold;
-}
-
-.nav-pills {
-  background: var(--card-bg);
-  border-radius: 25px;
-  padding: 5px;
-  color: var(--text-light); /* Added to apply theme */
-}
-
-.nav-pills .nav-link {
-  color: var(--text-light);
-  border-radius: 20px;
-  margin: 5px;
-}
-
-.nav-pills .nav-link.active {
-  background-color: var(--accent-orange);
-}
-
-/* Form Styles */
-.form-control {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid var(--gold);
-  color: var(--text-light);
-}
-
-.form-control:focus {
-  background: rgba(255, 255, 255, 0.15);
-  border-color: var(--accent-orange);
-  color: var(--text-light);
-  box-shadow: 0 0 0 0.25rem rgba(255, 107, 0, 0.25);
-}
-
-.btn-primary {
-  background: linear-gradient(45deg, var(--gold), var(--accent-orange));
-  border: none;
-  color: var(--primary-navy);
-  font-weight: bold;
-}
-
-.btn-primary:hover {
-  background: linear-gradient(45deg, var(--accent-orange), var(--gold));
-}
-
-.game-grid {
-  max-width: 800px;
-  margin: 20px auto;
-  padding: 20px;
-  background: var(--card-bg);
-  border-radius: 15px;
-  border: 1px solid var(--gold);
 }
