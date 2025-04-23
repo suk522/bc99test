@@ -1,0 +1,61 @@
+
+:root {
+  --primary-navy: #001a4d;
+  --accent-orange: #ff6b00;
+  --card-bg: #001f5c;
+  --text-light: #ffffff;
+  --gold: #ffd700;
+}
+
+.game-theme {
+  background-color: var(--primary-navy);
+  color: var(--text-light);
+}
+
+.game-card {
+  background: var(--card-bg);
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.game-title {
+  color: var(--gold);
+  font-weight: bold;
+  text-align: center;
+  padding: 10px;
+  background: linear-gradient(to right, var(--primary-navy), var(--card-bg));
+}
+
+.jackpot-display {
+  background: linear-gradient(45deg, var(--primary-navy), var(--card-bg));
+  border-radius: 10px;
+  padding: 15px;
+  margin: 20px 0;
+  text-align: center;
+  border: 2px solid var(--gold);
+}
+
+.jackpot-amount {
+  color: var(--gold);
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.nav-pills {
+  background: var(--card-bg);
+  border-radius: 25px;
+  padding: 5px;
+}
+
+.nav-pills .nav-link {
+  color: var(--text-light);
+  border-radius: 20px;
+  margin: 5px;
+}
+
+.nav-pills .nav-link.active {
+  background-color: var(--accent-orange);
+}
