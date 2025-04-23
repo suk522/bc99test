@@ -120,7 +120,16 @@ app.get('/wallet', isAuthenticated, async (req, res) => {
 
 app.post('/wallet/deposit', isAuthenticated, async (req, res) => {
   try {
-    const { amount, note, utr } = req.body;
+    const { amount, note, utr, orderId } = req.body;
+    if (!amount || !utr || !orderId) {
+      return res.status(400).send('Missing required fields');
+    }
+
+    // Validate amount
+    const numAmount = Number(amount);
+    if (isNaN(numAmount) || numAmount <= 0) {
+      return res.status(400).send('Invalid amount');
+    }
     
     const counter = await DepositCounter.findByIdAndUpdate(
       'depositId',
@@ -165,15 +174,29 @@ app.get('/wallet/balance', isAuthenticated, async (req, res) => {
 app.post('/wallet/withdraw', isAuthenticated, async (req, res) => {
   try {
     const { amount, accountNumber, ifscCode, holderName } = req.body;
-    const user = await User.findById(req.session.user._id);
+    
+    // Validate input
+    if (!amount || amount <= 0) {
+      return res.status(400).send('Invalid amount');
+    }
 
-    // Check and reduce balance immediately
-    if (user.balance < amount) {
+    const numAmount = Number(amount);
+    if (isNaN(numAmount)) {
+      return res.status(400).send('Amount must be a number');
+    }
+
+    const user = await User.findOneAndUpdate(
+      { 
+        _id: req.session.user._id,
+        balance: { $gte: numAmount }
+      },
+      { $inc: { balance: -numAmount } },
+      { new: true }
+    );
+
+    if (!user) {
       return res.status(400).send('Insufficient balance');
     }
-    
-    user.balance -= amount;
-    await user.save();
 
     // Save bank details if not already saved
     if (!user.bankDetails?.accountNumber && accountNumber) {
@@ -309,6 +332,15 @@ app.get('/wallet/generate-qr', isAuthenticated, async (req, res) => {
 app.post('/wallet/create-deposit', isAuthenticated, async (req, res) => {
   try {
     const { amount, note } = req.body;
+    
+    if (!amount || !note) {
+      return res.status(400).json({ error: 'Missing required fields' });
+    }
+
+    const numAmount = Number(amount);
+    if (isNaN(numAmount) || numAmount < 100 || numAmount > 50000) {
+      return res.status(400).json({ error: 'Invalid amount (Min: ₹100, Max: ₹50,000)' });
+    }
     
     // Generate unique order number for both deposit and transaction
     const depositCounter = await DepositCounter.findByIdAndUpdate(
