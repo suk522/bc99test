@@ -2,11 +2,11 @@
   <h1 class="mb-4 text-center game-title">Welcome to BC999</h1>
 
   <div class="user-info mb-3">
-    <img src="<%= user.profileImage || '/attached_assets/activit.png' %>" alt="Avatar" class="user-avatar">
-    <span class="user-uid">UID: <%= user.uid %></span>
-  </div>
-
-  <div class="balance-display mb-4">
+    <div class="user-avatar-uid">
+      <img src="<%= user.profileImage || '/attached_assets/activit.png' %>" alt="Avatar" class="user-avatar">
+      <span class="user-uid">UID: <%= user.uid %></span>
+    </div>
+    <div class="balance-display">
     <span class="balance-text">₹<span id="balanceAmount"><%= user.balance.toFixed(2) %></span></span>
     <i class="fas fa-sync-alt refresh-icon ms-2" onclick="refreshBalance()"></i>
   </div>

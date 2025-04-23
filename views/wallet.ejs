@@ -2,10 +2,11 @@
 <div class="container pt-4">
   <div class="wallet-header mb-4">
     <div class="user-info">
-      <img src="<%= user.profileImage || '/attached_assets/activit.png' %>" alt="Avatar" class="user-avatar">
-      <span class="user-uid">UID: <%= user.uid %></span>
-    </div>
-    <div class="balance-display">
+      <div class="user-avatar-uid">
+        <img src="<%= user.profileImage || '/attached_assets/activit.png' %>" alt="Avatar" class="user-avatar">
+        <span class="user-uid">UID: <%= user.uid %></span>
+      </div>
+      <div class="balance-display">
       <span class="balance-text">₹<span id="userBalance"><%= user.balance %></span></span>
       <i class="fas fa-sync-alt refresh-icon" onclick="refreshBalance()"></i>
     </div>
