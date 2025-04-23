@@ -6,9 +6,14 @@
   --gold: #ffd700;
 }
 
-.game-theme {
+body, .game-theme {
+  background-color: var(--primary-navy) !important;
+  color: var(--text-light) !important;
+  min-height: 100vh;
+}
+
+.container {
   background-color: var(--primary-navy);
-  color: var(--text-light);
 }
 
 .game-card {
