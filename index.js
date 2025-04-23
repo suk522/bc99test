@@ -6,15 +6,9 @@ const expressLayouts = require('express-ejs-layouts');
 const compression = require('compression');
 const morgan = require('morgan');
 
-// Performance monitoring
-const requestDuration = (req, res, next) => {
-  const start = Date.now();
-  res.on('finish', () => {
-    const duration = Date.now() - start;
-    if (duration > 1000) { // Log if request takes more than 1 second
-      console.warn(`Slow request: ${req.method} ${req.url} took ${duration}ms`);
-    }
-  });
+// Simple request logger
+const requestLogger = (req, res, next) => {
+  console.log(`${req.method} ${req.url}`);
   next();
 };
 const User = require('./models/User');
