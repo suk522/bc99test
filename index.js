@@ -136,7 +136,7 @@ app.post('/wallet/deposit', isAuthenticated, async (req, res) => {
       { $inc: { seq: 1 } },
       { new: true, upsert: true }
     );
-    const orderNumber = String(counter.seq).padStart(8, '0');
+    const orderNumber = 'D' + String(counter.seq).padStart(7, '0');
 
     const deposit = new Deposit({
       userId: req.session.user._id,
@@ -210,7 +210,7 @@ app.post('/wallet/withdraw', isAuthenticated, async (req, res) => {
       { $inc: { seq: 1 } },
       { new: true, upsert: true }
     );
-    const orderNumber = String(counter.seq).padStart(8, '0');
+    const orderNumber = 'W' + String(counter.seq).padStart(7, '0');
 
     const withdrawal = new Withdrawal({
       userId: user._id,
