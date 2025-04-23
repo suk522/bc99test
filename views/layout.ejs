@@ -58,18 +58,41 @@
   </style>
 </head>
 <body<% if (path.startsWith('/admin')) { %> class="admin-page"<% } %>>
-<body>
   <% if (user && !path.startsWith('/admin')) { %>
-  <div class="hamburger-menu">
-    <nav>
-      <ul>
-        <li><a href="/home">Home</a></li>
-        <li><a href="/activity">Activity</a></li>
-        <li><a href="/wallet">Wallet</a></li>
-        <li><a href="/account">Account</a></li>
-      </ul>
-    </nav>
-  </div>
+    <!-- Hamburger Button -->
+    <button class="btn btn-link position-fixed top-0 start-0 mt-3 ms-3 fs-4 text-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#sideMenu" aria-controls="sideMenu">
+      ☰
+    </button>
+
+    <!-- Offcanvas Sidebar -->
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="sideMenu" aria-labelledby="sideMenuLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="sideMenuLabel">Menu</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <!-- User Info Card -->
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5>Username: <%= user.username %></h5>
+            <p class="mb-0">User ID: <%= user.uid %></p>
+          </div>
+        </div>
+        
+        <!-- Navigation Links -->
+        <div class="list-group mb-4">
+          <a href="/home" class="list-group-item list-group-item-action">Home</a>
+          <a href="/activity" class="list-group-item list-group-item-action">Activity</a>
+          <a href="/wallet" class="list-group-item list-group-item-action">Wallet</a>
+          <a href="/account" class="list-group-item list-group-item-action">Account</a>
+        </div>
+        
+        <!-- Logout Button -->
+        <form action="/logout" method="POST">
+          <button type="submit" class="btn btn-danger w-100">Logout</button>
+        </form>
+      </div>
+    </div>
   <% } %>
   <div class="main-content">
     <%- body %>
