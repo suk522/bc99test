@@ -187,26 +187,47 @@ body {
 }
 
 .btn-deposit, .btn-withdraw {
-  padding: 10px 20px;
+  padding: 12px 24px;
   border-radius: 8px;
   text-decoration: none;
   text-align: center;
   flex: 1;
-  transition: transform 0.2s;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: none;
+  position: relative;
+  transition: all 0.2s ease;
+  box-shadow: 0 6px 0 0 rgba(0,0,0,0.1);
 }
 
 .btn-deposit {
-  background: rgba(76, 175, 80, 0.2);
-  color: #2e7d32;
+  background: #4CAF50;
+  color: white;
+  box-shadow: 0 6px 0 0 #2E7D32;
 }
 
 .btn-withdraw {
-  background: rgba(33, 150, 243, 0.2);
-  color: #1565c0;
+  background: #2196F3;
+  color: white;
+  box-shadow: 0 6px 0 0 #1565C0;
 }
 
 .btn-deposit:hover, .btn-withdraw:hover {
   transform: translateY(-2px);
+}
+
+.btn-deposit:active, .btn-withdraw:active {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 0 rgba(0,0,0,0.1);
+}
+
+.btn-deposit:active {
+  box-shadow: 0 2px 0 0 #2E7D32;
+}
+
+.btn-withdraw:active {
+  box-shadow: 0 2px 0 0 #1565C0;
 }
 
 .alert-success {
