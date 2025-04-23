@@ -1,39 +1,45 @@
 
-/* Force mobile viewport */
-@viewport {
-  width: 390px;
+/* Mobile-first base styles */
+:root {
+  --mobile-width: 390px;
+}
+
+html, body {
+  width: 100% !important;
+  max-width: var(--mobile-width) !important;
+  margin: 0 auto !important;
+  overflow-x: hidden !important;
+  position: relative !important;
+  min-height: 100vh !important;
 }
 
 body {
-  min-width: var(--mobile-width) !important;
-  max-width: var(--mobile-width) !important;
-  width: var(--mobile-width) !important;
-  margin: 0 auto !important;
-  overflow-x: hidden !important;
+  background: var(--gradient-blue) !important;
 }
 
-#root, main, .container-fluid {
-  min-width: var(--mobile-width) !important;
-  max-width: var(--mobile-width) !important;
+.main-content,
+.container,
+.container-fluid,
+#root,
+main {
   width: 100% !important;
+  max-width: var(--mobile-width) !important;
   margin: 0 auto !important;
-  padding: 0 !important;
-  overflow-x: hidden !important;
+  padding: 15px !important;
+  box-sizing: border-box !important;
 }
 
-.container, 
-.row, 
-.col, 
 .card,
-.balance-box, 
+.balance-box,
 .wallet-buttons,
+.profile-card,
 .game-grid,
 .btn,
 input,
 select,
 textarea {
   width: 100% !important;
-  max-width: var(--mobile-width) !important;
+  max-width: 100% !important;
   margin-left: auto !important;
   margin-right: auto !important;
   box-sizing: border-box !important;
@@ -41,9 +47,14 @@ textarea {
 
 .game-grid {
   display: grid !important;
-  grid-template-columns: 1fr 1fr !important;
+  grid-template-columns: repeat(2, 1fr) !important;
   gap: 12px !important;
   padding: 10px !important;
+}
+
+.game-card {
+  width: 100% !important;
+  aspect-ratio: 1/1 !important;
 }
 
 .hamburger-menu {
@@ -56,19 +67,18 @@ textarea {
 nav ul {
   display: flex !important;
   flex-direction: column !important;
-  padding: 10px !important;
+  gap: 10px !important;
   width: 100% !important;
 }
 
-nav ul li {
-  width: 100% !important;
-  margin: 5px 0 !important;
+.offcanvas {
+  max-width: 280px !important;
 }
 
-/* Override any desktop styles */
+/* Force mobile layout even on larger screens */
 @media screen and (min-width: 391px) {
-  body, html, #root, main, .container-fluid {
-    width: var(--mobile-width) !important;
+  html, body {
     max-width: var(--mobile-width) !important;
+    margin: 0 auto !important;
   }
 }

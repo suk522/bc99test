@@ -13,31 +13,17 @@
   --mobile-padding: 15px;
 }
 
-* {
+html, body {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-  max-width: var(--mobile-width);
-}
-
-html {
-  width: var(--mobile-width);
-  margin: 0 auto !important;
-  background: var(--dark-navy);
-  position: relative;
-  overflow-x: hidden !important;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
-  width: var(--mobile-width);
-  margin: 0 auto !important;
-  min-height: 100vh;
   background: var(--gradient-blue);
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  overflow-x: hidden !important;
-  -webkit-tap-highlight-color: transparent;
+  color: var(--text-light);
   box-shadow: 0 0 20px rgba(0,0,0,0.1);
-  position: relative;
 }
 
 .main-content {
