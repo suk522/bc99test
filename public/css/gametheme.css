@@ -199,32 +199,37 @@ body {
   gap: 30px;
 }
 
-.action-button {
+.wallet-actions {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: transparent;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.deposit-btn {
+  background: linear-gradient(135deg, #8B4513, #ff0000);
   border: none;
+  padding: 12px 30px;
+  border-radius: 8px;
   color: white;
-  gap: 10px;
+  font-size: 1.1rem;
   cursor: pointer;
   transition: transform 0.2s;
-  padding: 10px;
 }
 
-.action-button:hover {
-  transform: scale(1.05);
-}
-
-.action-icon {
-  width: 60px;
-  height: 60px;
-  border-radius: 15px;
-}
-
-.action-button span {
+.withdraw-btn {
+  background: #ADD8E6;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 8px;
+  color: #000;
   font-size: 1.1rem;
-  color: white;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.deposit-btn:hover, .withdraw-btn:hover {
+  transform: scale(1.05);
 }
 
 
