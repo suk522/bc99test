@@ -141,14 +141,44 @@
 }
 
 /* Override any mobile/responsive styles */
+/* Admin specific styles */
+.admin-page {
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  background: #000 !important;
+  color: #fff !important;
+}
+
+.admin-page .container,
+.admin-page .main-content {
+  max-width: 1200px !important;
+  width: 1200px !important;
+  padding: 20px !important;
+}
+
+.admin-page .card {
+  background: #111 !important;
+  border: 1px solid #333 !important;
+  color: #fff !important;
+}
+
+.admin-page .table {
+  color: #fff !important;
+  background: #111 !important;
+}
+
+.admin-page .form-control {
+  background: #222 !important;
+  border: 1px solid #333 !important;
+  color: #fff !important;
+}
+
 @media (max-width: 1200px) {
-  .admin-container,
-  .admin-header,
-  .card,
-  .table-responsive,
-  .form-control {
-    width: 1200px !important;
-    max-width: none !important;
+  .admin-page,
+  .admin-page .container,
+  .admin-page .main-content {
+    max-width: 1200px !important;
     min-width: 1200px !important;
+    width: 1200px !important;
   }
 }

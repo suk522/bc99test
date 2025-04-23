@@ -99,6 +99,9 @@
     <%- defineContent('head') %>
 </head>
 <body class="game-theme<% if (path.startsWith('/admin')) { %> admin-page<% } %>">
+<% if (path.startsWith('/admin')) { %>
+  <link rel="stylesheet" href="/css/admin.css">
+<% } %>
   <% if (user && !path.startsWith('/admin')) { %>
     <!-- Hamburger Icon -->
     <div class="hamburger-icon position-fixed top-0 start-0 mt-3 ms-3" data-bs-toggle="offcanvas" data-bs-target="#sideMenu" aria-controls="sideMenu">
