@@ -250,11 +250,19 @@ app.post('/register', async (req, res) => {
     if (!mobile || !password || !/^\d{10}$/.test(mobile)) {
       return res.render('register', { error: 'Valid mobile number and password are required' });
     }
+
+    // Check if user already exists
+    const existingUser = await User.findOne({ mobile });
+    if (existingUser) {
+      return res.render('register', { error: 'Mobile number already registered' });
+    }
+
     const user = new User({ mobile, password });
     await user.save();
     res.redirect('/login');
   } catch (error) {
-    res.render('register', { error: 'Mobile number already registered' });
+    console.error('Registration error:', error);
+    res.render('register', { error: 'An error occurred during registration' });
   }
 });
 
