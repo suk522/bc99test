@@ -44,7 +44,7 @@
             <%= (transaction.status || 'completed').charAt(0).toUpperCase() + (transaction.status || 'completed').slice(1) %>
           </div>
           <div class="transaction-id">
-            Order ID: <%= transaction.orderNumber || 'N/A' %>
+            Order ID: <%= transaction.orderNumber || (transaction.type === 'deposit' ? 'D' : 'W') + Math.random().toString().slice(2,9) %>
           </div>
         </div>
       </div>
