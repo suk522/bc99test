@@ -1,53 +1,50 @@
-
-/* Force desktop layout */
+/* Desktop-focused admin panel styles */
 body {
-  background-color: black;
-  color: white;
-  font-family: sans-serif;
   margin: 0;
   padding: 0;
-  min-width: 1024px;
+  background-color: #000;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  min-width: 1200px;
 }
 
 .admin-container {
-  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 30px;
 }
 
 .admin-nav {
-  background: #222;
-  padding: 15px;
+  background: #111;
+  padding: 20px;
   margin-bottom: 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.tab-content {
-  display: grid;
-  gap: 20px;
+  border-bottom: 1px solid #333;
 }
 
 .card {
-  background: #222;
+  width: 100%;
+  background: #111;
+  color: white;
   border: 1px solid #333;
-  border-radius: 4px;
+  border-radius: 8px;
+  margin-bottom: 20px;
   padding: 20px;
 }
 
 .table {
   width: 100%;
-  color: white;
-  background: #111;
-  margin-top: 15px;
+  border-collapse: collapse;
+  margin: 20px 0;
 }
 
 .table th {
-  background: #333;
+  background: #222;
   padding: 12px;
   text-align: left;
+  border-bottom: 2px solid #333;
 }
 
 .table td {
@@ -55,13 +52,35 @@ body {
   border-bottom: 1px solid #333;
 }
 
+.nav-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #333;
+  padding: 0;
+}
+
+.nav-link {
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 4px 4px 0 0;
+}
+
+.nav-link.active {
+  background: #222;
+  border: 1px solid #333;
+  border-bottom: none;
+}
+
 .btn {
-  background: #444;
+  background: #333;
   color: white;
   border: none;
   padding: 8px 16px;
   border-radius: 4px;
   cursor: pointer;
+  margin: 0 5px;
 }
 
 .btn-success { background: #1a472a; }
@@ -69,57 +88,21 @@ body {
 .btn-primary { background: #1a3d5c; }
 
 .form-control {
-  background: #333;
-  border: 1px solid #444;
+  background: #222;
+  border: 1px solid #333;
   color: white;
   padding: 8px;
   border-radius: 4px;
-  width: 100%;
+  margin: 5px 0;
 }
 
-.nav-tabs {
-  border-bottom: 1px solid #333;
+.card-header {
   margin-bottom: 20px;
-  display: flex;
-  gap: 10px;
+  border-bottom: 1px solid #333;
+  padding-bottom: 15px;
 }
 
-.nav-tabs .nav-link {
-  color: white;
-  padding: 10px 20px;
-  text-decoration: none;
-}
-
-.nav-tabs .nav-link.active {
-  background: #333;
-  border-radius: 4px 4px 0 0;
-}
-
-/* Admin login page */
-.admin-login-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  padding: 20px;
-}
-
-.admin-login-card {
-  background: #222;
-  padding: 30px;
-  border-radius: 8px;
-  width: 100%;
-  max-width: 400px;
-}
-
-/* Force desktop layout */
-@media (max-width: 1024px) {
-  body {
-    min-width: 1024px;
-  }
-  
-  .admin-container {
-    width: 100%;
-    min-width: 1024px;
-  }
+.table-responsive {
+  overflow-x: auto;
+  margin: 20px 0;
 }
