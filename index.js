@@ -186,7 +186,7 @@ app.post('/wallet/withdraw', isAuthenticated, async (req, res) => {
 });
 
 app.get('/login', (req, res) => {
-  res.render('login', { path: req.path });
+  res.render('login', { path: req.path, error: req.query.error });
 });
 
 app.get('/register', (req, res) => {

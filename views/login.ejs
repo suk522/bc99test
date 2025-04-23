@@ -12,7 +12,7 @@
     <div class="col-md-6">
       <div class="game-card p-4">
         <h2 class="text-center mb-4 game-title">Login</h2>
-        <% if (query.error) { %>
+        <% if (locals.error) { %>
           <div class="alert alert-danger">Invalid username or password</div>
         <% } %>
         <form action="/login" method="POST">
