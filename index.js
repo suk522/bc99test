@@ -40,6 +40,7 @@ app.use(expressLayouts);
 app.set('layout', 'layout');
 app.use(express.static('public'));
 app.use('/attached_assets', express.static('attached_assets'));
+app.set('view engine', 'ejs');
 
 // Add user and path middleware after session is initialized
 app.use((req, res, next) => {
