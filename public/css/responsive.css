@@ -1,23 +1,37 @@
-/* Force mobile layout */
-html, body {
+
+/* Force mobile viewport */
+@viewport {
+  width: 390px;
+}
+
+body {
+  min-width: var(--mobile-width) !important;
+  max-width: var(--mobile-width) !important;
   width: var(--mobile-width) !important;
   margin: 0 auto !important;
   overflow-x: hidden !important;
-  max-width: var(--mobile-width) !important;
 }
 
-* {
+#root, main, .container-fluid {
+  min-width: var(--mobile-width) !important;
   max-width: var(--mobile-width) !important;
-  box-sizing: border-box !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  overflow-x: hidden !important;
 }
 
-.main-content, 
 .container, 
-.card, 
-.game-grid, 
-.profile-card, 
+.row, 
+.col, 
+.card,
 .balance-box, 
-.wallet-buttons {
+.wallet-buttons,
+.game-grid,
+.btn,
+input,
+select,
+textarea {
   width: 100% !important;
   max-width: var(--mobile-width) !important;
   margin-left: auto !important;
@@ -26,36 +40,35 @@ html, body {
 }
 
 .game-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  justify-items: center;
-  padding: 10px;
-}
-
-button, 
-.btn, 
-input, 
-select, 
-textarea {
-  width: 100% !important;
-  max-width: 100% !important;
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 12px !important;
+  padding: 10px !important;
 }
 
 .hamburger-menu {
-  position: fixed;
-  top: 15px;
-  left: 15px;
-  z-index: 1000;
-}
-
-.transaction-history {
-  font-size: 14px;
-  padding: 0 10px;
+  position: fixed !important;
+  top: 15px !important;
+  left: 15px !important;
+  z-index: 1000 !important;
 }
 
 nav ul {
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
+  display: flex !important;
+  flex-direction: column !important;
+  padding: 10px !important;
+  width: 100% !important;
+}
+
+nav ul li {
+  width: 100% !important;
+  margin: 5px 0 !important;
+}
+
+/* Override any desktop styles */
+@media screen and (min-width: 391px) {
+  body, html, #root, main, .container-fluid {
+    width: var(--mobile-width) !important;
+    max-width: var(--mobile-width) !important;
+  }
 }
