@@ -354,7 +354,7 @@ app.post('/wallet/create-deposit', isAuthenticated, async (req, res) => {
       return res.status(400).json({ error: 'Invalid amount (Min: ₹100, Max: ₹50,000)' });
     }
 
-    // Generate unique order number for both deposit and transaction
+    // Generate single order number
     const depositCounter = await DepositCounter.findByIdAndUpdate(
       'depositId',
       { $inc: { seq: 1 } },
@@ -362,26 +362,27 @@ app.post('/wallet/create-deposit', isAuthenticated, async (req, res) => {
     );
     const orderNumber = 'D' + String(depositCounter.seq).padStart(7, '0');
 
-    const deposit = new Deposit({
-      userId: req.session.user._id,
-      orderNumber,
-      amount: Number(amount),
-      note,
-      status: 'pending',
-      utr: '' // Empty UTR initially
-    });
-    await deposit.save();
-
-    // Create transaction with same order number
+    // Create single transaction record
     const transaction = new Transaction({
       userId: req.session.user._id,
       type: 'deposit',
       amount: Number(amount),
-      orderNumber: orderNumber, // Using the same order number as deposit
+      orderNumber: orderNumber,
       status: 'pending',
       date: new Date()
     });
     await transaction.save();
+
+    // Create deposit with same order number
+    const deposit = new Deposit({
+      userId: req.session.user._id,
+      orderNumber: orderNumber,
+      amount: Number(amount),
+      note,
+      status: 'pending',
+      utr: ''
+    });
+    await deposit.save();
 
     res.json({ success: true, orderId: deposit._id });
   } catch (error) {
