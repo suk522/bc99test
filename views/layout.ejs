@@ -162,13 +162,29 @@
       const menuIcon = document.querySelector('.menu-icon');
       const closeMenu = document.querySelector('.close-menu');
       const sidebar = document.querySelector('.sidebar');
+      let isMenuOpen = false;
 
       menuIcon.addEventListener('click', function() {
-        sidebar.classList.add('active');
+        if (!isMenuOpen) {
+          sidebar.classList.add('active');
+          isMenuOpen = true;
+        } else {
+          sidebar.classList.remove('active');
+          isMenuOpen = false;
+        }
       });
 
       closeMenu.addEventListener('click', function() {
         sidebar.classList.remove('active');
+        isMenuOpen = false;
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener('click', function(event) {
+        if (isMenuOpen && !sidebar.contains(event.target) && !menuIcon.contains(event.target)) {
+          sidebar.classList.remove('active');
+          isMenuOpen = false;
+        }
       });
     });
   </script>
