@@ -1,15 +1,12 @@
 :root {
-  --dark-navy: #0a0e17;
-  --primary-navy: #141b2d;
-  --card-bg: #1f2937;
-  --text-light: #e5e7eb;
-  --gold: #ffd700;
-  --primary-color: #4a90e2;
-  --accent-color: #357abd;
-  --gradient-blue: linear-gradient(135deg, #141b2d, #0a0e17);
-}
-
-.game-theme {
+  --dark-navy: #E3F2FD;
+  --primary-navy: #BBDEFB;
+  --card-bg: #90CAF9;
+  --text-light: #1A237E;
+  --gold: #2196F3;
+  --primary-color: #1976D2;
+  --accent-color: #0D47A1;
+  --gradient-blue: linear-gradient(135deg, #BBDEFB, #1976D2);
 }
 
 body {
@@ -27,7 +24,7 @@ body {
   background: var(--card-bg) !important;
   border: 1px solid var(--gold) !important;
   border-radius: 12px !important;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .card-body {
@@ -35,11 +32,11 @@ body {
 }
 
 .btn-primary {
-  background: var(--gradient-gold) !important;
+  background: var(--primary-color) !important;
   border: none !important;
   border-radius: 25px !important;
   padding: 10px 25px !important;
-  color: #000 !important;
+  color: white !important;
   font-weight: 600 !important;
   text-transform: uppercase !important;
   transition: all 0.3s ease !important;
@@ -47,7 +44,7 @@ body {
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(255, 165, 0, 0.3);
+  box-shadow: 0 4px 15px rgba(25, 118, 210, 0.3);
 }
 
 .game-grid {
@@ -74,7 +71,7 @@ body {
 
 .game-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(255, 165, 0, 0.2);
+  box-shadow: 0 5px 15px rgba(25, 118, 210, 0.2);
 }
 
 .game-link {
@@ -105,12 +102,12 @@ body {
 }
 
 .nav-pills .nav-link.active {
-  background: var(--gradient-gold) !important;
-  color: #000 !important;
+  background: var(--primary-color) !important;
+  color: white !important;
 }
 
 .form-control {
-  background: rgba(255, 255, 255, 0.1) !important;
+  background: rgba(255, 255, 255, 0.5) !important;
   border: 1px solid var(--gold) !important;
   border-radius: 8px !important;
   color: var(--text-light) !important;
@@ -118,9 +115,9 @@ body {
 }
 
 .form-control:focus {
-  background: rgba(255, 255, 255, 0.15) !important;
-  border-color: var(--accent-orange) !important;
-  box-shadow: 0 0 0 0.25rem rgba(255, 165, 0, 0.25) !important;
+  background: rgba(255, 255, 255, 0.7) !important;
+  border-color: var(--primary-color) !important;
+  box-shadow: 0 0 0 0.25rem rgba(25, 118, 210, 0.25) !important;
   color: var(--text-light) !important;
 }
 
@@ -152,7 +149,7 @@ body {
 }
 
 .wallet-header {
-  background: var(--dark-navy);
+  background: var(--primary-navy);
   padding: 15px;
   border-radius: 10px;
 }
@@ -178,13 +175,13 @@ body {
 }
 
 .user-uid {
-  color: #8B4513;
+  color: var(--text-light);
   font-weight: bold;
   font-size: 0.9rem;
 }
 
 .balance-display {
-  color: #8B4513;
+  color: var(--text-light);
   font-size: 1rem;
   font-weight: bold;
   display: flex;
@@ -211,22 +208,22 @@ body {
 }
 
 .deposit-btn {
-  background: #8B0000;
+  background: #1976D2;
   color: white;
 }
 
 .withdraw-btn {
-  background: #87CEEB;
-  color: #000;
+  background: #90CAF9;
+  color: var(--text-light);
 }
 
 .deposit-btn:hover {
-  background: #A52A2A;
+  background: #1565C0;
   transform: scale(1.05);
 }
 
 .withdraw-btn:hover {
-  background: #ADD8E6;
+  background: #64B5F6;
   transform: scale(1.05);
 }
 
@@ -237,7 +234,7 @@ body {
 }
 
 .transaction-item {
-  border-bottom: 1px solid rgba(255, 165, 0, 0.2) !important;
+  border-bottom: 1px solid rgba(25, 118, 210, 0.2) !important;
   padding: 15px !important;
 }
 
@@ -257,18 +254,15 @@ body {
 }
 
 .game-title {
-  display: block;
+  color: var(--text-light);
+  font-weight: bold;
   text-align: center;
   padding: 8px;
-  font-weight: bold;
-  background: linear-gradient(to right, var(--primary-color), var(--accent-color));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
 
 .refresh-icon {
   cursor: pointer;
-  color: #8B4513;
+  color: var(--text-light);
   transition: transform 0.3s ease;
   margin-left: 10px;
 }
@@ -277,9 +271,8 @@ body {
   transform: rotate(180deg);
 }
 
-
 .deposit-icon {
-  background: linear-gradient(135deg, #4a90e2, #357abd);
+  background: linear-gradient(135deg, #1976D2, #0D47A1);
   position: relative;
   overflow: hidden;
 }
