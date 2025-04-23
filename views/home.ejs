@@ -12,7 +12,7 @@
       </div>
   </div>
 
-  <div class="game-grid">
+  <div class="games-container">
     <div class="game-row">
       <div class="game-card">
         <a href="/games/wingo" class="game-link">
@@ -98,22 +98,21 @@ function refreshBalance() {
   font-weight: bold;
 }
 
-.game-grid {
+.games-container {
   margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+  padding: 10px;
 }
 
 .game-row {
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: 15px;
+  margin-bottom: 15px;
 }
 
 .game-card {
-  width: 150px;
-  height: 150px;
+  width: 140px;
+  height: 140px;
   background: var(--card-bg) !important;
   border: 1px solid var(--gold);
   border-radius: 10px;
