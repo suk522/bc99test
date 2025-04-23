@@ -1,17 +1,15 @@
-
-/* Reset and base styles */
+/* Admin Panel Styles */
 body {
   margin: 0;
   padding: 0;
   background-color: #000;
   color: #fff;
   font-family: Arial, sans-serif;
-  min-height: 100vh;
 }
 
-/* Admin Layout */
 .admin-container {
-  width: 1200px;
+  width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
 }
@@ -46,7 +44,6 @@ body {
   border-color: #444;
 }
 
-/* Cards and Tables */
 .card {
   background: #111;
   border: 1px solid #333;
@@ -81,7 +78,6 @@ body {
   font-weight: bold;
 }
 
-/* Forms */
 .form-control {
   background: #222;
   border: 1px solid #333;
@@ -98,6 +94,7 @@ body {
   cursor: pointer;
   border: none;
   color: white;
+  margin: 0 5px;
   min-width: 100px;
 }
 
@@ -105,19 +102,6 @@ body {
 .btn-danger { background: #5c1a1a; }
 .btn-warning { background: #856404; }
 
-/* Search filters */
-.search-filters {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-.search-filters input,
-.search-filters select {
-  flex: 1;
-}
-
-/* Badges */
 .badge {
   padding: 5px 10px;
   border-radius: 4px;
@@ -125,11 +109,11 @@ body {
   font-weight: bold;
 }
 
-.bg-warning { background: #856404 !important; }
-.bg-success { background: #1a472a !important; }
-.bg-danger { background: #5c1a1a !important; }
+.bg-warning { background: #856404; }
+.bg-success { background: #1a472a; }
+.bg-danger { background: #5c1a1a; }
 
-/* Admin login specific */
+/* Admin login styles */
 .admin-login-container {
   display: flex;
   justify-content: center;
