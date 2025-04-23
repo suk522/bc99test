@@ -30,12 +30,12 @@ const app = express();
 async function generateNote() {
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   let result = '';
-  
+
   for (let i = 0; i < 5; i++) {
     const randomIndex = Math.floor(Math.random() * chars.length);
     result += chars[randomIndex];
   }
-  
+
   return result;
 }
 // Session middleware must come before other middleware that uses session
@@ -130,14 +130,14 @@ app.post('/wallet/deposit', isAuthenticated, async (req, res) => {
     if (isNaN(numAmount) || numAmount <= 0) {
       return res.status(400).send('Invalid amount');
     }
-    
+
     const counter = await DepositCounter.findByIdAndUpdate(
       'depositId',
       { $inc: { seq: 1 } },
       { new: true, upsert: true }
     );
     const orderNumber = String(counter.seq).padStart(8, '0');
-    
+
     const deposit = new Deposit({
       userId: req.session.user._id,
       orderNumber,
@@ -152,6 +152,7 @@ app.post('/wallet/deposit', isAuthenticated, async (req, res) => {
       userId: req.session.user._id,
       type: 'deposit',
       amount: Number(amount),
+      orderNumber: deposit.orderNumber,
       status: 'pending'
     });
     await transaction.save();
@@ -174,7 +175,7 @@ app.get('/wallet/balance', isAuthenticated, async (req, res) => {
 app.post('/wallet/withdraw', isAuthenticated, async (req, res) => {
   try {
     const { amount, accountNumber, ifscCode, holderName } = req.body;
-    
+
     // Validate input
     if (!amount || amount <= 0) {
       return res.status(400).send('Invalid amount');
@@ -210,7 +211,7 @@ app.post('/wallet/withdraw', isAuthenticated, async (req, res) => {
       { new: true, upsert: true }
     );
     const orderNumber = String(counter.seq).padStart(8, '0');
-    
+
     const withdrawal = new Withdrawal({
       userId: user._id,
       orderNumber,
@@ -224,7 +225,7 @@ app.post('/wallet/withdraw', isAuthenticated, async (req, res) => {
       userId: user._id,
       type: 'withdraw',
       amount,
-      orderNumber: orderNumber, // Use the same order number as withdrawal
+      orderNumber: withdrawal.orderNumber,
       status: 'pending'
     });
     await transaction.save();
@@ -269,7 +270,7 @@ app.post('/register', async (req, res) => {
 app.post('/login', async (req, res) => {
   try {
     const { mobile, password } = req.body;
-    
+
     if (!mobile || !password || !/^\d{10}$/.test(mobile)) {
       return res.render('login', { error: 'Valid mobile number and password are required' });
     }
@@ -343,7 +344,7 @@ app.get('/wallet/generate-qr', isAuthenticated, async (req, res) => {
 app.post('/wallet/create-deposit', isAuthenticated, async (req, res) => {
   try {
     const { amount, note } = req.body;
-    
+
     if (!amount || !note) {
       return res.status(400).json({ error: 'Missing required fields' });
     }
@@ -352,7 +353,7 @@ app.post('/wallet/create-deposit', isAuthenticated, async (req, res) => {
     if (isNaN(numAmount) || numAmount < 100 || numAmount > 50000) {
       return res.status(400).json({ error: 'Invalid amount (Min: ₹100, Max: ₹50,000)' });
     }
-    
+
     // Generate unique order number for both deposit and transaction
     const depositCounter = await DepositCounter.findByIdAndUpdate(
       'depositId',
@@ -360,7 +361,7 @@ app.post('/wallet/create-deposit', isAuthenticated, async (req, res) => {
       { new: true, upsert: true }
     );
     const orderNumber = 'D' + String(depositCounter.seq).padStart(7, '0');
-    
+
     const deposit = new Deposit({
       userId: req.session.user._id,
       orderNumber,
@@ -392,7 +393,7 @@ app.post('/wallet/create-deposit', isAuthenticated, async (req, res) => {
 app.post('/wallet/deposit', isAuthenticated, async (req, res) => {
   try {
     const { orderId, utr } = req.body;
-    
+
     // Validate UTR format
     if (!utr.match(/^\d{12}$/)) {
       return res.status(400).send('UTR must be 12 digits');
@@ -438,7 +439,7 @@ app.post('/admin/deposit/:id/:action', isAdmin, async (req, res) => {
       deposit.status = 'success';
       user.balance += deposit.amount;
       await user.save();
-      
+
       // Update existing transaction
       await Transaction.findOneAndUpdate(
         { userId: user._id, orderNumber: deposit.orderNumber },
@@ -446,14 +447,14 @@ app.post('/admin/deposit/:id/:action', isAdmin, async (req, res) => {
       );
     } else if (action === 'failed') {
       deposit.status = 'failed';
-      
+
       // Update existing transaction
       await Transaction.findOneAndUpdate(
         { userId: user._id, orderNumber: deposit.orderNumber },
         { status: 'rejected' }
       );
     }
-    
+
     await deposit.save();
     res.redirect('/admin');
   } catch (error) {
@@ -471,7 +472,7 @@ app.post('/admin/withdrawal/:id/:action', isAdmin, async (req, res) => {
     if (action === 'approve') {
       withdrawal.status = 'approved';
       await Transaction.findOneAndUpdate(
-          { userId: user._id, type: 'withdraw', status: 'pending' },
+          { userId: user._id, type: 'withdraw', orderNumber: withdrawal.orderNumber, status: 'pending' },
           { status: 'completed' }
       );
     } else if (action === 'reject') {
@@ -480,11 +481,11 @@ app.post('/admin/withdrawal/:id/:action', isAdmin, async (req, res) => {
       user.balance += withdrawal.amount;
       await user.save();
       await Transaction.findOneAndUpdate(
-        { userId: user._id, type: 'withdraw', status: 'pending' },
+        { userId: user._id, type: 'withdraw', orderNumber: withdrawal.orderNumber, status: 'pending' },
         { status: 'rejected' }
       );
     }
-    
+
     await withdrawal.save();
     res.redirect('/admin');
   } catch (error) {
