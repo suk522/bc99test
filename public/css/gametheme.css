@@ -32,13 +32,16 @@
 }
 
 body {
+  width: 390px;
+  margin: 0 auto;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
   background: var(--gradient-blue) !important;
   color: var(--text-light) !important;
   min-height: 100vh;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  max-width: 100%;
   overflow-x: hidden;
   -webkit-tap-highlight-color: transparent;
+  position: relative;
 }
 
 .container {
