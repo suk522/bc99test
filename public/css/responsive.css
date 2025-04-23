@@ -1,9 +1,23 @@
-/* Base mobile-first styles - no media queries needed */
-.hamburger-menu {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1000;
+
+/* Force mobile layout */
+html, body {
+  width: var(--mobile-width) !important;
+  margin: 0 auto !important;
+  overflow-x: hidden;
+}
+
+.main-content, 
+.container, 
+.card, 
+.game-grid, 
+.profile-card, 
+.balance-box, 
+.wallet-buttons {
+  width: 100% !important;
+  max-width: var(--mobile-width) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  box-sizing: border-box !important;
 }
 
 .game-grid {
@@ -11,11 +25,24 @@
   grid-template-columns: 1fr 1fr;
   gap: 12px;
   justify-items: center;
+  padding: 10px;
 }
 
-.profile-card, .balance-box, .wallet-buttons {
-  width: 100%;
-  margin: auto;
+button, 
+.btn, 
+input, 
+select, 
+textarea {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.hamburger-menu {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  z-index: 1000;
 }
 
 .transaction-history {
@@ -27,17 +54,4 @@ nav ul {
   display: flex;
   flex-direction: column;
   padding: 10px;
-}
-
-.home-container {
-  padding: 12px;
-}
-
-body, html {
-    width: 100%;
-    overflow-x: hidden;
-}
-
-button {
-    width: 100%;
 }

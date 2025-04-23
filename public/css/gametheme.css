@@ -13,42 +13,39 @@
   --mobile-padding: 15px;
 }
 
+/* Force mobile width */
 html {
-  width: 100%;
-  max-width: var(--mobile-width);
-  margin: 0 auto;
+  width: var(--mobile-width);
+  margin: 0 auto !important;
+  background: var(--dark-navy);
   position: relative;
   overflow-x: hidden;
-  min-height: 100%;
-  background: var(--dark-navy);
 }
 
 body {
-  width: 100%;
-  max-width: var(--mobile-width);
+  width: var(--mobile-width);
   margin: 0 auto !important;
-  position: relative;
   min-height: 100vh;
   background: var(--gradient-blue);
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   overflow-x: hidden;
   -webkit-tap-highlight-color: transparent;
   box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  position: relative;
+}
+
+/* Force container widths */
+.container, .main-content, .card, .balance-box, .wallet-buttons {
+  width: 100% !important;
+  max-width: var(--mobile-width) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  box-sizing: border-box;
 }
 
 .main-content {
-  width: 100%;
-  max-width: var(--mobile-width);
   padding: var(--mobile-padding);
-  box-sizing: border-box;
   min-height: calc(100vh - 60px);
-}
-
-.container {
-  width: 100%;
-  padding: 12px;
-  margin: 0;
-  box-sizing: border-box;
 }
 
 .card {
@@ -56,7 +53,6 @@ body {
   border: 1px solid var(--gold) !important;
   border-radius: 12px !important;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  width: 100%;
   margin-bottom: 15px;
   padding: 15px;
 }
@@ -65,7 +61,6 @@ body {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 12px;
-  width: 100%;
   padding: 10px;
   margin: 0 auto;
 }
@@ -75,17 +70,11 @@ body {
   aspect-ratio: 1;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   background: var(--card-bg);
   display: flex;
   align-items: center;
   justify-content: center;
   transition: transform 0.2s;
-}
-
-.balance-box, .wallet-buttons {
-  width: 100%;
-  margin: 15px auto;
 }
 
 .btn {
@@ -160,6 +149,55 @@ input, select, textarea {
   background: rgba(255, 255, 255, 0.95) !important;
   border-color: var(--primary-color) !important;
   box-shadow: 0 0 0 0.25rem rgba(25, 118, 210, 0.25) !important;
+}
+
+.balance-box, .wallet-buttons {
+  width: 100%;
+  margin: 15px auto;
+}
+
+.btn-deposit, .btn-withdraw {
+  width: 100%;
+  padding: 15px 30px;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: none;
+  margin: 5px 0;
+  font-size: 16px;
+}
+
+.btn-deposit {
+  background: linear-gradient(to bottom, #4CAF50, #45a049);
+  color: white;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.btn-withdraw {
+  background: linear-gradient(to bottom, #2196F3, #1e88e5);
+  color: white;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.alert {
+  width: 100%;
+  margin: 10px 0;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.alert-success {
+  background-color: rgba(76, 175, 80, 0.1) !important;
+  border-color: var(--success-color) !important;
+  color: var(--success-color) !important;
+}
+
+.alert-danger {
+  background-color: rgba(244, 67, 54, 0.1) !important;
+  border-color: var(--danger-color) !important;
+  color: var(--danger-color) !important;
 }
 
 .login-card, .register-card {
@@ -269,45 +307,9 @@ input, select, textarea {
   margin-top: 20px;
 }
 
-.btn-deposit, .btn-withdraw {
-  padding: 15px 30px;
-  border-radius: 10px;
-  text-decoration: none;
-  text-align: center;
-  flex: 1;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  border: none;
-  position: relative;
-  transition: all 0.15s ease;
-  margin: 0 5px;
-  font-size: 16px;
-}
-
-.btn-deposit {
-  background: linear-gradient(to bottom, #4CAF50, #45a049);
-  color: white;
-  box-shadow: 
-    0 8px 0 0 #2E7D32,
-    0 15px 20px rgba(0,0,0,0.2);
-  text-shadow: 0 -1px 0 rgba(0,0,0,0.2);
-}
-
-.btn-withdraw {
-  background: linear-gradient(to bottom, #2196F3, #1e88e5);
-  color: white;
-  box-shadow: 
-    0 8px 0 0 #1565C0,
-    0 15px 20px rgba(0,0,0,0.2);
-  text-shadow: 0 -1px 0 rgba(0,0,0,0.2);
-}
-
 .btn-deposit:hover, .btn-withdraw:hover {
   transform: translateY(-2px);
-  box-shadow: 
-    0 10px 0 0 #2E7D32,
-    0 15px 20px rgba(0,0,0,0.3);
+  box-shadow: 0 10px 0 0 #2E7D32, 0 15px 20px rgba(0,0,0,0.3);
 }
 
 .btn-deposit:active, .btn-withdraw:active {
@@ -316,25 +318,9 @@ input, select, textarea {
 }
 
 .btn-deposit:active {
-  box-shadow: 
-    0 3px 0 0 #2E7D32,
-    0 5px 10px rgba(0,0,0,0.2);
+  box-shadow: 0 3px 0 0 #2E7D32, 0 5px 10px rgba(0,0,0,0.2);
 }
 
 .btn-withdraw:active {
-  box-shadow: 
-    0 3px 0 0 #1565C0,
-    0 5px 10px rgba(0,0,0,0.2);
-}
-
-.alert-success {
-  background-color: rgba(76, 175, 80, 0.1) !important;
-  border-color: var(--success-color) !important;
-  color: var(--success-color) !important;
-}
-
-.alert-danger {
-  background-color: rgba(244, 67, 54, 0.1) !important;
-  border-color: var(--danger-color) !important;
-  color: var(--danger-color) !important;
+  box-shadow: 0 3px 0 0 #1565C0, 0 5px 10px rgba(0,0,0,0.2);
 }
