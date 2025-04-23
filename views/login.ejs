@@ -18,34 +18,61 @@
     .input-group {
       margin-bottom: 24px;
     }
+    .input-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      color: #333;
+      font-size: 16px;
+    }
+    .input-label i {
+      color: #4285f4;
+    }
     .phone-input {
       display: flex;
       align-items: center;
-      border: 1px solid #e0e0e0;
-      border-radius: 8px;
+      border: none;
+      border-radius: 12px;
       overflow: hidden;
+      background: #f0f7ff;
     }
     .country-code {
-      padding: 12px 15px;
-      background: #f8f9fa;
-      border-right: 1px solid #e0e0e0;
+      padding: 16px;
+      background: #f0f7ff;
+      color: #333;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .country-code::after {
+      content: '';
+      display: inline-block;
+      border-style: solid;
+      border-width: 5px 5px 0 5px;
+      border-color: #666 transparent transparent transparent;
+      margin-left: 4px;
     }
     .phone-number {
       flex: 1;
-      padding: 12px 15px;
+      padding: 16px;
       border: none;
       font-size: 16px;
+      background: #f0f7ff;
     }
     .password-input {
       position: relative;
-      border: 1px solid #e0e0e0;
-      border-radius: 8px;
+      border: none;
+      border-radius: 12px;
+      background: #f0f7ff;
     }
     .password-input input {
       width: 100%;
-      padding: 12px 15px;
+      padding: 16px;
       border: none;
       font-size: 16px;
+      background: transparent;
     }
     .password-input .toggle-password {
       position: absolute;
@@ -102,15 +129,23 @@
 
     <form action="/login" method="POST">
       <div class="input-group">
+        <div class="input-label">
+          <i class="fas fa-phone"></i>
+          Phone number
+        </div>
         <div class="phone-input">
           <div class="country-code">+91</div>
-          <input type="tel" name="mobile" class="phone-number" pattern="[0-9]{10}" maxlength="10" required>
+          <input type="tel" name="mobile" class="phone-number" pattern="[0-9]{10}" maxlength="10" placeholder="Enter phone number" required>
         </div>
       </div>
 
       <div class="input-group">
+        <div class="input-label">
+          <i class="fas fa-lock"></i>
+          Password
+        </div>
         <div class="password-input">
-          <input type="password" name="password" required>
+          <input type="password" name="password" placeholder="Enter password" required>
           <i class="fas fa-eye toggle-password"></i>
         </div>
       </div>
