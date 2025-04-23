@@ -2,6 +2,11 @@
 <div class="container game-theme">
   <h1 class="mb-4 text-center game-title">Welcome to BC999</h1>
   
+  <div class="balance-display text-center mb-4">
+    <span class="balance-text">₹<span id="balanceAmount"><%= user.balance.toFixed(2) %></span></span>
+    <i class="fas fa-sync-alt refresh-icon ms-2" onclick="refreshBalance()"></i>
+  </div>
+
   <div class="game-grid">
     <div class="game-row">
       <div class="game-card">
@@ -36,6 +41,16 @@
     </div>
   </div>
 </div>
+
+<script>
+function refreshBalance() {
+  fetch('/wallet/balance')
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById('balanceAmount').textContent = data.balance.toFixed(2);
+    });
+}
+</script>
 
 <style>
 .game-grid {
