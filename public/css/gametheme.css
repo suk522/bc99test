@@ -248,17 +248,91 @@ input, select, textarea {
   background-color: var(--text-light) !important;
 }
 
-.balance-display {
-  color: var(--primary-color);
-  font-size: 1.2rem;
-  font-weight: bold;
+.balance-card {
+  background: var(--card-bg);
+  border-radius: 15px;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 500px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-.user-info {
+.balance-header {
   display: flex;
-  justify-content: center;
-  margin-bottom: 30px;
-  padding: 10px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-uid {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  opacity: 0.8;
+}
+
+.balance-amount {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.amount-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--text-light);
+}
+
+.refresh-btn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 5px;
+  transition: transform 0.2s;
+}
+
+.refresh-btn:hover {
+  transform: rotate(180deg);
+}
+
+.wallet-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 0 20px;
+}
+
+.btn-deposit, .btn-withdraw {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-deposit {
+  background: #28a745;
+  color: white;
+  box-shadow: 0 4px 0 0 #1e7e34;
+}
+
+.btn-withdraw {
+  background: #dc3545;
+  color: white;
+  box-shadow: 0 4px 0 0 #bd2130;
+}
+
+.btn-deposit:hover, .btn-withdraw:hover {
+  transform: translateY(-2px);
+}
+
+.btn-deposit:active, .btn-withdraw:active {
+  transform: translateY(2px);
+  box-shadow: none;
 }
 
 .balance-card {

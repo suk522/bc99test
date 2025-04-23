@@ -1,23 +1,23 @@
-
 <div class="game-theme">
 <div class="container pt-4">
-  <div class="wallet-header mb-4">
-    <div class="user-info">
-      <div class="balance-display">
-      <span class="balance-text">₹<span id="userBalance"><%= user.balance %></span></span>
-      <i class="fas fa-sync-alt refresh-icon" onclick="refreshBalance()"></i>
+  <div class="balance-card">
+    <div class="balance-header">
+      <div class="user-uid">UID: <%= user.uid %></div>
+      <div class="balance-amount">
+        <span class="amount-text">₹<span id="userBalance"><%= user.balance %></span></span>
+        <button class="refresh-btn" onclick="refreshBalance()">🔄</button>
+      </div>
     </div>
-</div>
+  </div>
 
-<div class="wallet-actions">
-    <button class="deposit-btn" data-bs-toggle="modal" data-bs-target="#depositModal">
+  <div class="wallet-actions">
+    <button class="btn-deposit" data-bs-toggle="modal" data-bs-target="#depositModal">
       Deposit
     </button>
-    <button class="withdraw-btn" data-bs-toggle="modal" data-bs-target="#withdrawModal">
+    <button class="btn-withdraw" data-bs-toggle="modal" data-bs-target="#withdrawModal">
       Withdrawal
     </button>
-</div>
-</div>
+  </div>
 
   <h4>Transaction History</h4>
   <div class="transaction-list">
