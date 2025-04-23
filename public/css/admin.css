@@ -1,0 +1,82 @@
+
+/* Force desktop view */
+body {
+  min-width: 1024px;
+  margin: 0;
+  padding: 0;
+  background: #000;
+  color: #fff;
+  font-family: Arial, sans-serif;
+}
+
+.admin-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.admin-nav {
+  background: #222;
+  padding: 15px;
+  margin-bottom: 30px;
+}
+
+.card {
+  background: #222;
+  border: 1px solid #333;
+  border-radius: 4px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.table {
+  width: 100%;
+  color: #fff;
+  background: #111;
+}
+
+.table th {
+  background: #333;
+  padding: 12px;
+}
+
+.table td {
+  padding: 12px;
+  border-bottom: 1px solid #333;
+}
+
+.btn {
+  background: #444;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-success { background: #1a472a; }
+.btn-danger { background: #5c1a1a; }
+.btn-primary { background: #1a3d5c; }
+
+.form-control {
+  background: #333;
+  border: 1px solid #444;
+  color: #fff;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.nav-tabs {
+  border-bottom: 1px solid #333;
+  margin-bottom: 20px;
+}
+
+.nav-tabs .nav-link {
+  color: #fff;
+  padding: 10px 20px;
+}
+
+.nav-tabs .nav-link.active {
+  background: #333;
+  border-color: #444;
+}
