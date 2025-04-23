@@ -1,4 +1,3 @@
-
 <div class="container game-theme">
   <div class="user-info">
     <div class="balance-card">
@@ -10,11 +9,7 @@
         <span class="balance-text">₹<span id="balanceAmount"><%= user.balance.toFixed(2) %></span></span>
         <i class="fas fa-sync-alt refresh-icon ms-2" onclick="refreshBalance()"></i>
       </div>
-      <div class="balance-actions">
-        <a href="/wallet" class="btn-deposit">Deposit</a>
-        <a href="/wallet" class="btn-withdraw">Withdrawal</a>
       </div>
-    </div>
   </div>
 
   <div class="game-grid">
@@ -153,5 +148,14 @@ function refreshBalance() {
   font-size: 0.9rem;
   margin-top: 5px;
   text-align: center;
+}
+
+.balance-card {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 12px;
+  width: 100%;
+  max-width: 280px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 </style>
