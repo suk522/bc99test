@@ -3,20 +3,126 @@
 <html>
 <head>
   <title>Register</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #000000;
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      color: #ffffff;
+    }
+
+    .main-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .register-container {
+      background-color: #1a1a1a;
+      padding: 2.5rem;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(98, 0, 234, 0.2);
+      width: 100%;
+      max-width: 400px;
+      margin: auto;
+    }
+
+    h1 {
+      color: #6200EA;
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 2rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      display: block;
+      color: #ffffff;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #6200EA;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      background-color: #2d2d2d;
+      color: #ffffff;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #7c4dff;
+    }
+
+    button {
+      width: 100%;
+      padding: 0.75rem;
+      background-color: #6200EA;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 500;
+    }
+
+    button:hover {
+      background-color: #7c4dff;
+    }
+
+    p {
+      text-align: center;
+      margin-top: 1.5rem;
+      color: #ffffff;
+    }
+
+    a {
+      color: #6200EA;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    a:hover {
+      color: #7c4dff;
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
-  <h1>Register</h1>
-  <form action="/register" method="POST">
-    <div>
-      <label>Username:</label>
-      <input type="text" name="username" required>
+  <div class="main-container">
+    <div class="register-container">
+      <h1>Register</h1>
+      <form action="/register" method="POST">
+        <div class="form-group">
+          <label>Username:</label>
+          <input type="text" name="username" required>
+        </div>
+        <div class="form-group">
+          <label>Password:</label>
+          <input type="password" name="password" required>
+        </div>
+        <button type="submit">Register</button>
+      </form>
+      <p>Already have an account? <a href="/login">Login</a></p>
     </div>
-    <div>
-      <label>Password:</label>
-      <input type="password" name="password" required>
-    </div>
-    <button type="submit">Register</button>
-  </form>
-  <p>Already have an account? <a href="/login">Login</a></p>
+  </div>
 </body>
 </html>
