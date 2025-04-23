@@ -1,16 +1,16 @@
-/* Admin Panel Styles */
+
+/* Reset and base styles */
 body.admin-page {
-  margin: 0 !important;
-  padding: 0 !important;
+  margin: 0;
+  padding: 0;
   background-color: #000 !important;
   color: #fff !important;
-  font-family: Arial, sans-serif !important;
-  min-height: 100vh !important;
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
 }
 
 .admin-container {
-  width: 100%;
-  max-width: 1200px;
+  width: 1200px;
   margin: 0 auto;
   padding: 20px;
 }
@@ -20,8 +20,8 @@ body.admin-page {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 30px;
-  padding: 20px;
   background: #111;
+  padding: 20px;
   border-radius: 8px;
 }
 
@@ -36,29 +36,31 @@ body.admin-page {
   background: #222;
   border: 1px solid #333;
   color: white;
-  border-radius: 4px;
   cursor: pointer;
 }
 
 .admin-nav button.active {
   background: #333;
-  border-color: #444;
+}
+
+.tab-content {
+  background: #111;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
 }
 
 .card {
   background: #111;
   border: 1px solid #333;
   border-radius: 8px;
-  margin-bottom: 20px;
   padding: 20px;
+  margin-bottom: 20px;
 }
 
 .table-responsive {
   overflow-x: auto;
   margin: 20px 0;
-  background: #111;
-  border-radius: 8px;
-  border: 1px solid #333;
 }
 
 .table {
@@ -80,13 +82,13 @@ body.admin-page {
 }
 
 .form-control {
-  background: #222;
-  border: 1px solid #333;
-  color: white;
-  padding: 12px;
-  border-radius: 4px;
-  width: 100%;
-  margin: 5px 0;
+  background: #222 !important;
+  border: 1px solid #333 !important;
+  color: white !important;
+  padding: 12px !important;
+  border-radius: 4px !important;
+  width: 100% !important;
+  margin: 5px 0 !important;
 }
 
 .btn {
@@ -95,13 +97,13 @@ body.admin-page {
   cursor: pointer;
   border: none;
   color: white;
-  margin: 0 5px;
   min-width: 100px;
+  margin: 0 5px;
 }
 
-.btn-success { background: #1a472a; }
-.btn-danger { background: #5c1a1a; }
-.btn-warning { background: #856404; }
+.btn-success { background: #1a472a !important; }
+.btn-danger { background: #5c1a1a !important; }
+.btn-warning { background: #856404 !important; }
 
 .badge {
   padding: 5px 10px;
@@ -110,23 +112,19 @@ body.admin-page {
   font-weight: bold;
 }
 
-.bg-warning { background: #856404; }
-.bg-success { background: #1a472a; }
-.bg-danger { background: #5c1a1a; }
+.bg-warning { background: #856404 !important; }
+.bg-success { background: #1a472a !important; }
+.bg-danger { background: #5c1a1a !important; }
 
-/* Admin login styles */
-.admin-login-container {
+.search-filters {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  padding: 20px;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
-.admin-login-card {
-  background: #111;
-  padding: 30px;
-  border-radius: 8px;
-  width: 400px;
-  border: 1px solid #333;
+/* Ensure mobile styles don't affect admin panel */
+@media screen and (min-width: 1200px) {
+  .admin-container {
+    width: 1200px !important;
+  }
 }
