@@ -28,6 +28,13 @@ app.use(expressLayouts);
 app.set('layout', 'layout');
 app.use('/attached_assets', express.static('attached_assets'));
 
+// Add user and path middleware
+app.use((req, res, next) => {
+  res.locals.user = req.session.user || null;
+  res.locals.path = req.path;
+  next();
+});
+
 // Connect to MongoDB
 mongoose.connect('mongodb+srv://sukhdevgodara964:KDKUc5zk70RNaJ5X@cluster0.ejnvmdj.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
   .then(() => console.log('Connected to MongoDB'))
@@ -192,13 +199,6 @@ app.post('/register', async (req, res) => {
   } catch (error) {
     res.status(400).send('Error registering user');
   }
-});
-
-// Add user and path middleware
-app.use((req, res, next) => {
-  res.locals.user = req.session.user || null;
-  res.locals.path = req.path;
-  next();
 });
 
 app.post('/login', async (req, res) => {
