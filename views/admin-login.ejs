@@ -3,6 +3,7 @@
 <html>
 <head>
   <title>Admin Login</title>
+  <meta name="viewport" content="width=1200">
   <link href="/css/admin.css" rel="stylesheet">
 </head>
 <body>
@@ -12,12 +13,12 @@
       <% if (query.error) { %>
         <div style="color: #ff4444; margin-bottom: 20px; text-align: center;">Invalid credentials</div>
       <% } %>
-      <form action="/admin-login" method="POST">
+      <form action="/admin-login" method="POST" autocomplete="off">
         <div style="margin-bottom: 20px;">
-          <input type="text" name="username" class="form-control" placeholder="Username" required>
+          <input type="text" name="username" class="form-control" placeholder="Username" required autocomplete="off">
         </div>
         <div style="margin-bottom: 20px;">
-          <input type="password" name="password" class="form-control" placeholder="Password" required>
+          <input type="password" name="password" class="form-control" placeholder="Password" required autocomplete="off">
         </div>
         <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
       </form>

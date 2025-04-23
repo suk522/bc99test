@@ -35,7 +35,14 @@
         <div class="card">
           <div class="card-header">
             <h4>User Management</h4>
-            <input type="text" id="userSearch" class="form-control" placeholder="Search by UID or Username">
+            <div class="search-filters">
+  <input type="text" id="userSearch" class="form-control" placeholder="Search by UID or Username" onkeyup="searchUsers()">
+  <select class="form-control" id="userStatusFilter" onchange="searchUsers()">
+    <option value="all">All Status</option>
+    <option value="active">Active</option>
+    <option value="banned">Banned</option>
+  </select>
+</div>
           </div>
           <div class="table-responsive">
             <table class="table" id="userTable">

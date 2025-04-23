@@ -1,5 +1,5 @@
 
-/* Desktop-focused admin panel styles */
+/* Reset and base styles for admin panel only */
 body {
   margin: 0;
   padding: 0;
@@ -10,9 +10,9 @@ body {
 }
 
 .admin-container {
-  max-width: 1200px;
+  width: 1200px;
   margin: 0 auto;
-  padding: 30px;
+  padding: 20px;
 }
 
 .admin-nav {
@@ -33,12 +33,6 @@ body {
   padding: 20px;
 }
 
-.card-header {
-  border-bottom: 1px solid #333;
-  padding-bottom: 15px;
-  margin-bottom: 20px;
-}
-
 .table-responsive {
   overflow-x: auto;
   margin: 20px 0;
@@ -48,6 +42,7 @@ body {
   width: 100%;
   border-collapse: collapse;
   margin: 20px 0;
+  color: #fff;
 }
 
 .table th {
@@ -91,6 +86,7 @@ body {
   border-radius: 4px;
   cursor: pointer;
   margin: 5px;
+  min-width: 100px;
 }
 
 .btn-success { background: #1a472a; }
@@ -122,4 +118,27 @@ body {
   border-radius: 8px;
   width: 400px;
   border: 1px solid #333;
+}
+
+/* Override any Bootstrap styles */
+.badge {
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+.bg-warning { background: #856404 !important; }
+.bg-success { background: #1a472a !important; }
+.bg-danger { background: #5c1a1a !important; }
+
+/* Search filters */
+.search-filters {
+  margin-bottom: 20px;
+}
+
+/* Edit forms */
+.edit-form {
+  background: #222;
+  padding: 15px;
+  border-radius: 4px;
+  margin: 10px 0;
 }
