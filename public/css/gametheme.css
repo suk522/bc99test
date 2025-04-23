@@ -211,7 +211,7 @@ body {
   cursor: pointer;
   color: #8B4513;
   transition: transform 0.3s ease;
-  margin-left: 10px; /* Added margin for spacing */
+  margin-left: 10px;
 }
 
 .refresh-icon:hover {
@@ -237,4 +237,70 @@ body {
   color: #8B4513;
   font-weight: bold;
   font-size: 0.9rem;
+}
+
+.balance-actions {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.wallet-icon-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: transparent;
+  border: none;
+  color: white;
+  gap: 10px;
+  cursor: pointer;
+  transition: transform 0.2s;
+  padding: 10px;
+}
+
+.wallet-icon-btn:hover {
+  transform: scale(1.05);
+}
+
+.wallet-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 15px;
+}
+
+.deposit-icon {
+  background: linear-gradient(135deg, #4a90e2, #357abd);
+  position: relative;
+  overflow: hidden;
+}
+
+.deposit-icon::before {
+  content: '';
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 30px;
+  background: rgba(255, 255, 255, 0.9);
+  clip-path: polygon(50% 0%, 100% 50%, 65% 50%, 65% 100%, 35% 100%, 35% 50%, 0% 50%);
+}
+
+.withdraw-icon {
+  background: linear-gradient(135deg, #f5a623, #c17b1a);
+  position: relative;
+  overflow: hidden;
+}
+
+.withdraw-icon::before {
+  content: '';
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%) rotate(180deg);
+  width: 30px;
+  height: 30px;
+  background: rgba(255, 255, 255, 0.9);
+  clip-path: polygon(50% 0%, 100% 50%, 65% 50%, 65% 100%, 35% 100%, 35% 50%, 0% 50%);
 }
