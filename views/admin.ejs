@@ -20,6 +20,27 @@
       border-radius: 8px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     }
+    .nav-tabs {
+      border-bottom: 2px solid #dee2e6;
+      margin-bottom: 20px;
+    }
+    .nav-tabs .nav-link {
+      border: none;
+      color: #6c757d;
+      padding: 1rem 2rem;
+      font-weight: 500;
+    }
+    .nav-tabs .nav-link.active {
+      border: none;
+      border-bottom: 2px solid #0d6efd;
+      color: #0d6efd;
+    }
+    .section {
+      display: none;
+    }
+    .section.active {
+      display: block;
+    }
   </style>
 </head>
 <body>
@@ -30,163 +51,183 @@
   </div>
 
   <div class="container">
-    <!-- User Management Section -->
-    <div id="userSection" class="card mb-4">
-      <div class="card-header">
-        <h4>User Management</h4>
-        <input type="text" id="userSearch" class="form-control" placeholder="Search by UID or Username" onkeyup="searchUsers()">
-      </div>
-      <div class="card-body table-responsive">
-        <table class="table table-striped" id="userTable">
-          <thead>
-            <tr>
-              <th>UID</th>
-              <th>Username</th>
-              <th>Balance</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% users.forEach(user => { %>
-            <tr>
-              <td><%= user.uid %></td>
-              <td>
-                <form id="edit-<%= user._id %>" style="display: none;" action="/admin/edit-user/<%= user._id %>" method="POST">
-                  <input type="text" name="username" value="<%= user.username %>" class="form-control form-control-sm">
-                  <input type="number" name="balance" value="<%= user.balance %>" class="form-control form-control-sm mt-1">
-                  <button type="submit" class="btn btn-success btn-sm mt-1">Save</button>
-                  <button type="button" class="btn btn-secondary btn-sm mt-1" onclick="toggleEdit('<%= user._id %>')">Cancel</button>
-                </form>
-                <span id="display-<%= user._id %>"><%= user.username %></span>
-              </td>
-              <td>₹<%= user.balance %></td>
-              <td><%= user.banned ? 'Banned' : 'Active' %></td>
-              <td>
-                <button class="btn btn-primary btn-sm" onclick="toggleEdit('<%= user._id %>')">Edit</button>
-                <form action="/admin/toggle-ban/<%= user._id %>" method="POST" class="d-inline">
-                  <button type="submit" class="btn <%= user.banned ? 'btn-success' : 'btn-danger' %> btn-sm">
-                    <%= user.banned ? 'Unban' : 'Ban' %>
-                  </button>
-                </form>
-              </td>
-            </tr>
-            <% }); %>
-          </tbody>
-        </table>
-      </div>
-    </div>
+    <ul class="nav nav-tabs" id="adminTabs">
+      <li class="nav-item">
+        <a class="nav-link active" href="#userSection" data-bs-toggle="tab">Users Management</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#withdrawalSection" data-bs-toggle="tab">Withdrawal Requests</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#depositSection" data-bs-toggle="tab">Deposit Requests</a>
+      </li>
+    </ul>
 
-    <!-- Withdrawal Requests Section -->
-    <div class="card mb-4">
-      <div class="card-header">
-        <h4>Withdrawal Requests</h4>
-        <input type="text" id="withdrawalSearch" class="form-control" placeholder="Search by Order Number" onkeyup="searchWithdrawals()">
+    <div class="tab-content">
+      <!-- User Management Section -->
+      <div id="userSection" class="tab-pane fade show active">
+        <div class="card mb-4">
+          <div class="card-header">
+            <h4>User Management</h4>
+            <input type="text" id="userSearch" class="form-control" placeholder="Search by UID or Username" onkeyup="searchUsers()">
+          </div>
+          <div class="card-body table-responsive">
+            <table class="table table-striped" id="userTable">
+              <thead>
+                <tr>
+                  <th>UID</th>
+                  <th>Username</th>
+                  <th>Balance</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% users.forEach(user => { %>
+                <tr>
+                  <td><%= user.uid %></td>
+                  <td>
+                    <form id="edit-<%= user._id %>" style="display: none;" action="/admin/edit-user/<%= user._id %>" method="POST">
+                      <input type="text" name="username" value="<%= user.username %>" class="form-control form-control-sm">
+                      <input type="number" name="balance" value="<%= user.balance %>" class="form-control form-control-sm mt-1">
+                      <button type="submit" class="btn btn-success btn-sm mt-1">Save</button>
+                      <button type="button" class="btn btn-secondary btn-sm mt-1" onclick="toggleEdit('<%= user._id %>')">Cancel</button>
+                    </form>
+                    <span id="display-<%= user._id %>"><%= user.username %></span>
+                  </td>
+                  <td>₹<%= user.balance %></td>
+                  <td><%= user.banned ? 'Banned' : 'Active' %></td>
+                  <td>
+                    <button class="btn btn-primary btn-sm" onclick="toggleEdit('<%= user._id %>')">Edit</button>
+                    <form action="/admin/toggle-ban/<%= user._id %>" method="POST" class="d-inline">
+                      <button type="submit" class="btn <%= user.banned ? 'btn-success' : 'btn-danger' %> btn-sm">
+                        <%= user.banned ? 'Unban' : 'Ban' %>
+                      </button>
+                    </form>
+                  </td>
+                </tr>
+                <% }); %>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
-      <div class="card-body table-responsive">
-        <table class="table table-striped" id="withdrawalTable">
-          <thead>
-            <tr>
-              <th>Order No</th>
-              <th>User</th>
-              <th>Amount</th>
-              <th>Bank Details</th>
-              <th>Status</th>
-              <th>Time</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% withdrawals.forEach(withdrawal => { %>
-            <tr>
-              <td><%= withdrawal.orderNumber %></td>
-              <td><%= withdrawal.userId.username %> (UID: <%= withdrawal.userId.uid %>)</td>
-              <td>₹<%= withdrawal.amount %></td>
-              <td>
-                Acc: <%= withdrawal.bankDetails.accountNumber %><br>
-                IFSC: <%= withdrawal.bankDetails.ifscCode %><br>
-                Name: <%= withdrawal.bankDetails.holderName %>
-              </td>
-              <td><span class="badge bg-<%= withdrawal.status === 'pending' ? 'warning' : (withdrawal.status === 'approved' ? 'success' : 'danger') %>">
-                <%= withdrawal.status %>
-              </span></td>
-              <td><%= withdrawal.date.toLocaleString('en-IN', { 
-                year: 'numeric', 
-                month: 'numeric', 
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit',
-                hour12: true,
-                timeZone: 'Asia/Kolkata' 
-              }) %></td>
-              <td>
-                <% if (withdrawal.status === 'pending') { %>
-                  <form action="/admin/withdrawal/<%= withdrawal._id %>/approve" method="POST" class="d-inline">
-                    <button type="submit" class="btn btn-success btn-sm">Approve</button>
-                  </form>
-                  <form action="/admin/withdrawal/<%= withdrawal._id %>/reject" method="POST" class="d-inline">
-                    <button type="submit" class="btn btn-danger btn-sm">Reject</button>
-                  </form>
-                <% } %>
-              </td>
-            </tr>
-            <% }); %>
-          </tbody>
-        </table>
-      </div>
-    </div>
 
-    <!-- Deposit Requests Section -->
-    <div class="card mb-4">
-      <div class="card-header">
-        <h4>Deposit Requests</h4>
-        <input type="text" id="depositSearch" class="form-control" placeholder="Search by Transaction ID" onkeyup="searchDeposits()">
+      <!-- Withdrawal Requests Section -->
+      <div id="withdrawalSection" class="tab-pane fade">
+        <div class="card mb-4">
+          <div class="card-header">
+            <h4>Withdrawal Requests</h4>
+            <input type="text" id="withdrawalSearch" class="form-control" placeholder="Search by Order Number" onkeyup="searchWithdrawals()">
+          </div>
+          <div class="card-body table-responsive">
+            <table class="table table-striped" id="withdrawalTable">
+              <thead>
+                <tr>
+                  <th>Order No</th>
+                  <th>User</th>
+                  <th>Amount</th>
+                  <th>Bank Details</th>
+                  <th>Status</th>
+                  <th>Time</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% withdrawals.forEach(withdrawal => { %>
+                <tr>
+                  <td><%= withdrawal.orderNumber %></td>
+                  <td><%= withdrawal.userId.username %> (UID: <%= withdrawal.userId.uid %>)</td>
+                  <td>₹<%= withdrawal.amount %></td>
+                  <td>
+                    Acc: <%= withdrawal.bankDetails.accountNumber %><br>
+                    IFSC: <%= withdrawal.bankDetails.ifscCode %><br>
+                    Name: <%= withdrawal.bankDetails.holderName %>
+                  </td>
+                  <td><span class="badge bg-<%= withdrawal.status === 'pending' ? 'warning' : (withdrawal.status === 'approved' ? 'success' : 'danger') %>">
+                    <%= withdrawal.status %>
+                  </span></td>
+                  <td><%= withdrawal.date.toLocaleString('en-IN', { 
+                    year: 'numeric', 
+                    month: 'numeric', 
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: true,
+                    timeZone: 'Asia/Kolkata' 
+                  }) %></td>
+                  <td>
+                    <% if (withdrawal.status === 'pending') { %>
+                      <form action="/admin/withdrawal/<%= withdrawal._id %>/approve" method="POST" class="d-inline">
+                        <button type="submit" class="btn btn-success btn-sm">Approve</button>
+                      </form>
+                      <form action="/admin/withdrawal/<%= withdrawal._id %>/reject" method="POST" class="d-inline">
+                        <button type="submit" class="btn btn-danger btn-sm">Reject</button>
+                      </form>
+                    <% } %>
+                  </td>
+                </tr>
+                <% }); %>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
-      <div class="card-body table-responsive">
-        <table class="table table-striped" id="depositTable">
-          <thead>
-            <tr>
-              <th>Order ID</th>
-              <th>User</th>
-              <th>Amount</th>
-              <th>Note</th>
-              <th>UTR</th>
-              <th>Status</th>
-              <th>Time</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% deposits.forEach(function(deposit) { %>
-              <tr>
-                <td><%= deposit.orderNumber %></td>
-                <td><%= deposit.userId ? deposit.userId.username : 'N/A' %> (UID: <%= deposit.userId ? deposit.userId.uid : 'N/A' %>)</td>
-                <td>₹<%= deposit.amount %></td>
-                <td><%= typeof deposit.note === 'object' ? JSON.stringify(deposit.note) : deposit.note %></td>
-                <td><%= deposit.utr %></td>
-                <td><%= deposit.status %></td>
-                <td><%= deposit.date.toLocaleString('en-IN', { 
-                  year: 'numeric', 
-                  month: 'numeric', 
-                  day: 'numeric',
-                  hour: '2-digit',
-                  minute: '2-digit',
-                  hour12: true 
-                }) %></td>
-                <td>
-                  <% if (deposit.status === 'pending') { %>
-                    <form style="display: inline" action="/admin/deposit/<%= deposit._id %>/success" method="POST">
-                      <button class="btn btn-success btn-sm">Success</button>
-                    </form>
-                    <form style="display: inline" action="/admin/deposit/<%= deposit._id %>/failed" method="POST">
-                      <button class="btn btn-danger btn-sm">Failed</button>
-                    </form>
-                  <% } %>
-                </td>
-              </tr>
-            <% }); %>
-          </tbody>
-        </table>
+
+      <!-- Deposit Requests Section -->
+      <div id="depositSection" class="tab-pane fade">
+        <div class="card mb-4">
+          <div class="card-header">
+            <h4>Deposit Requests</h4>
+            <input type="text" id="depositSearch" class="form-control" placeholder="Search by Transaction ID" onkeyup="searchDeposits()">
+          </div>
+          <div class="card-body table-responsive">
+            <table class="table table-striped" id="depositTable">
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>User</th>
+                  <th>Amount</th>
+                  <th>Note</th>
+                  <th>UTR</th>
+                  <th>Status</th>
+                  <th>Time</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% deposits.forEach(function(deposit) { %>
+                  <tr>
+                    <td><%= deposit.orderNumber %></td>
+                    <td><%= deposit.userId ? deposit.userId.username : 'N/A' %> (UID: <%= deposit.userId ? deposit.userId.uid : 'N/A' %>)</td>
+                    <td>₹<%= deposit.amount %></td>
+                    <td><%= typeof deposit.note === 'object' ? JSON.stringify(deposit.note) : deposit.note %></td>
+                    <td><%= deposit.utr %></td>
+                    <td><%= deposit.status %></td>
+                    <td><%= deposit.date.toLocaleString('en-IN', { 
+                      year: 'numeric', 
+                      month: 'numeric', 
+                      day: 'numeric',
+                      hour: '2-digit',
+                      minute: '2-digit',
+                      hour12: true 
+                    }) %></td>
+                    <td>
+                      <% if (deposit.status === 'pending') { %>
+                        <form style="display: inline" action="/admin/deposit/<%= deposit._id %>/success" method="POST">
+                          <button class="btn btn-success btn-sm">Success</button>
+                        </form>
+                        <form style="display: inline" action="/admin/deposit/<%= deposit._id %>/failed" method="POST">
+                          <button class="btn btn-danger btn-sm">Failed</button>
+                        </form>
+                      <% } %>
+                    </td>
+                  </tr>
+                <% }); %>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   </div>
