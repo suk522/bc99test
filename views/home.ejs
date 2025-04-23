@@ -100,18 +100,20 @@ function refreshBalance() {
 
 .game-grid {
   margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .game-row {
   display: flex;
   justify-content: center;
   gap: 20px;
-  margin-bottom: 20px;
 }
 
 .game-card {
-  width: 120px;
-  height: 120px;
+  width: 150px;
+  height: 150px;
   background: var(--card-bg) !important;
   border: 1px solid var(--gold);
   border-radius: 10px;
