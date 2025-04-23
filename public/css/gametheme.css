@@ -9,6 +9,37 @@
   --gradient-blue: linear-gradient(135deg, #e3f2fd, #1976d2);
   --success-color: #4caf50;
   --danger-color: #f44336;
+  --mobile-width: 390px;
+  --mobile-padding: 15px;
+}
+
+/* Mobile Container */
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background: #f5f5f5;
+}
+
+body {
+  max-width: var(--mobile-width);
+  margin: 0 auto;
+  position: relative;
+  min-height: 100vh;
+  background: var(--gradient-blue);
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+/* Fixed Layout Container */
+.main-content {
+  width: 100%;
+  max-width: var(--mobile-width);
+  margin: 0 auto;
+  padding: var(--mobile-padding);
+  box-sizing: border-box;
+  min-height: 100vh;
 }
 
 html {
@@ -74,9 +105,33 @@ input, select, textarea {
 
 .game-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
   padding: 10px;
+  margin: 0 auto;
+  max-width: var(--mobile-width);
+}
+
+.game-card {
+  aspect-ratio: 1;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  background: var(--card-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+}
+
+.game-card:active {
+  transform: scale(0.95);
+}
+
+.balance-box, .wallet-buttons {
+  width: 100%;
+  max-width: calc(var(--mobile-width) - 30px);
+  margin: 15px auto;
 }
 
 .game-card {
