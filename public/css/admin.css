@@ -1,30 +1,52 @@
 
-/* Reset and base styles for admin panel only */
+/* Reset and base styles */
 body {
   margin: 0;
   padding: 0;
   background-color: #000;
   color: #fff;
   font-family: Arial, sans-serif;
-  min-width: 1200px;
+  min-height: 100vh;
 }
 
+/* Admin Layout */
 .admin-container {
   width: 1200px;
   margin: 0 auto;
   padding: 20px;
 }
 
-.admin-nav {
-  background: #111;
-  padding: 20px;
-  margin-bottom: 30px;
+.admin-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #333;
+  margin-bottom: 30px;
+  padding: 20px;
+  background: #111;
+  border-radius: 8px;
 }
 
+.admin-nav {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.admin-nav button {
+  padding: 10px 20px;
+  background: #222;
+  border: 1px solid #333;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.admin-nav button.active {
+  background: #333;
+  border-color: #444;
+}
+
+/* Cards and Tables */
 .card {
   background: #111;
   border: 1px solid #333;
@@ -36,80 +58,84 @@ body {
 .table-responsive {
   overflow-x: auto;
   margin: 20px 0;
+  background: #111;
+  border-radius: 8px;
+  border: 1px solid #333;
 }
 
 .table {
   width: 100%;
   border-collapse: collapse;
-  margin: 20px 0;
   color: #fff;
+}
+
+.table th,
+.table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #333;
 }
 
 .table th {
   background: #222;
-  padding: 12px;
-  text-align: left;
-  border-bottom: 2px solid #333;
+  font-weight: bold;
 }
 
-.table td {
-  padding: 12px;
-  border-bottom: 1px solid #333;
-}
-
-.nav-tabs {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-  border-bottom: 1px solid #333;
-  padding: 0;
-}
-
-.nav-link {
-  color: #fff;
-  text-decoration: none;
-  padding: 10px 20px;
-  border-radius: 4px 4px 0 0;
-}
-
-.nav-link.active {
-  background: #222;
-  border: 1px solid #333;
-  border-bottom: none;
-}
-
-.btn {
-  background: #333;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-  cursor: pointer;
-  margin: 5px;
-  min-width: 100px;
-}
-
-.btn-success { background: #1a472a; }
-.btn-danger { background: #5c1a1a; }
-.btn-primary { background: #1a3d5c; }
-
+/* Forms */
 .form-control {
   background: #222;
   border: 1px solid #333;
   color: white;
-  padding: 8px;
+  padding: 12px;
   border-radius: 4px;
   width: 100%;
   margin: 5px 0;
 }
 
-/* Admin login styles */
+.btn {
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: none;
+  color: white;
+  min-width: 100px;
+}
+
+.btn-success { background: #1a472a; }
+.btn-danger { background: #5c1a1a; }
+.btn-warning { background: #856404; }
+
+/* Search filters */
+.search-filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.search-filters input,
+.search-filters select {
+  flex: 1;
+}
+
+/* Badges */
+.badge {
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.bg-warning { background: #856404 !important; }
+.bg-success { background: #1a472a !important; }
+.bg-danger { background: #5c1a1a !important; }
+
+/* Admin login specific */
 .admin-login-container {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: #000;
+  padding: 20px;
 }
 
 .admin-login-card {
@@ -118,27 +144,4 @@ body {
   border-radius: 8px;
   width: 400px;
   border: 1px solid #333;
-}
-
-/* Override any Bootstrap styles */
-.badge {
-  padding: 5px 10px;
-  border-radius: 4px;
-}
-
-.bg-warning { background: #856404 !important; }
-.bg-success { background: #1a472a !important; }
-.bg-danger { background: #5c1a1a !important; }
-
-/* Search filters */
-.search-filters {
-  margin-bottom: 20px;
-}
-
-/* Edit forms */
-.edit-form {
-  background: #222;
-  padding: 15px;
-  border-radius: 4px;
-  margin: 10px 0;
 }
