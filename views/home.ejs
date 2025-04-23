@@ -1,14 +1,18 @@
 
 <div class="container game-theme">
   <div class="user-info">
-    <div class="user-info-left">
-      <img src="<%= user.profileImage || '/attached_assets/activit.png' %>" alt="Avatar" class="user-avatar">
-      <span class="user-uid">UID: <%= user.uid %></span>
-    </div>
-    <div class="user-info-right">
-      <div class="balance-display">
+    <div class="balance-card">
+      <div class="balance-header">
+        <img src="<%= user.profileImage || '/attached_assets/activit.png' %>" alt="Avatar" class="user-avatar">
+        <span class="user-uid">UID: <%= user.uid %></span>
+      </div>
+      <div class="balance-amount">
         <span class="balance-text">₹<span id="balanceAmount"><%= user.balance.toFixed(2) %></span></span>
         <i class="fas fa-sync-alt refresh-icon ms-2" onclick="refreshBalance()"></i>
+      </div>
+      <div class="balance-actions">
+        <a href="/wallet" class="btn-deposit">Deposit</a>
+        <a href="/wallet" class="btn-withdraw">Withdrawal</a>
       </div>
     </div>
   </div>
