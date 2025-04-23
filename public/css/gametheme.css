@@ -296,9 +296,11 @@ input, select, textarea {
 
 .action-buttons {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 15px;
   margin: 20px 0;
+  padding: 20px;
 }
 
 .btn-action {
