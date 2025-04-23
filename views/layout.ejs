@@ -59,7 +59,7 @@
 </head>
 <body<% if (path.startsWith('/admin')) { %> class="admin-page"<% } %>>
 <body>
-  <% if (!path.startsWith('/admin')) { %>
+  <% if (user && !path.startsWith('/admin')) { %>
   <div class="hamburger-menu">
     <nav>
       <ul>

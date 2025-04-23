@@ -194,8 +194,9 @@ app.post('/register', async (req, res) => {
   }
 });
 
-// Add path middleware
+// Add user and path middleware
 app.use((req, res, next) => {
+  res.locals.user = req.session.user || null;
   res.locals.path = req.path;
   next();
 });
