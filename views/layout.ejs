@@ -13,6 +13,23 @@
       min-height: 100vh;
       background: #fff;
     }
+    .hamburger-icon {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 10px;
+      z-index: 1100;
+    }
+    .hamburger-line {
+      width: 25px;
+      height: 3px;
+      background-color: #333;
+      transition: 0.3s;
+    }
+    .offcanvas {
+      width: 50% !important;
+    }
     
     /* Admin styles */
     body.admin-page {
@@ -59,10 +76,12 @@
 </head>
 <body<% if (path.startsWith('/admin')) { %> class="admin-page"<% } %>>
   <% if (user && !path.startsWith('/admin')) { %>
-    <!-- Hamburger Button -->
-    <button class="btn btn-link position-fixed top-0 start-0 mt-3 ms-3 fs-4 text-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#sideMenu" aria-controls="sideMenu">
-      ☰
-    </button>
+    <!-- Hamburger Icon -->
+    <div class="hamburger-icon position-fixed top-0 start-0 mt-3 ms-3" data-bs-toggle="offcanvas" data-bs-target="#sideMenu" aria-controls="sideMenu">
+      <div class="hamburger-line"></div>
+      <div class="hamburger-line"></div>
+      <div class="hamburger-line"></div>
+    </div>
 
     <!-- Offcanvas Sidebar -->
     <div class="offcanvas offcanvas-start" tabindex="-1" id="sideMenu" aria-labelledby="sideMenuLabel">
