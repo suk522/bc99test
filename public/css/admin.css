@@ -1,18 +1,19 @@
 
-/* Reset and base styles */
-body.admin-page {
+/* Admin Panel Base Styles */
+.admin-page {
   margin: 0;
   padding: 0;
   background-color: #000 !important;
   color: #fff !important;
   font-family: Arial, sans-serif;
   min-height: 100vh;
+  width: 100%;
 }
 
 .admin-container {
-  width: 1200px;
-  margin: 0 auto;
   padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .admin-header {
@@ -51,11 +52,12 @@ body.admin-page {
 }
 
 .card {
-  background: #111;
-  border: 1px solid #333;
-  border-radius: 8px;
-  padding: 20px;
-  margin-bottom: 20px;
+  background: #111 !important;
+  border: 1px solid #333 !important;
+  border-radius: 8px !important;
+  padding: 20px !important;
+  margin-bottom: 20px !important;
+  color: #fff !important;
 }
 
 .table-responsive {
@@ -120,11 +122,4 @@ body.admin-page {
   display: flex;
   gap: 10px;
   margin-bottom: 20px;
-}
-
-/* Ensure mobile styles don't affect admin panel */
-@media screen and (min-width: 1200px) {
-  .admin-container {
-    width: 1200px !important;
-  }
 }
